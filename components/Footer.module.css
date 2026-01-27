@@ -1,0 +1,44 @@
+.footer {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 4rem 0 2rem;
+    margin-top: auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.col h3 {
+    color: var(--color-secondary);
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.col ul {
+    list-style: none;
+}
+
+.col ul li {
+    margin-bottom: 0.75rem;
+}
+
+.col a {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.col a:hover {
+    opacity: 1;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+    opacity: 0.6;
+}

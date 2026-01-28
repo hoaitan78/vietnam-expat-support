@@ -5,7 +5,7 @@ import { LanguageProvider } from '../contexts/LanguageContext'
 import { ThemeProvider } from '../contexts/ThemeContext'
 
 export const metadata = {
-    title: 'Vietnam Expat Support',
+    title: 'Nha Trang Expat Support',
     description: 'Your essential guide to living in Vietnam',
 }
 

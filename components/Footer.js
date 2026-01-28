@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className={styles.footer}>
             <div className={`container ${styles.grid}`}>
                 <div className={styles.col}>
-                    <h3>VietnamSupport</h3>
+                    <h3>Nha Trang Support</h3>
                     <p>{t('footer_desc')}</p>
                 </div>
                 <div className={styles.col}>
@@ -30,7 +30,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className={styles.copyright}>
-                © {new Date().getFullYear()} Vietnam Expat Support. All rights reserved.
+                © {new Date().getFullYear()} Nha Trang Expat Support. All rights reserved.
             </div>
         </footer>
     )

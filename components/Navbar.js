@@ -19,7 +19,7 @@ export default function Navbar() {
                 </button>
 
                 <Link href="/" className={styles.logo}>
-                    VietnamSupport
+                    Nha Trang Support
                 </Link>
 
                 <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ''}`}>

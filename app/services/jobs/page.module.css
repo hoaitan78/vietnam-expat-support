@@ -1,0 +1,104 @@
+.jobList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.jobCard {
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.jobCard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(5px);
+    border-left: 4px solid var(--color-primary);
+}
+
+.mainInfo {
+    flex: 2;
+}
+
+.jobTitle {
+    font-size: 1.25rem;
+    color: var(--color-card-foreground);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.company {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+}
+
+.meta {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.salary {
+    color: var(--color-success);
+    /* Assuming green supported, else text-color */
+    font-weight: 600;
+    background: #f0fdf4;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.sideInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.tag {
+    background: var(--color-background);
+    color: var(--color-text-muted);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.posted {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .jobCard {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .sideInfo {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .tags {
+        justify-content: flex-start;
+    }
+}

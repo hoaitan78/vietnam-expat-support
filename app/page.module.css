@@ -1,5 +1,5 @@
 .hero {
-    background: linear-gradient(rgba(26, 77, 46, 0.9), rgba(26, 77, 46, 0.8)), url('https://placehold.co/1200x600/1A4D2E/FAFAF5?text=Vietnam+Life') no-repeat center center/cover;
+    background: linear-gradient(rgba(26, 77, 46, 0.7), rgba(26, 77, 46, 0.6)), url('/images/hero-bg.jpg') no-repeat center center/cover;
     color: white;
     padding: 8rem 0;
     text-align: center;

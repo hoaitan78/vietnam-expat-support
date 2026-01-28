@@ -11,8 +11,8 @@ export const translations = {
         search_placeholder: 'Tìm kiếm cẩm nang, dịch vụ...',
 
         // Home Hero
-        hero_title: 'Chào mừng đến Việt Nam',
-        hero_subtitle: 'Người bạn đồng hành thiết yếu cho cuộc sống mới và sự phát triển tại Việt Nam.',
+        hero_title: 'Chào mừng đến Nha Trang',
+        hero_subtitle: 'Người bạn đồng hành thiết yếu cho cuộc sống mới và sự phát triển tại Nha Trang.',
         hero_cta: 'Khám phá Cẩm nang',
 
         // Home Services
@@ -21,10 +21,10 @@ export const translations = {
         service_visa_desc: 'Thông tin cập nhật về visa, giấy phép và chính sách nhập cư.',
         service_visa_btn: 'Tìm hiểu thêm',
         service_housing: 'Nhà ở',
-        service_housing_desc: 'Tìm căn hộ hoặc nhà hoàn hảo tại Hà Nội, TP.HCM hoặc Đà Nẵng.',
+        service_housing_desc: 'Tìm căn hộ hoặc nhà hoàn hảo tại Nha Trang.',
         service_housing_btn: 'Tìm nhà',
         service_jobs: 'Việc làm & Sự nghiệp',
-        service_jobs_desc: 'Kết nối với các nhà tuyển dụng hàng đầu và tìm cơ hội tại Việt Nam.',
+        service_jobs_desc: 'Kết nối với các nhà tuyển dụng hàng đầu và tìm cơ hội tại Nha Trang.',
         service_jobs_btn: 'Tìm việc',
 
         // Community
@@ -57,7 +57,7 @@ export const translations = {
 
         // Cost Calculator
         calc_title: 'Ước tính Chi phí Sinh hoạt',
-        calc_intro: 'Tính toán ngân sách hàng tháng ước tính của bạn khi sống tại Việt Nam.',
+        calc_intro: 'Tính toán ngân sách hàng tháng ước tính của bạn khi sống tại Nha Trang.',
         calc_housing: '🏠 Nhà ở',
         calc_housing_shared: 'Phòng chung ($250)',
         calc_housing_apt: 'Căn hộ riêng ($550)',
@@ -99,7 +99,7 @@ export const translations = {
         search_placeholder: 'Search for guides, services...',
 
         // Home Hero
-        hero_title: 'Welcome to Vietnam',
+        hero_title: 'Welcome to Nha Trang',
         hero_subtitle: 'Your essential companion for living, working, and thriving in the heart of Southeast Asia.',
         hero_cta: 'Explore Guides',
 
@@ -109,10 +109,10 @@ export const translations = {
         service_visa_desc: 'Up-to-date information on visas, permits, and immigration policies.',
         service_visa_btn: 'Learn More',
         service_housing: 'Housing',
-        service_housing_desc: 'Find the perfect apartment or house in Hanoi, HCMC, or Da Nang.',
+        service_housing_desc: 'Find the perfect apartment or house in Nha Trang.',
         service_housing_btn: 'Find Home',
         service_jobs: 'Jobs & Career',
-        service_jobs_desc: 'Connect with top employers and find opportunities in Vietnam.',
+        service_jobs_desc: 'Connect with top employers and find opportunities in Nha Trang.',
         service_jobs_btn: 'Search Jobs',
 
         // Community
@@ -145,7 +145,7 @@ export const translations = {
 
         // Cost Calculator
         calc_title: 'Cost of Living Estimator',
-        calc_intro: 'Calculate your estimated monthly budget for living in Vietnam.',
+        calc_intro: 'Calculate your estimated monthly budget for living in Nha Trang.',
         calc_housing: '🏠 Housing Preference',
         calc_housing_shared: 'Shared Room ($250)',
         calc_housing_apt: 'Private Apartment ($550)',

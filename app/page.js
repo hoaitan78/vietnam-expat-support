@@ -63,18 +63,18 @@ export default function Home() {
                     <h2 className={styles.sectionTitle}>{t('community_title')}</h2>
                     <div className={styles.grid}>
                         <div className={styles.card}>
-                            <h3 className={styles.cardTitle}>Best Coffee in D2?</h3>
-                            <p className={styles.cardText}>"I'm looking for a quiet place to work..."</p>
+                            <h3 className={styles.cardTitle}>Các trường học quốc tế ở Nha Trang</h3>
+                            <p className={styles.cardText}>"Tìm kiếm các trường học quốc tế tốt nhất cho con bạn..."</p>
                             <Link href="/community/1" className={styles.navLink}>{t('community_read')}</Link>
                         </div>
                         <div className={styles.card}>
-                            <h3 className={styles.cardTitle}>Motorbike License?</h3>
-                            <p className={styles.cardText}>"Can I convert my home license easily?"</p>
+                            <h3 className={styles.cardTitle}>Thủ tục đổi bằng lái xe</h3>
+                            <p className={styles.cardText}>"Hướng dẫn thủ tục đổi bằng lái xe nước ngoài sang Việt Nam."</p>
                             <Link href="/community/2" className={styles.navLink}>{t('community_read')}</Link>
                         </div>
                         <div className={styles.card}>
-                            <h3 className={styles.cardTitle}>Weekend Getaways</h3>
-                            <p className={styles.cardText}>"Looking for a beach trip near HCMC."</p>
+                            <h3 className={styles.cardTitle}>Các chợ, siêu thị tốt quanh bạn</h3>
+                            <p className={styles.cardText}>"Danh sách các chợ và siêu thị uy tín, giá tốt gần nơi bạn sống."</p>
                             <Link href="/community/3" className={styles.navLink}>{t('community_read')}</Link>
                         </div>
                     </div>

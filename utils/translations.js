@@ -5,6 +5,7 @@ export const translations = {
         nav_guides: 'Cẩm nang',
         nav_services: 'Dịch vụ',
         nav_community: 'Cộng đồng',
+        nav_contact: 'Liên hệ',
         nav_signin: 'Đăng nhập',
 
         // Search
@@ -93,6 +94,7 @@ export const translations = {
         nav_guides: 'Guides',
         nav_services: 'Services',
         nav_community: 'Community',
+        nav_contact: 'Contact',
         nav_signin: 'Sign In',
 
         // Search

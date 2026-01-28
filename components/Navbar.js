@@ -27,6 +27,17 @@ export default function Navbar() {
                     <li><Link href="/guides" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_guides')}</Link></li>
                     <li><Link href="/services" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_services')}</Link></li>
                     <li><Link href="/community" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_community')}</Link></li>
+                    <li className={styles.dropdown}>
+                        <span className={styles.link} style={{ cursor: 'pointer' }}>{t('nav_contact')} ▾</span>
+                        <div className={styles.dropdownContent}>
+                            <a href="https://www.facebook.com/?locale=vi_VN" target="_blank" rel="noopener noreferrer" className={styles.dropdownItem}>
+                                Facebook
+                            </a>
+                            <a href="tel:0918257885" className={styles.dropdownItem}>
+                                Zalo: 0918257885
+                            </a>
+                        </div>
+                    </li>
                 </ul>
 
                 <div className={styles.controls}>

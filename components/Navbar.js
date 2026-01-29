@@ -10,6 +10,7 @@ export default function Navbar() {
     const { t, language, toggleLanguage, languages } = useLanguage()
     const { theme, toggleTheme } = useTheme()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
 
     return (
         <nav className={styles.navbar}>
@@ -68,24 +69,28 @@ export default function Navbar() {
                                 alignItems: 'center',
                                 gap: '0.5rem'
                             }}
+                            onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
                         >
                             {languages.find(l => l.code === language)?.label} ▾
                         </button>
-                        <div className={styles.dropdownContent} style={{ minWidth: '150px' }}>
-                            {languages.map(lang => (
-                                <div
-                                    key={lang.code}
-                                    className={styles.dropdownItem}
-                                    onClick={() => {
-                                        setLanguage(lang.code)
-                                        setIsMenuOpen(false)
-                                    }}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    {lang.label} {lang.name}
-                                </div>
-                            ))}
-                        </div>
+                        {isLangMenuOpen && (
+                            <div className={styles.dropdownContent} style={{ display: 'block', minWidth: '150px' }}>
+                                {languages.map(lang => (
+                                    <div
+                                        key={lang.code}
+                                        className={styles.dropdownItem}
+                                        onClick={() => {
+                                            setLanguage(lang.code)
+                                            setIsLangMenuOpen(false)
+                                            setIsMenuOpen(false)
+                                        }}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        {lang.label} {lang.name}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <Link href="/login" className="btn btn-primary">

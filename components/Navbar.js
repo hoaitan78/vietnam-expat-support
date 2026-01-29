@@ -7,7 +7,7 @@ import { useLanguage } from '../contexts/LanguageContext'
 import { useTheme } from '../contexts/ThemeContext'
 
 export default function Navbar() {
-    const { t, language, toggleLanguage } = useLanguage()
+    const { t, language, toggleLanguage, languages } = useLanguage()
     const { theme, toggleTheme } = useTheme()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 

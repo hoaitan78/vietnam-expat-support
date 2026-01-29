@@ -55,18 +55,38 @@ export default function Navbar() {
                         {theme === 'light' ? '🌙' : '☀️'}
                     </button>
 
-                    <button
-                        onClick={toggleLanguage}
-                        className="btn"
-                        style={{
-                            background: 'transparent',
-                            border: '1px solid var(--color-primary)',
-                            color: 'var(--color-primary)',
-                            padding: '0.5rem 1rem'
-                        }}
-                    >
-                        {language === 'vi' ? '🇬🇧 EN' : '🇻🇳 VN'}
-                    </button>
+                    <div className={styles.dropdown} style={{ paddingBottom: 0, marginBottom: 0 }}>
+                        <button
+                            className="btn"
+                            style={{
+                                background: 'transparent',
+                                border: '1px solid var(--color-primary)',
+                                color: 'var(--color-primary)',
+                                padding: '0.5rem 1rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem'
+                            }}
+                        >
+                            {languages.find(l => l.code === language)?.label} ▾
+                        </button>
+                        <div className={styles.dropdownContent} style={{ minWidth: '150px' }}>
+                            {languages.map(lang => (
+                                <div
+                                    key={lang.code}
+                                    className={styles.dropdownItem}
+                                    onClick={() => {
+                                        setLanguage(lang.code)
+                                        setIsMenuOpen(false)
+                                    }}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {lang.label} {lang.name}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
 
                     <Link href="/login" className="btn btn-primary">
                         {t('nav_signin')}

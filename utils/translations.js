@@ -176,5 +176,183 @@ export const translations = {
         page_services_title: 'Services Directory',
         page_services_btn: 'View Providers',
         page_community_title: 'Community Forum'
+    },
+    ko: {
+        // Navbar
+        nav_home: '홈',
+        nav_guides: '가이드',
+        nav_services: '서비스',
+        nav_community: '커뮤니티',
+        nav_contact: '연락처',
+        nav_signin: '로그인',
+
+        // Search
+        search_placeholder: '가이드, 서비스 검색...',
+
+        // Home Hero
+        hero_title: '나트랑에 오신 것을 환영합니다',
+        hero_subtitle: '나트랑에서의 새로운 삶과 성장을 위한 필수 동반자.',
+        hero_cta: '가이드 탐험하기',
+
+        // Home Services
+        services_title: '필수 서비스',
+        service_visa: '비자 상담',
+        service_visa_desc: '비자, 허가 및 이민 정책에 대한 최신 정보.',
+        service_visa_btn: '더 알아보기',
+        service_housing: '주거',
+        service_housing_desc: '나트랑에서 완벽한 아파트나 집을 찾으세요.',
+        service_housing_btn: '집 찾기',
+        service_jobs: '일자리 & 경력',
+        service_jobs_desc: '나트랑에서 최고의 고용주와 연결하고 기회를 찾으세요.',
+        service_jobs_btn: '일자리 검색',
+
+        // Community
+        community_title: '커뮤니티 하이라이트',
+        community_read: '토론 읽기 →',
+
+        // Footer
+        footer_quicklinks: '빠른 링크',
+        footer_legal: '법적 고지',
+        footer_privacy: '개인정보 처리방침',
+        footer_terms: '이용 약관',
+        footer_desc: '새로운 터전에서의 적응을 돕습니다.',
+
+        // Authentication
+        auth_welcome: '다시 오신 것을 환영합니다',
+        auth_welcome_sub: '저장된 가이드에 액세스하려면 로그인하세요.',
+        auth_create: '계정 생성',
+        auth_create_sub: '외국인 커뮤니티에 참여하세요.',
+        auth_email: '이메일 주소',
+        auth_password: '비밀번호',
+        auth_name: '이름',
+        auth_signin: '로그인',
+        auth_signup: '가입하기',
+        auth_or: '또는',
+        auth_google: 'Google로 계속 (데모)',
+        auth_no_account: '계정이 없으신가요?',
+        auth_has_account: '이미 계정이 있으신가요?',
+        auth_join: '지금 가입하세요',
+        auth_login_link: '지금 로그인하세요',
+
+        // Cost Calculator
+        calc_title: '생활비 견적기',
+        calc_intro: '나트랑에서의 예상 월 생활비를 계산해보세요.',
+        calc_housing: '🏠 주거 선호',
+        calc_housing_shared: '쉐어품 ($250)',
+        calc_housing_apt: '개인 아파트 ($550)',
+        calc_housing_house: '주택 / 빌라 ($1000)',
+        calc_food: '🍜 외식 빈도',
+        calc_food_rare: '거의 안함',
+        calc_food_daily: '매일',
+        calc_transport: '🛵 교통',
+        calc_transport_bus: '버스 ($10)',
+        calc_transport_bike: '개인 오토바이 ($50)',
+        calc_transport_taxi: '택시/배차앱 ($200)',
+        calc_lifestyle: '🎉 라이프스타일',
+        calc_lifestyle_frugal: '검소함 ($50)',
+        calc_lifestyle_mod: '보통 ($200)',
+        calc_lifestyle_active: '여유로움 ($500)',
+        calc_total: '월 예상 합계',
+        calc_currency: 'USD / 월',
+        calc_res_housing: '주거',
+        calc_res_food: '식비',
+        calc_res_transport: '교통',
+        calc_res_leisure: '여가',
+
+        // Placeholders
+        page_guides_title: '외국인 가이드',
+        page_guides_sub: '이주를 돕는 포괄적인 자료.',
+        page_services_title: '서비스 디렉토리',
+        page_services_btn: '제공자 보기',
+        page_community_title: '커뮤니티 포럼'
+    },
+    zh: {
+        // Navbar
+        nav_home: '首页',
+        nav_guides: '指南',
+        nav_services: '服务',
+        nav_community: '社区',
+        nav_contact: '联系我们',
+        nav_signin: '登录',
+
+        // Search
+        search_placeholder: '搜索指南，服务...',
+
+        // Home Hero
+        hero_title: '欢迎来到芽庄',
+        hero_subtitle: '您在芽庄生活、工作和发展的必备伴侣。',
+        hero_cta: '探索指南',
+
+        // Home Services
+        services_title: '基本服务',
+        service_visa: '签证咨询',
+        service_visa_desc: '关于签证、许可证和移民政策的最新信息。',
+        service_visa_btn: '了解更多',
+        service_housing: '住房',
+        service_housing_desc: '在芽庄寻找完美的公寓或房屋。',
+        service_housing_btn: '找房',
+        service_jobs: '工作与职业',
+        service_jobs_desc: '联系顶级雇主并寻找芽庄的机会。',
+        service_jobs_btn: '搜索工作',
+
+        // Community
+        community_title: '社区精选',
+        community_read: '阅读讨论 →',
+
+        // Footer
+        footer_quicklinks: '快速链接',
+        footer_legal: '法律',
+        footer_privacy: '隐私政策',
+        footer_terms: '服务条款',
+        footer_desc: '帮助您融入新家。',
+
+        // Authentication
+        auth_welcome: '欢迎回来',
+        auth_welcome_sub: '登录以访问您保存的指南。',
+        auth_create: '创建帐户',
+        auth_create_sub: '加入我们的外籍人士社区。',
+        auth_email: '电子邮件地址',
+        auth_password: '密码',
+        auth_name: '全名',
+        auth_signin: '登录',
+        auth_signup: '创建帐户',
+        auth_or: '或',
+        auth_google: '继续使用 Google (演示)',
+        auth_no_account: '没有帐户？',
+        auth_has_account: '已有帐户？',
+        auth_join: '立即注册',
+        auth_login_link: '立即登录',
+
+        // Cost Calculator
+        calc_title: '生活成本估算器',
+        calc_intro: '估算您在芽庄的每月预算。',
+        calc_housing: '🏠 住房偏好',
+        calc_housing_shared: '合租房 ($250)',
+        calc_housing_apt: '私人公寓 ($550)',
+        calc_housing_house: '大房子/别墅 ($1000)',
+        calc_food: '🍜 外出就餐频率',
+        calc_food_rare: '很少',
+        calc_food_daily: '每天',
+        calc_transport: '🛵 交通',
+        calc_transport_bus: '公共汽车 ($10)',
+        calc_transport_bike: '自有摩托车 ($50)',
+        calc_transport_taxi: 'Grab/出租车 ($200)',
+        calc_lifestyle: '🎉 生活方式',
+        calc_lifestyle_frugal: '节俭 ($50)',
+        calc_lifestyle_mod: '适度 ($200)',
+        calc_lifestyle_active: '活跃 ($500)',
+        calc_total: '每月预计总额',
+        calc_currency: 'USD / 月',
+        calc_res_housing: '住房',
+        calc_res_food: '餐饮',
+        calc_res_transport: '交通',
+        calc_res_leisure: '休闲',
+
+        // Placeholders
+        page_guides_title: '外籍人士指南',
+        page_guides_sub: '协助您搬迁的综合资源。',
+        page_services_title: '服务目录',
+        page_services_btn: '查看提供商',
+        page_community_title: '社区论坛'
     }
 }

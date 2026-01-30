@@ -61,6 +61,12 @@ export const translations = {
         auth_has_account: 'Đã có tài khoản?',
         auth_join: 'Đăng ký ngay',
         auth_login_link: 'Đăng nhập ngay',
+        auth_forgot_password: 'Quên mật khẩu?',
+        auth_reset_password: 'Đặt lại mật khẩu',
+        auth_reset_desc: 'Nhập email của bạn để nhận liên kết đặt lại mật khẩu.',
+        auth_send_reset_link: 'Gửi liên kết',
+        auth_back_to_login: 'Quay lại Đăng nhập',
+        auth_reset_email_sent: 'Đã gửi email! Hãy kiểm tra hộp thư.',
 
         // Cost Calculator
         calc_title: 'Ước tính Chi phí Sinh hoạt',
@@ -156,6 +162,12 @@ export const translations = {
         auth_has_account: 'Already have an account?',
         auth_join: 'Sign up',
         auth_login_link: 'Sign in',
+        auth_forgot_password: 'Forgot password?',
+        auth_reset_password: 'Reset Password',
+        auth_reset_desc: 'Enter your email to receive a password reset link.',
+        auth_send_reset_link: 'Send Reset Link',
+        auth_back_to_login: 'Back to Login',
+        auth_reset_email_sent: 'Check your email for the reset link!',
 
         // Cost Calculator
         calc_title: 'Cost of Living Estimator',
@@ -251,6 +263,12 @@ export const translations = {
         auth_has_account: '이미 계정이 있으신가요?',
         auth_join: '지금 가입하세요',
         auth_login_link: '지금 로그인하세요',
+        auth_forgot_password: '비밀번호를 잊으셨나요?',
+        auth_reset_password: '비밀번호 재설정',
+        auth_reset_desc: '비밀번호 재설정 링크를 받으려면 이메일을 입력하세요.',
+        auth_send_reset_link: '링크 보내기',
+        auth_back_to_login: '로그인으로 돌아가기',
+        auth_reset_email_sent: '이메일을 확인하세요!',
 
         // Cost Calculator
         calc_title: '생활비 견적기',
@@ -346,6 +364,12 @@ export const translations = {
         auth_has_account: '已有帐户？',
         auth_join: '立即注册',
         auth_login_link: '立即登录',
+        auth_forgot_password: '忘记密码？',
+        auth_reset_password: '重置密码',
+        auth_reset_desc: '输入您的电子邮件以接收重置链接。',
+        auth_send_reset_link: '发送链接',
+        auth_back_to_login: '返回登录',
+        auth_reset_email_sent: '检查您的电子邮件！',
 
         // Cost Calculator
         calc_title: '生活成本估算器',

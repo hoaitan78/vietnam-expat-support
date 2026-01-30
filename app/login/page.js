@@ -78,6 +78,11 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+                    <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
+                        <Link href="/forgot-password" className={styles.link} style={{ fontSize: '0.9rem' }}>
+                            {t('auth_forgot_password')}
+                        </Link>
+                    </div>
                     <button type="submit" className={`btn btn-primary ${styles.submitBtn}`} disabled={loading}>
                         {loading ? 'Logging in...' : t('auth_signin')}
                     </button>

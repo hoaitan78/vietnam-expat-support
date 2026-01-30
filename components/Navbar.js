@@ -5,10 +5,12 @@ import Link from 'next/link'
 import styles from './Navbar.module.css'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useTheme } from '../contexts/ThemeContext'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Navbar() {
     const { t, language, toggleLanguage, languages, setLanguage } = useLanguage()
     const { theme, toggleTheme } = useTheme()
+    const { currentUser, logout } = useAuth()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
 
@@ -93,9 +95,25 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    <Link href="/login" className="btn btn-primary">
-                        {t('nav_signin')}
-                    </Link>
+                    {currentUser ? (
+                        <div className={styles.dropdown} style={{ paddingBottom: 0, marginBottom: 0 }}>
+                            <button
+                                className="btn btn-primary"
+                                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                            >
+                                👤 {currentUser.email?.split('@')[0]}
+                            </button>
+                            <div className={styles.dropdownContent}>
+                                <div className={styles.dropdownItem} onClick={() => logout()} style={{ cursor: 'pointer' }}>
+                                    {t('auth_logout') || 'Logout'}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <Link href="/login" className="btn btn-primary">
+                            {t('nav_signin')}
+                        </Link>
+                    )}
                 </div>
             </div>
         </nav>

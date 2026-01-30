@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { LanguageProvider } from '../contexts/LanguageContext'
 import { ThemeProvider } from '../contexts/ThemeContext'
+import { AuthProvider } from '../contexts/AuthContext'
 
 export const metadata = {
     title: 'Nha Trang Expat Support',
@@ -18,13 +19,17 @@ export default function RootLayout({ children }) {
                 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
             </head>
             <body>
-                <ThemeProvider>
+                <AuthProvider>
                     <LanguageProvider>
-                        <Navbar />
-                        <main>{children}</main>
-                        <Footer />
+                        <ThemeProvider>
+                            <Navbar />
+                            <main className="main-content">
+                                {children}
+                            </main>
+                            <Footer />
+                        </ThemeProvider>
                     </LanguageProvider>
-                </ThemeProvider>
+                </AuthProvider>
             </body>
         </html>
     )

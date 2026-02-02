@@ -14,6 +14,7 @@ export default function Home() {
         { title: t('service_visa'), desc: t('service_visa_desc'), btn: t('service_visa_btn'), href: '/guides/visa', icon: '🌏' },
         { title: t('service_housing'), desc: t('service_housing_desc'), btn: t('service_housing_btn'), href: '/guides/housing', icon: '🏠' },
         { title: t('service_jobs'), desc: t('service_jobs_desc'), btn: t('service_jobs_btn'), href: '/services/jobs', icon: '💼' },
+        { title: t('service_driving_license'), desc: t('service_driving_license_desc'), btn: t('service_driving_license_btn'), href: '/guides/driving-license', icon: '🚗' },
     ]
 
     const filteredLinks = quickLinks.filter(link =>

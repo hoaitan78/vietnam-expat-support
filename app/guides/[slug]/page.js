@@ -457,6 +457,111 @@ export default function GuideSlug({ params }) {
         )
     }
 
+    const isDrivingLicense = params.slug === 'driving-license'
+
+    if (isDrivingLicense) {
+        return (
+            <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                {/* HERO */}
+                <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
+                    <div style={{ background: 'linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                        <h1 style={{ color: '#1565c0', fontSize: '2.8rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>Thủ tục đổi bằng lái xe cho người nước ngoài</h1>
+                        <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '0.5rem', fontWeight: '500' }}>Hướng dẫn chi tiết quy trình đổi GPLX tại Nha Trang</p>
+                        <p style={{ maxWidth: '700px', margin: '0 auto 2.5rem auto', lineHeight: '1.6', color: '#666' }}>
+                            Để lái xe hợp pháp tại Việt Nam, người nước ngoài cần thực hiện thủ tục đổi giấy phép lái xe theo quy định. Dưới đây là hướng dẫn đầy đủ nhất.
+                        </p>
+                    </div>
+                </section>
+
+                {/* 1. CONDITIONS */}
+                <section style={{ marginBottom: '5rem' }}>
+                    <h2 style={{ color: '#1565c0', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>1. Điều kiện đổi bằng</h2>
+                    <div style={{ background: '#f5f5f5', padding: '2rem', borderRadius: '16px' }}>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            <li style={{ marginBottom: '1rem', display: 'flex', gap: '0.75rem', fontSize: '1.1rem' }}>
+                                <span>✅</span> Có giấy phép lái xe quốc gia do nước ngoài cấp, còn thời hạn.
+                            </li>
+                            <li style={{ marginBottom: '1rem', display: 'flex', gap: '0.75rem', fontSize: '1.1rem' }}>
+                                <span>✅</span> Có hộ chiếu còn hiệu lực và thẻ tạm trú/thường trú tại Việt Nam từ 3 tháng trở lên.
+                            </li>
+                        </ul>
+                        <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#ffebee', borderRadius: '8px', color: '#c62828', fontWeight: 'bold' }}>
+                            ⚠️ Lưu ý: Không chấp nhận đổi bằng lái tạm thời, quốc tế IDP, bằng quá hạn hoặc hư hỏng.
+                        </div>
+                    </div>
+                </section>
+
+                {/* 2. DOCUMENTS */}
+                <section style={{ marginBottom: '5rem' }}>
+                    <h2 style={{ color: '#1565c0', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>2. Hồ sơ cần chuẩn bị</h2>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                        {[
+                            'Đơn đề nghị đổi bằng lái xe theo mẫu của Bộ Công an.',
+                            'Giấy phép lái xe nước ngoài bản gốc và bản dịch sang tiếng Việt có công chứng.',
+                            'Hộ chiếu còn hiệu lực (có dấu nhập cảnh).',
+                            'Bản sao thẻ tạm trú hoặc thẻ thường trú (thời hạn ≥ 3 tháng).',
+                            'Giấy khám sức khỏe do cơ sở y tế đủ điều kiện cấp (trừ trường hợp được miễn).'
+                        ].map((item, i) => (
+                            <div key={i} style={{ padding: '1.5rem', background: 'white', border: '1px solid #dcdcdc', borderRadius: '12px', display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                                <span style={{ fontSize: '1.5rem', color: '#2196f3' }}>📌</span>
+                                <p style={{ margin: 0 }}>{item}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* 3. PROCESS */}
+                <section style={{ marginBottom: '5rem' }}>
+                    <h2 style={{ color: '#1565c0', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>3. Quy trình thực hiện</h2>
+                    <div style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '3px solid #e0e0e0' }}>
+                        {[
+                            { step: 'Bước 1', title: 'Nộp hồ sơ', desc: 'Tại Phòng Cảnh sát giao thông Công an tỉnh Khánh Hòa hoặc điểm tiếp nhận.' },
+                            { step: 'Bước 2', title: 'Kiểm tra & Chụp ảnh', desc: 'Cán bộ kiểm tra, chụp ảnh, đối chiếu hồ sơ.' },
+                            { step: 'Bước 3', title: 'Xử lý hồ sơ', desc: 'Cấp bằng mới trong vòng khoảng 5 ngày làm việc.' },
+                            { step: 'Bước 4', title: 'Nhận bằng', desc: 'Nhận trực tiếp hoặc đăng ký qua bưu điện.' }
+                        ].map((item, i) => (
+                            <div key={i} style={{ marginBottom: '2rem', position: 'relative' }}>
+                                <div style={{ position: 'absolute', left: '-2.6rem', top: '0', background: '#2196f3', color: 'white', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>{i + 1}</div>
+                                <h3 style={{ margin: '0 0 0.5rem 0', color: '#1565c0' }}>{item.title}</h3>
+                                <p style={{ margin: 0, color: '#666' }}>{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* 4. FEES & TIME */}
+                <section style={{ marginBottom: '5rem', display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center' }}>
+                    <div style={{ flex: '1 1 300px', padding: '2rem', background: '#e3f2fd', borderRadius: '16px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💰</div>
+                        <h3 style={{ marginBottom: '0.5rem' }}>Lệ phí đổi bằng</h3>
+                        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1565c0' }}>~135.000 VNĐ</p>
+                    </div>
+                    <div style={{ flex: '1 1 300px', padding: '2rem', background: '#e8f5e9', borderRadius: '16px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📅</div>
+                        <h3 style={{ marginBottom: '0.5rem' }}>Thời gian xử lý</h3>
+                        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#2e7d32' }}>5 ngày làm việc</p>
+                    </div>
+                </section>
+
+                {/* 5. NOTES */}
+                <section style={{ marginBottom: '5rem' }}>
+                    <h2 style={{ color: '#1565c0', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>5. Một số lưu ý quan trọng</h2>
+                    <ul style={{ listStyle: 'none', padding: 0, background: '#fff', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', borderRadius: '16px', padding: '2rem' }}>
+                        {[
+                            'Không phải thi lại nếu bằng còn hiệu lực và phù hợp hạng xe điều khiển.',
+                            'Thời hạn bằng lái Việt Nam sẽ phù hợp với thẻ tạm trú / thời hạn bằng gốc.',
+                            'Hồ sơ dịch thuật phải được công chứng và đóng dấu giáp lai với bản gốc.'
+                        ].map((item, i) => (
+                            <li key={i} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '1.1rem' }}>
+                                <span style={{ color: '#1565c0' }}>🔹</span> {item}
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            </div>
+        )
+    }
+
     // Fallback for other slugs
     return (
         <div className="container" style={{ padding: '4rem 1rem' }}>

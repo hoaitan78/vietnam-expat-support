@@ -27,6 +27,9 @@ export const translations = {
         service_jobs: 'Việc làm & Sự nghiệp',
         service_jobs_desc: 'Kết nối với các nhà tuyển dụng hàng đầu và tìm cơ hội tại Nha Trang.',
         service_jobs_btn: 'Tìm việc',
+        service_driving_license: 'Đổi Bằng Lái Xe',
+        service_driving_license_desc: 'Thủ tục đổi bằng lái nước ngoài sang bằng Việt Nam.',
+        service_driving_license_btn: 'Xem hướng dẫn',
 
         // Community
         community_title: 'Tiêu điểm Cộng đồng',
@@ -128,6 +131,9 @@ export const translations = {
         service_jobs: 'Jobs & Career',
         service_jobs_desc: 'Connect with top employers and find opportunities in Nha Trang.',
         service_jobs_btn: 'Search Jobs',
+        service_driving_license: 'Driving License',
+        service_driving_license_desc: 'Exchange foreign driving license to Vietnamese license.',
+        service_driving_license_btn: 'View Guide',
 
         // Community
         community_title: 'Community Highlights',
@@ -229,6 +235,9 @@ export const translations = {
         service_jobs: '일자리 & 경력',
         service_jobs_desc: '나트랑에서 최고의 고용주와 연결하고 기회를 찾으세요.',
         service_jobs_btn: '일자리 검색',
+        service_driving_license: '운전 면허증',
+        service_driving_license_desc: '외국 운전 면허증을 베트남 면허증으로 교환하세요.',
+        service_driving_license_btn: '가이드 보기',
 
         // Community
         community_title: '커뮤니티 하이라이트',
@@ -330,6 +339,9 @@ export const translations = {
         service_jobs: '工作与职业',
         service_jobs_desc: '联系顶级雇主并寻找芽庄的机会。',
         service_jobs_btn: '搜索工作',
+        service_driving_license: '驾驶执照',
+        service_driving_license_desc: '将外国驾驶执照换成越南驾驶执照。',
+        service_driving_license_btn: '查看指南',
 
         // Community
         community_title: '社区精选',

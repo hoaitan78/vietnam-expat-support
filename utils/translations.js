@@ -36,8 +36,8 @@ export const translations = {
         community_read: 'Xem thảo luận →',
         community_school_title: 'Các trường học quốc tế ở Nha Trang',
         community_school_desc: 'Tìm kiếm các trường học quốc tế tốt nhất cho con bạn...',
-        community_license_title: 'Thủ tục đổi bằng lái xe',
-        community_license_desc: 'Hướng dẫn thủ tục đổi bằng lái xe nước ngoài sang Việt Nam.',
+        community_license_title: 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang',
+        community_license_desc: 'Tổng hợp các khu vực sinh sống, vui chơi phổ biến của cộng đồng Expat.',
         community_market_title: 'Các chợ, siêu thị tốt quanh bạn',
         community_market_desc: 'Danh sách các chợ và siêu thị uy tín, giá tốt gần nơi bạn sống.',
 
@@ -140,8 +140,8 @@ export const translations = {
         community_read: 'Read Discussion →',
         community_school_title: 'International Schools in Nha Trang',
         community_school_desc: 'Finding the best international schools for your children...',
-        community_license_title: 'Driving License Exchange Procedure',
-        community_license_desc: 'Guide to exchanging your foreign driving license in Vietnam.',
+        community_license_title: 'Popular Expat Areas in Nha Trang',
+        community_license_desc: 'Overview of popular living and hangout areas for the expat community.',
         community_market_title: 'Best Markets & Supermarkets Near You',
         community_market_desc: 'List of reputable markets and supermarkets with good prices near you.',
 
@@ -244,8 +244,8 @@ export const translations = {
         community_read: '토론 읽기 →',
         community_school_title: '나트랑의 국제학교',
         community_school_desc: '자녀를 위한 최고의 국제학교 찾기...',
-        community_license_title: '운전면허증 교환 절차',
-        community_license_desc: '외국 운전면허증을 베트남 면허증으로 교환하는 방법 안내.',
+        community_license_title: '나트랑의 인기 있는 외국인 거주 지역',
+        community_license_desc: '외국인 커뮤니티가 선호하는 거주 및 여가 지역 개요.',
         community_market_title: '주변 최고의 시장 및 슈퍼마켓',
         community_market_desc: '거주지 근처의 평판 좋고 저렴한 시장 및 슈퍼마켓 목록.',
 
@@ -348,8 +348,8 @@ export const translations = {
         community_read: '阅读讨论 →',
         community_school_title: '芽庄的国际学校',
         community_school_desc: '为您的孩子寻找最好的国际学校...',
-        community_license_title: '驾驶执照更换手续',
-        community_license_desc: '关于将外国驾驶执照更换为越南驾驶执照的指南。',
+        community_license_title: '芽庄受欢迎的外籍人士区域',
+        community_license_desc: '外籍人士社区喜欢的居住和休闲区域概述。',
         community_market_title: '您附近的最佳市场和超市',
         community_market_desc: '您住所附近信誉良好且价格合理的市场和超市列表。',
 

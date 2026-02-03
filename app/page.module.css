@@ -44,6 +44,9 @@
     transition: transform 0.2s;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .card:hover {
@@ -66,4 +69,5 @@
 .cardText {
     color: var(--color-text-muted);
     margin-bottom: 1.5rem;
+    flex-grow: 1;
 }

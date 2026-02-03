@@ -1,3 +1,25 @@
+
+export async function generateMetadata({ params }) {
+    let title = `Guide: ${params.slug}`;
+    let description = 'Essential guide for expats in Vietnam.';
+
+    if (params.slug === 'visa') {
+        title = 'Vietnam Visa Guide 2024';
+        description = 'Hướng dẫn visa & lưu trú hợp pháp tại Việt Nam cho người nước ngoài.';
+    } else if (params.slug === 'housing') {
+        title = 'Find Your Home in Nha Trang';
+        description = 'Tìm nhà và thuê nhà tại Nha Trang cho người nước ngoài.';
+    } else if (params.slug === 'driving-license') {
+        title = 'Thủ tục đổi bằng lái xe cho người nước ngoài';
+        description = 'Hướng dẫn chi tiết quy trình đổi GPLX tại Nha Trang.';
+    }
+
+    return {
+        title: `${title} - Vietnam Expat Support`,
+        description: description,
+    }
+}
+
 export default function GuideSlug({ params }) {
     const isVisa = params.slug === 'visa'
 

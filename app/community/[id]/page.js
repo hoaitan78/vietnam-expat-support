@@ -1,3 +1,15 @@
+
+export async function generateMetadata({ params }) {
+    const title = params.id === '2'
+        ? 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang'
+        : `Discussion Topic #${params.id}`;
+
+    return {
+        title: `${title} - Vietnam Expat Support`,
+        description: `Join the discussion about ${title} in our community forum.`
+    }
+}
+
 export default function TopicPage({ params }) {
     return (
         <div className="container" style={{ padding: '4rem 1rem' }}>

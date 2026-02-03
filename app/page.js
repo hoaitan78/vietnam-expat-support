@@ -6,16 +6,18 @@ import Link from 'next/link'
 import { useLanguage } from '../contexts/LanguageContext'
 import SearchBar from '../components/SearchBar'
 
+import { QUICK_LINKS } from '../lib/constants'
+
 export default function Home() {
     const { t } = useLanguage()
     const [filter, setFilter] = useState('')
 
-    const quickLinks = [
-        { title: t('service_visa'), desc: t('service_visa_desc'), btn: t('service_visa_btn'), href: '/guides/visa', icon: '🌏' },
-        { title: t('service_housing'), desc: t('service_housing_desc'), btn: t('service_housing_btn'), href: '/guides/housing', icon: '🏠' },
-        { title: t('service_jobs'), desc: t('service_jobs_desc'), btn: t('service_jobs_btn'), href: '/services/jobs', icon: '💼' },
-        { title: t('service_driving_license'), desc: t('service_driving_license_desc'), btn: t('service_driving_license_btn'), href: '/guides/driving-license', icon: '🚗' },
-    ]
+    const quickLinks = QUICK_LINKS.map(link => ({
+        ...link,
+        title: t(link.titleKey),
+        desc: t(link.descKey),
+        btn: t(link.btnKey)
+    }))
 
     const filteredLinks = quickLinks.filter(link =>
         link.title.toLowerCase().includes(filter.toLowerCase()) ||

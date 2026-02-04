@@ -149,7 +149,7 @@ export default function HousingPage() {
                             <li key={i} style={{ marginBottom: '1rem' }} dangerouslySetInnerHTML={{ __html: item }}></li>
                         ))}
                     </ul>
-                    <p style={{ fontSize: '0.9rem', color: '#0d47a1' }}>Ảnh hưởng: Không gia hạn được Visa/TRC nếu thiếu giấy này.</p>
+                    <p style={{ fontSize: '0.9rem', color: '#0d47a1' }}>{t('housing_sec7_note')}</p>
                 </div>
                 <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee' }}>
                     <h2 style={{ color: '#c62828', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec8_title')}</h2>
@@ -158,7 +158,7 @@ export default function HousingPage() {
                             <li key={i} style={{ marginBottom: '0.5rem' }}>{item}</li>
                         ))}
                     </ul>
-                    <p style={{ fontSize: '0.9rem', color: '#b71c1c', fontWeight: 'bold' }}>Ghi nhớ: Giá rẻ nhưng pháp lý không rõ ràng = Rủi ro cao.</p>
+                    <p style={{ fontSize: '0.9rem', color: '#b71c1c', fontWeight: 'bold' }}>{t('housing_sec8_note')}</p>
                 </div>
             </section>
 

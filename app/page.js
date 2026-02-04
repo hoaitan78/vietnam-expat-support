@@ -40,7 +40,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className={styles.section}>
+            <section id="services" className={styles.section}>
                 <div className="container">
                     <h2 className={styles.sectionTitle}>{t('services_title')}</h2>
 

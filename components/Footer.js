@@ -17,7 +17,7 @@ export default function Footer() {
                     <h3>{t('footer_quicklinks')}</h3>
                     <ul>
                         <li><a href="/guides">{t('nav_guides')}</a></li>
-                        <li><a href="/services">{t('nav_services')}</a></li>
+                        <li><a href="/#services">{t('nav_services')}</a></li>
                         <li><a href="/community">{t('nav_community')}</a></li>
                     </ul>
                 </div>

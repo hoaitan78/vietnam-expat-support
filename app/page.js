@@ -50,11 +50,35 @@ export default function Home() {
 
                     <div className={styles.grid}>
                         {filteredLinks.map((link, index) => (
-                            <div key={index} className={styles.card}>
-                                <span className={styles.cardIcon}>{link.icon}</span>
-                                <h3 className={styles.cardTitle}>{link.title}</h3>
-                                <p className={styles.cardText}>{link.desc}</p>
-                                <Link href={link.href} className="btn btn-primary">{link.btn}</Link>
+                            <div
+                                key={index}
+                                className={styles.card}
+                                style={link.image ? {
+                                    backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${link.image})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    color: 'white',
+                                    border: 'none'
+                                } : {}}
+                            >
+                                <span className={styles.cardIcon} style={link.image ? { color: 'white' } : {}}>{link.icon}</span>
+                                <h3 className={styles.cardTitle} style={link.image ? { color: 'white' } : {}}>{link.title}</h3>
+                                <p className={styles.cardText} style={link.image ? { color: 'rgba(255,255,255,0.9)' } : {}}>{link.desc}</p>
+                                <Link
+                                    href={link.href}
+                                    className="btn"
+                                    style={link.image ? {
+                                        background: 'rgba(255,255,255,0.2)',
+                                        color: 'white',
+                                        backdropFilter: 'blur(4px)',
+                                        border: '1px solid rgba(255,255,255,0.3)'
+                                    } : {
+                                        background: 'var(--color-primary)',
+                                        color: 'white'
+                                    }}
+                                >
+                                    {link.btn}
+                                </Link>
                             </div>
                         ))}
                     </div>

@@ -49,7 +49,7 @@ export default function HousingPage() {
                     <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350' }}>
                         <h3 style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>⚠️</span> {t('housing_sec1_note')}</h3>
                         <p style={{ fontStyle: 'italic', fontWeight: '500' }}>
-                            "Foreigners cannot rent without a contract or rely on verbal agreements, even if cheap."
+                            {t('housing_sec1_quote')}
                         </p>
                     </div>
                 </div>
@@ -125,14 +125,14 @@ export default function HousingPage() {
                             </ul>
                         </div>
                         <div>
-                            <h3 style={{ marginBottom: '1rem', color: '#333' }}>Điện, Nước, Internet:</h3>
-                            <p style={{ fontSize: '0.95rem', color: '#555' }}>Người nước ngoài thường gặp vấn đề với giá điện cao hoặc phí quản lý không rõ ràng.</p>
+                            <h3 style={{ marginBottom: '1rem', color: '#333' }}>{t('housing_utilities.title')}</h3>
+                            <p style={{ fontSize: '0.95rem', color: '#555' }}>{t('housing_utilities.intro')}</p>
                             <div style={{ background: 'white', padding: '1rem', borderRadius: '8px' }}>
-                                <strong>Trước khi ký, hãy hỏi rõ:</strong>
+                                <strong>{t('housing_utilities.check_title')}</strong>
                                 <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '0.5rem', marginBottom: 0 }}>
-                                    <li>Cách tính tiền điện, nước (giá nhà nước hay kinh doanh?)</li>
-                                    <li>Có hóa đơn hay không?</li>
-                                    <li>Internet do ai lắp đặt và trả phí?</li>
+                                    {(t('housing_utilities.list') || []).map((item, i) => (
+                                        <li key={i}>{item}</li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -145,19 +145,18 @@ export default function HousingPage() {
                 <div style={{ padding: '2rem', border: '2px solid #2196f3', borderRadius: '16px', background: '#e3f2fd' }}>
                     <h2 style={{ color: '#1565c0', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec7_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
-                        <li style={{ marginBottom: '1rem' }}>👮 Phải khai báo trong vòng <strong>24 giờ</strong> sau khi đến.</li>
-                        <li style={{ marginBottom: '1rem' }}>🏠 Thường do chủ nhà thực hiện.</li>
-                        <li style={{ marginBottom: '1rem' }}>⚠️ Nếu chủ nhà không làm, bạn vẫn có thể bị phạt.</li>
+                        {(t('housing_registration_list') || []).map((item, i) => (
+                            <li key={i} style={{ marginBottom: '1rem' }} dangerouslySetInnerHTML={{ __html: item }}></li>
+                        ))}
                     </ul>
                     <p style={{ fontSize: '0.9rem', color: '#0d47a1' }}>Ảnh hưởng: Không gia hạn được Visa/TRC nếu thiếu giấy này.</p>
                 </div>
                 <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee' }}>
                     <h2 style={{ color: '#c62828', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec8_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
-                        <li style={{ marginBottom: '0.5rem' }}>🚫 Chủ nhà không có quyền cho thuê</li>
-                        <li style={{ marginBottom: '0.5rem' }}>💸 Mất tiền cọc vô lý</li>
-                        <li style={{ marginBottom: '0.5rem' }}>📜 Hợp đồng mập mờ, bất lợi</li>
-                        <li style={{ marginBottom: '0.5rem' }}>🕵️ Không khai báo tạm trú</li>
+                        {(t('housing_risks_list') || []).map((item, i) => (
+                            <li key={i} style={{ marginBottom: '0.5rem' }}>{item}</li>
+                        ))}
                     </ul>
                     <p style={{ fontSize: '0.9rem', color: '#b71c1c', fontWeight: 'bold' }}>Ghi nhớ: Giá rẻ nhưng pháp lý không rõ ràng = Rủi ro cao.</p>
                 </div>
@@ -168,7 +167,7 @@ export default function HousingPage() {
                 <h2 style={{ fontSize: '2.2rem', marginBottom: '2rem', fontWeight: '800' }}>{t('housing_cta_title')}</h2>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginBottom: '3rem' }}>
-                    {['Không chuyển tiền trước khi xem nhà', 'Chụp ảnh hiện trạng khi nhận', 'Giữ bản sao giấy tờ', 'Hỏi kỹ quy định tiếng ồn/khách'].map((tip, i) => (
+                    {(t('housing_cta_tips') || []).map((tip, i) => (
                         <span key={i} style={{ background: 'rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.95rem' }}>⭐ {tip}</span>
                     ))}
                 </div>

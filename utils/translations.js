@@ -146,6 +146,42 @@ export const translations = {
         dl_sec3_title: '3. Quy trình thực hiện',
         dl_cta_title: 'Cần hỗ trợ dịch vụ?',
         dl_cta_btn: 'Liên hệ ngay',
+        dl_cta_desc: 'Nếu bạn gặp khó khăn về ngôn ngữ hoặc thủ tục, chúng tôi có thể giới thiệu các đơn vị dịch vụ uy tín để hỗ trợ bạn trọn gói.',
+        housing_sec1_quote: '"Người nước ngoài không được tự ý thuê nhà không hợp đồng hoặc thuê “miệng”, dù giá rẻ."',
+
+        housing_utilities: {
+            title: 'Điện, Nước, Internet:',
+            intro: 'Người nước ngoài thường gặp vấn đề với giá điện cao hoặc phí quản lý không rõ ràng.',
+            check_title: 'Trước khi ký, hãy hỏi rõ:',
+            list: [
+                'Cách tính tiền điện, nước (giá nhà nước hay kinh doanh?)',
+                'Có hóa đơn hay không?',
+                'Internet do ai lắp đặt và trả phí?'
+            ]
+        },
+        housing_registration_list: [
+            'Phải khai báo trong vòng **24 giờ** sau khi đến.',
+            'Thường do chủ nhà thực hiện.',
+            '⚠️ Nếu chủ nhà không làm, bạn vẫn có thể bị phạt.'
+        ],
+        housing_risks_list: [
+            '🚫 Chủ nhà không có quyền cho thuê',
+            '💸 Mất tiền cọc vô lý',
+            '📜 Hợp đồng mập mờ, bất lợi',
+            '🕵️ Không khai báo tạm trú'
+        ],
+        housing_cta_tips: [
+            'Không chuyển tiền trước khi xem nhà',
+            'Chụp ảnh hiện trạng khi nhận',
+            'Giữ bản sao giấy tờ',
+            'Hỏi kỹ quy định tiếng ồn/khách'
+        ],
+        dl_hero_list: [
+            'Không cần thi lại lý thuyết hay thực hành',
+            'Có giá trị sử dụng trên toàn lãnh thổ Việt Nam',
+            'Thủ tục nhanh gọn, nhận bằng sau 5-7 ngày',
+            'Hồi sơ đơn giản, chi phí hợp lý'
+        ],
         housing_hero_list: [
             'Kinh nghiệm thực tế thuê nhà an toàn',
             'Các loại hình nhà ở phổ biến & Giá cả',
@@ -405,6 +441,42 @@ export const translations = {
         dl_sec3_title: '3. Application Process',
         dl_cta_title: 'Need Service Support?',
         dl_cta_btn: 'Contact Now',
+        dl_cta_desc: 'If you have difficulties with language or procedures, we can recommend reputable service providers to support you fully.',
+        housing_sec1_quote: '"Foreigners cannot rent without a contract or rely on verbal agreements, even if cheap."',
+
+        housing_utilities: {
+            title: 'Electricity, Water, Internet:',
+            intro: 'Expats often face issues with high electricity rates or unclear management fees.',
+            check_title: 'Before signing, ask clearly:',
+            list: [
+                'How are electricity/water calculated (state price or business price?)',
+                'Are there official bills?',
+                'Who installs and pays for the Internet?'
+            ]
+        },
+        housing_registration_list: [
+            'Must declare within **24 hours** of arrival.',
+            'Usually done by the landlord.',
+            '⚠️ You can still be fined if the landlord fails to do so.'
+        ],
+        housing_risks_list: [
+            '🚫 Landlord does not have the right to rent',
+            '💸 Unreasonable loss of deposit',
+            '📜 Vague, disadvantageous contract',
+            '🕵️ Failure to register temporary residence'
+        ],
+        housing_cta_tips: [
+            'Do not transfer money before viewing',
+            'Take photos of condition upon receipt',
+            'Keep copies of documents',
+            'Ask about noise/guest rules'
+        ],
+        dl_hero_list: [
+            'No theory or practical test required',
+            'Valid throughout Vietnam territory',
+            'Fast processing, receive license in 5-7 days',
+            'Simple documents, reasonable cost'
+        ],
 
         housing_hero_list: [
             'Practical experience for safe renting',
@@ -666,6 +738,42 @@ export const translations = {
         dl_sec3_title: '3. 신청 절차',
         dl_cta_title: '서비스 지원이 필요하신가요?',
         dl_cta_btn: '지금 문의하기',
+        dl_cta_desc: '언어나 절차에 어려움이 있는 경우, 평판 좋은 서비스 제공업체를 소개해 드릴 수 있습니다.',
+        housing_sec1_quote: '"외국인은 계약서 없이 임대하거나 저렴하더라도 구두 합의에 의존해서는 안 됩니다."',
+
+        housing_utilities: {
+            title: '전기, 수도, 인터넷:',
+            intro: '외국인은 높은 전기 요금이나 불분명한 관리비 문제를 자주 겪습니다.',
+            check_title: '서명하기 전에 명확히 물어보세요:',
+            list: [
+                '전기/수도 요금 계산 방식 (국가 가격 또는 사업자 가격?)',
+                '공식 청구서가 있습니까?',
+                '인터넷은 누가 설치하고 비용을 지불합니까?'
+            ]
+        },
+        housing_registration_list: [
+            '도착 후 **24시간** 이내에 신고해야 합니다.',
+            '보통 집주인이 수행합니다.',
+            '⚠️ 집주인이 하지 않아도 귀하가 벌금을 물 수 있습니다.'
+        ],
+        housing_risks_list: [
+            '🚫 집주인에게 임대 권한이 없음',
+            '💸 부당한 보증금 손실',
+            '📜 모호하고 불리한 계약',
+            '🕵️ 임시 거주 신고 누락'
+        ],
+        housing_cta_tips: [
+            '방을 보기 전에 송금하지 마세요',
+            '입주 시 상태 사진 촬영',
+            '서류 사본 보관',
+            '소음/손님 규정 확인'
+        ],
+        dl_hero_list: [
+            '이론 또는 실기 시험 불필요',
+            '베트남 전역에서 유효',
+            '신속한 처리, 5-7일 내 면허증 수령',
+            '간단한 서류, 합리적인 비용'
+        ],
 
         housing_hero_list: [
             '안전한 임대를 위한 실질적인 경험',
@@ -926,6 +1034,42 @@ export const translations = {
         dl_sec3_title: '3. 申请流程',
         dl_cta_title: '需要服务支持吗？',
         dl_cta_btn: '立即联系',
+        dl_cta_desc: '如果您在语言或程序上有困难，我们可以推荐信誉良好的服务提供商为您提供全程支持。',
+        housing_sec1_quote: '"即使便宜，外国人也不能在没有合同的情况下租房或依赖口头协议。"',
+
+        housing_utilities: {
+            title: '水、电、网络：',
+            intro: '外籍人士经常面临电费过高或管理费不明确的问题。',
+            check_title: '签约前，请问清楚：',
+            list: [
+                '水电费如何计算（国家价格还是商业价格？）',
+                '有正式账单吗？',
+                '谁安装网络并支付费用？'
+            ]
+        },
+        housing_registration_list: [
+            '必须在抵达后 **24 小时** 内申报。',
+            '通常由房东完成。',
+            '⚠️ 如果房东没做，您仍可能被罚款。'
+        ],
+        housing_risks_list: [
+            '🚫 房东无权出租',
+            '💸 无理扣除押金',
+            '📜 模糊、不利的合同',
+            '🕵️ 未办理暂住登记'
+        ],
+        housing_cta_tips: [
+            '看房前不要转账',
+            '入住时拍照留底',
+            '保留文件副本',
+            '询问噪音/访客规定'
+        ],
+        dl_hero_list: [
+            '无需理论或实践考试',
+            '在越南全境有效',
+            '处理速度快，5-7天内领取驾照',
+            '文件简单，费用合理'
+        ],
 
         housing_hero_list: [
             '安全租房的实战经验',

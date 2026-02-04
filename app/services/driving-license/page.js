@@ -20,12 +20,7 @@ export default function DrivingLicensePage() {
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
                         <div style={{ textAlign: 'left', background: 'white', padding: '1.5rem 2.5rem', borderRadius: '16px', boxShadow: '0 2px 10px rgba(0,0,0,0.03)', display: 'inline-block' }}>
                             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                                {[
-                                    'Không cần thi lại lý thuyết hay thực hành',
-                                    'Có giá trị sử dụng trên toàn lãnh thổ Việt Nam',
-                                    'Thủ tục nhanh gọn, nhận bằng sau 5-7 ngày',
-                                    'Hồi sơ đơn giản, chi phí hợp lý'
-                                ].map((item, index) => (
+                                {(t('dl_hero_list') || []).map((item, index) => (
                                     <li key={index} style={{ marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.05rem', color: '#333' }}>
                                         <span style={{ color: '#1976d2', fontSize: '1.2rem', flexShrink: 0 }}>✓</span>
                                         {item}
@@ -87,7 +82,7 @@ export default function DrivingLicensePage() {
             <section style={{ textAlign: 'center', background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)', color: 'white', padding: '4rem 2rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(21, 101, 192, 0.3)' }}>
                 <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontWeight: '800' }}>{t('dl_cta_title')}</h2>
                 <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', opacity: '0.9' }}>
-                    Nếu bạn gặp khó khăn về ngôn ngữ hoặc thủ tục, chúng tôi có thể giới thiệu các đơn vị dịch vụ uy tín để hỗ trợ bạn trọn gói.
+                    {t('dl_cta_desc')}
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                     <Link href="/contact" className="btn" style={{

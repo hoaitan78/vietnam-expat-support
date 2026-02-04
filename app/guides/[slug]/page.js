@@ -326,6 +326,97 @@ export default function GuideSlug({ params }) {
 
     const isDrivingLicense = slug === 'driving-license'
     const isTransportation = slug === 'transportation'
+    const isBanking = slug === 'banking'
+
+    if (isBanking) {
+        return (
+            <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                {/* HERO */}
+                <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
+                    <div style={{ background: 'linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                        <h1 style={{ color: '#2e7d32', fontSize: '2.8rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>{t('bank_title')}</h1>
+                        <p style={{ maxWidth: '700px', margin: '0 auto 2.5rem auto', lineHeight: '1.6', color: '#666', fontSize: '1.1rem' }}>
+                            {t('bank_eligibility_desc')}
+                        </p>
+                    </div>
+                </section>
+
+                {/* 1. DOCUMENTS */}
+                <section style={{ marginBottom: '5rem' }}>
+                    <h2 style={{ color: '#2e7d32', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('bank_docs_title')}</h2>
+                    <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
+                        <p style={{ marginBottom: '1rem', fontWeight: '500' }}>{t('bank_docs_desc')}</p>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            {(t('bank_docs_list') || []).map((item, i) => (
+                                <li key={i} style={{ marginBottom: '0.8rem', display: 'flex', gap: '0.75rem', fontSize: '1.1rem' }}>
+                                    <span>📄</span> {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
+
+                {/* 2. RESIDENCY */}
+                <section style={{ marginBottom: '5rem', display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
+                    <div style={{ padding: '2rem', background: 'white', border: '1px solid #eee', borderRadius: '16px', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                        <h2 style={{ color: '#2e7d32', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('bank_residency_title')}</h2>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            {(t('bank_residency_list') || []).map((item, i) => (
+                                <li key={i} style={{ marginBottom: '1rem', display: 'flex', gap: '0.75rem', fontSize: '1.05rem', color: '#555' }}>
+                                    <span>🏠</span> {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div style={{ padding: '2rem', background: '#e3f2fd', borderRadius: '16px' }}>
+                        <h2 style={{ color: '#1565c0', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('bank_types_title')}</h2>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            {(t('bank_types_list') || []).map((item, i) => (
+                                <li key={i} style={{ marginBottom: '1rem', display: 'flex', gap: '0.75rem', fontSize: '1.05rem', color: '#1565c0' }}>
+                                    <span>💳</span> {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
+
+                {/* 3. NOTES */}
+                <section style={{ marginBottom: '5rem' }}>
+                    <h2 style={{ color: '#2e7d32', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('bank_notes_title')}</h2>
+                    <div style={{ background: '#fff8e1', padding: '2rem', borderRadius: '16px', border: '1px solid #ffecb3' }}>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            {(t('bank_notes_list') || []).map((item, i) => (
+                                <li key={i} style={{ marginBottom: '0.8rem', display: 'flex', gap: '0.75rem', fontSize: '1.1rem', color: '#f57f17' }}>
+                                    <span>⚠️</span> {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
+
+                {/* CTA */}
+                <section style={{ textAlign: 'center', background: 'linear-gradient(135deg, #2e7d32 0%, #43a047 100%)', color: 'white', padding: '4rem 2rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(46, 125, 50, 0.3)' }}>
+                    <p style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '700px', margin: '0 auto 2rem auto', lineHeight: '1.6' }}>
+                        {t('bank_cta_desc')}
+                    </p>
+                    <button className="btn" style={{
+                        background: 'white',
+                        color: '#2e7d32',
+                        fontWeight: '800',
+                        padding: '1rem 3rem',
+                        fontSize: '1.2rem',
+                        border: 'none',
+                        borderRadius: '50px',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                        cursor: 'pointer'
+                    }}>
+                        {t('nav_contact')}
+                    </button>
+                </section>
+            </div>
+        )
+    }
 
     if (isTransportation) {
         return (

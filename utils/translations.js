@@ -169,6 +169,36 @@ export const translations = {
             'Bảo hiểm trách nhiệm dân sự là bắt buộc'
         ],
 
+        // Banking Guide
+        bank_title: 'Mở tài khoản ngân hàng tại Việt Nam',
+        bank_eligibility_title: 'Điều kiện mở tài khoản',
+        bank_eligibility_desc: 'Theo quy định pháp luật Việt Nam, người nước ngoài cư trú hợp pháp tại Việt Nam được phép mở tài khoản ngân hàng tại các ngân hàng thương mại được cấp phép hoạt động, với điều kiện tuân thủ quy định hiện hành và chính sách của từng ngân hàng.',
+        bank_docs_title: 'Hồ sơ cần chuẩn bị',
+        bank_docs_desc: 'Người nước ngoài khi mở tài khoản ngân hàng thường cần cung cấp:',
+        bank_docs_list: [
+            'Hộ chiếu còn hiệu lực',
+            'Thị thực (Visa) hợp lệ hoặc Thẻ tạm trú / Thẻ thường trú',
+            'Giấy tờ chứng minh mục đích cư trú (Giấy phép lao động / Hợp đồng lao động / Giấy xác nhận học tập)',
+            'Giấy xác nhận cư trú hoặc hợp đồng thuê nhà'
+        ],
+        bank_residency_title: 'Điều kiện về cư trú',
+        bank_residency_list: [
+            'Phần lớn ngân hàng yêu cầu visa hoặc thẻ tạm trú còn hiệu lực tối thiểu từ 3–6 tháng',
+            'Người mở tài khoản cần có địa chỉ cư trú hợp pháp và rõ ràng tại Việt Nam'
+        ],
+        bank_types_title: 'Loại tài khoản có thể mở',
+        bank_types_list: [
+            'Tài khoản thanh toán bằng Đồng Việt Nam (VND)',
+            'Tài khoản ngoại tệ (USD, EUR, v.v.)',
+            'Dịch vụ thẻ ATM/ghi nợ, Internet Banking, Mobile Banking'
+        ],
+        bank_notes_title: 'Lưu ý quan trọng',
+        bank_notes_list: [
+            'Yêu cầu hồ sơ và quy trình có thể khác nhau giữa các ngân hàng và từng chi nhánh',
+            'Không phải chi nhánh nào cũng hỗ trợ mở tài khoản cho người nước ngoài'
+        ],
+        bank_cta_desc: 'Vietnam Expat Support cung cấp dịch vụ hỗ trợ trọn gói cho người nước ngoài mở tài khoản ngân hàng tại Việt Nam, đảm bảo đúng quy định và thuận lợi tối đa.',
+
         // Driving License Page
         dl_title: 'Đổi Bằng Lái Xe',
         dl_sub: 'Hướng dẫn đổi bằng lái xe nước ngoài sang bằng Việt Nam',
@@ -495,6 +525,36 @@ export const translations = {
             'Valid Vietnamese Driving License required for bikes over 50cc',
             'Civil Liability Insurance is mandatory'
         ],
+
+        // Banking Guide
+        bank_title: 'Opening a Bank Account in Vietnam',
+        bank_eligibility_title: 'Eligibility Requirements',
+        bank_eligibility_desc: 'Foreign nationals legally residing in Vietnam are permitted to open bank accounts at licensed Vietnamese commercial banks, subject to compliance with local regulations and individual bank policies.',
+        bank_docs_title: 'Required Documents',
+        bank_docs_desc: 'Applicants are generally required to provide:',
+        bank_docs_list: [
+            'A valid passport',
+            'A valid visa, Temporary Residence Card (TRC), or Permanent Residence Card',
+            'Documents proving purpose of stay (Work Permit / Labor Contract / Student Confirmation)',
+            'Proof of residence (rental contract or residence confirmation)'
+        ],
+        bank_residency_title: 'Residency Conditions',
+        bank_residency_list: [
+            'Most banks require the visa or residence card to have a remaining validity of at least 3–6 months',
+            'A registered and verifiable address in Vietnam is usually required'
+        ],
+        bank_types_title: 'Available Account Types',
+        bank_types_list: [
+            'Vietnamese Dong (VND) payment accounts',
+            'Foreign currency accounts (USD, EUR, etc.)',
+            'ATM/debit cards, Internet Banking, and Mobile Banking services'
+        ],
+        bank_notes_title: 'Important Notes',
+        bank_notes_list: [
+            'Documentation requirements and procedures may vary by bank and branch',
+            'Not all bank branches support account opening for foreign nationals'
+        ],
+        bank_cta_desc: 'Vietnam Expat Support provides end-to-end assistance for bank account opening in Vietnam, ensuring a smooth and compliant process.',
 
         // Driving License Page
         dl_title: 'Driving License Exchange',
@@ -825,6 +885,36 @@ export const translations = {
             '민사 책임 보험은 의무입니다'
         ],
 
+        // Banking Guide
+        bank_title: '베트남 은행 계좌 개설',
+        bank_eligibility_title: '자격 요건',
+        bank_eligibility_desc: '베트남에 합법적으로 거주하는 외국인은 현지 금용 규정 및 은행 정책 준수 하에 허가된 베트남 상업 은행에서 계좌를 개설할 수 있습니다.',
+        bank_docs_title: '필요 서류',
+        bank_docs_desc: '신청자는 일반적으로 다음 서류를 제출해야 합니다:',
+        bank_docs_list: [
+            '유효한 여권',
+            '유효한 비자, 거주증 (TRC) 또는 영주권',
+            '체류 목적 증명 서류 (노동 허가서 / 근로 계약서 / 재학 증명서)',
+            '거주 증명서 (임대 계약서 또는 거주 확인서)'
+        ],
+        bank_residency_title: '거주 조건',
+        bank_residency_list: [
+            '대부분의 은행은 비자/거주증 유효 기간이 최소 3~6개월 이상 남았는지 요구합니다',
+            '베트남 내 확인 가능한 등록된 거주 주소가 필요합니다'
+        ],
+        bank_types_title: '개설 가능 계좌',
+        bank_types_list: [
+            '베트남 동 (VND) 입출금 계좌',
+            '외화 계좌 (USD, EUR 등)',
+            'ATM/체크카드, 인터넷 뱅킹 및 모바일 뱅킹 서비스'
+        ],
+        bank_notes_title: '중요 참고 사항',
+        bank_notes_list: [
+            '필요 서류 및 절차는 은행 및 지점마다 다를 수 있습니다',
+            '모든 은행 지점이 외국인 계좌 개설을 지원하는 것은 아닙니다'
+        ],
+        bank_cta_desc: 'Vietnam Expat Support는 베트남 내 원활하고 적법한 은행 계좌 개설을 위한 포괄적인 지원 서비스를 제공합니다.',
+
         // Driving License Page
         dl_title: '운전 면허증 교환',
         dl_sub: '외국 운전 면허증을 베트남 면허증으로 교환하는 가이드',
@@ -1152,6 +1242,36 @@ export const translations = {
             '驾驶50cc以上的摩托车必须持有有效的越南驾照',
             '必须购买民事责任保险'
         ],
+
+        // Banking Guide
+        bank_title: '在越南开设银行账户',
+        bank_eligibility_title: '资格要求',
+        bank_eligibility_desc: '合法居住在越南的外国公民，只要遵守当地法规和银行政策，即可在获得许可的越南商业银行开设银行账户。',
+        bank_docs_title: '所需文件',
+        bank_docs_desc: '申请人通常需要提供：',
+        bank_docs_list: [
+            '有效护照',
+            '有效签证、暂住证 (TRC) 或永久居留证',
+            '在越居留目的证明文件（工作许可证/劳动合同/入学确认书）',
+            '居住证明（租赁合同或居住确认书）'
+        ],
+        bank_residency_title: '居留条件',
+        bank_residency_list: [
+            '大多数银行要求签证或居留证的有效期至少剩余 3-6 个月',
+            '通常需要在越南有可验证的注册地址'
+        ],
+        bank_types_title: '可用账户类型',
+        bank_types_list: [
+            '越南盾 (VND) 支付账户',
+            '外币账户 (USD, EUR 等)',
+            'ATM/借记卡、网上银行和手机银行服务'
+        ],
+        bank_notes_title: '重要注意事项',
+        bank_notes_list: [
+            '文件要求和程序可能因银行和分行而异',
+            '并非所有银行分行都支持外国人开户'
+        ],
+        bank_cta_desc: 'Vietnam Expat Support 为在越南开设银行账户提供全程协助，确保流程顺畅合规。',
 
         // Driving License Page
         dl_title: '驾驶执照交换',

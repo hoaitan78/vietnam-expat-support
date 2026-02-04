@@ -73,9 +73,9 @@ export default function JobsPage() {
     return (
         <div className="container" style={{ padding: '4rem 0' }}>
             <div className={styles.header}>
-                <h1 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>Find Work in Nha Trang</h1>
+                <h1 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>{t('jobs_title')}</h1>
                 <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
-                    Browse opportunities for expats and locals in the coastal city.
+                    {t('jobs_subtitle')}
                 </p>
             </div>
 
@@ -86,9 +86,9 @@ export default function JobsPage() {
                             <h3 className={styles.jobTitle}>{job.title}</h3>
                             <p className={styles.company}>{job.company}</p>
                             <div className={styles.meta}>
-                                <span className={styles.salary}>{job.salary}</span>
-                                <span className={styles.location}>📍 {job.location}</span>
-                                <span className={styles.type}>🕒 {job.type}</span>
+                                <span className={styles.salary}>{t('job_salary')} {job.salary}</span>
+                                <span className={styles.location}>📍 {t('job_location')} {job.location}</span>
+                                <span className={styles.type}>🕒 {t('job_type')} {job.type}</span>
                             </div>
                         </div>
                         <div className={styles.sideInfo}>
@@ -97,8 +97,8 @@ export default function JobsPage() {
                                     <span key={i} className={styles.tag}>{tag}</span>
                                 ))}
                             </div>
-                            <span className={styles.posted}>{job.posted}</span>
-                            <button className="btn btn-primary btn-sm">Apply Now</button>
+                            <span className={styles.posted}>{t('job_posted')} {job.posted}</span>
+                            <button className="btn btn-primary btn-sm">{t('jobs_apply')}</button>
                         </div>
                     </div>
                 ))}
@@ -106,7 +106,7 @@ export default function JobsPage() {
 
             <div style={{ marginTop: '3rem', textAlign: 'center' }}>
                 <Link href="/services" className="btn btn-secondary">
-                    ← Back to Services
+                    {t('jobs_back')}
                 </Link>
             </div>
         </div>

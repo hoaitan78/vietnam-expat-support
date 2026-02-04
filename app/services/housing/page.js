@@ -12,10 +12,10 @@ export default function HousingPage() {
             {/* HERO */}
             <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                 <div style={{ background: 'linear-gradient(135deg, #fff3e0 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <h1 style={{ color: '#e65100', fontSize: '2.8rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>Find Your Home in Nha Trang</h1>
-                    <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '0.5rem', fontWeight: '500' }}>Tìm nhà và thuê nhà tại Nha Trang cho người nước ngoài</p>
+                    <h1 style={{ color: '#e65100', fontSize: '2.8rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>{t('housing_hero_title')}</h1>
+                    <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '0.5rem', fontWeight: '500' }}>{t('housing_sub')}</p>
                     <p style={{ maxWidth: '700px', margin: '0 auto 2.5rem auto', lineHeight: '1.6', color: '#666' }}>
-                        Nha Trang là một trong những thành phố biển được người nước ngoài lựa chọn nhiều nhất. Tuy nhiên, việc thuê nhà vẫn tiềm ẩn rủi ro nếu không hiểu rõ thị trường và luật pháp.
+                        {t('housing_intro')}
                     </p>
 
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
@@ -40,10 +40,10 @@ export default function HousingPage() {
 
             {/* 1. CAN FOREIGNERS RENT? */}
             <section style={{ marginBottom: '5rem' }}>
-                <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>1. Người nước ngoài có được thuê nhà không?</h2>
+                <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec1_title')}</h2>
                 <div style={{ display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
                     <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
-                        <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>👉</span> Có, được phép!</h3>
+                        <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>👉</span> {t('housing_sec1_yes')}</h3>
                         <p>Theo pháp luật Việt Nam, bạn được thuê nhà hợp pháp để ở hoặc làm việc nếu:</p>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {['Có visa còn hiệu lực hoặc thẻ tạm trú', 'Có hợp đồng thuê nhà hợp pháp', 'Thực hiện khai báo tạm trú với công an'].map((item, i) => (
@@ -52,7 +52,7 @@ export default function HousingPage() {
                         </ul>
                     </div>
                     <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350' }}>
-                        <h3 style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>⚠️</span> Lưu ý quan trọng</h3>
+                        <h3 style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>⚠️</span> {t('housing_sec1_note')}</h3>
                         <p style={{ fontStyle: 'italic', fontWeight: '500' }}>
                             "Người nước ngoài không được tự ý thuê nhà không hợp đồng hoặc thuê “miệng”, dù giá rẻ."
                         </p>
@@ -63,7 +63,7 @@ export default function HousingPage() {
 
             {/* 2. TYPES OF HOUSING */}
             <section style={{ marginBottom: '5rem' }}>
-                <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>2. Các loại hình nhà ở phổ biến</h2>
+                <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec2_title')}</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                     {[
                         { title: 'Căn hộ chung cư', icon: '🏢', feature: 'An ninh, tiện ích', target: 'Độc thân, Cặp đôi', desc: 'Phổ biến ở khu trung tâm và ven biển. Có bảo vệ, lễ tân.' },
@@ -85,7 +85,7 @@ export default function HousingPage() {
             {/* 3. LOCATIONS & 4. PRICES */}
             <section style={{ marginBottom: '5rem', display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '3rem' }}>
                 <div>
-                    <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>3. Khu vực phổ biến</h2>
+                    <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('housing_sec3_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         {[
                             { area: 'Trung tâm thành phố', desc: 'Gần biển, tiện sinh hoạt' },
@@ -103,7 +103,7 @@ export default function HousingPage() {
                     </div>
                 </div>
                 <div>
-                    <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>4. Giá thuê (Tham khảo)</h2>
+                    <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('housing_sec4_title')}</h2>
                     <div style={{ background: 'white', border: '1px solid #eee', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
                         <p>Giá thuê phụ thuộc vào: <strong>Vị trí, Diện tích, Nội thất, Thời hạn.</strong></p>
                         <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '1rem 0' }} />
@@ -129,7 +129,7 @@ export default function HousingPage() {
             {/* 5. CONTRACT & 6. UTILITIES */}
             <section style={{ marginBottom: '5rem' }}>
                 <div style={{ background: '#fff8e1', padding: '3rem 2rem', borderRadius: '24px' }}>
-                    <h2 style={{ color: '#f57f17', textAlign: 'center', marginBottom: '2rem' }}>📝 Hợp đồng & Chi phí phát sinh</h2>
+                    <h2 style={{ color: '#f57f17', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec5_title')}</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                         <div>
                             <h3 style={{ marginBottom: '1rem', color: '#333' }}>Điều khoản Hợp đồng cần soi kỹ:</h3>
@@ -165,7 +165,7 @@ export default function HousingPage() {
             {/* 7. REGISTRATION & 8. RISKS */}
             <section style={{ marginBottom: '5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                 <div style={{ padding: '2rem', border: '2px solid #2196f3', borderRadius: '16px', background: '#e3f2fd' }}>
-                    <h2 style={{ color: '#1565c0', marginBottom: '1rem', fontSize: '1.5rem' }}>7. Khai báo tạm trú bắt buộc</h2>
+                    <h2 style={{ color: '#1565c0', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec7_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         <li style={{ marginBottom: '1rem' }}>👮 Phải khai báo trong vòng <strong>24 giờ</strong> sau khi đến.</li>
                         <li style={{ marginBottom: '1rem' }}>🏠 Thường do chủ nhà thực hiện.</li>
@@ -174,7 +174,7 @@ export default function HousingPage() {
                     <p style={{ fontSize: '0.9rem', color: '#0d47a1' }}>Ảnh hưởng: Không gia hạn được Visa/TRC nếu thiếu giấy này.</p>
                 </div>
                 <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee' }}>
-                    <h2 style={{ color: '#c62828', marginBottom: '1rem', fontSize: '1.5rem' }}>8. Rủi ro thường gặp</h2>
+                    <h2 style={{ color: '#c62828', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec8_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         <li style={{ marginBottom: '0.5rem' }}>🚫 Chủ nhà không có quyền cho thuê</li>
                         <li style={{ marginBottom: '0.5rem' }}>💸 Mất tiền cọc vô lý</li>
@@ -187,7 +187,7 @@ export default function HousingPage() {
 
             {/* 9. TIPS & CTA */}
             <section style={{ textAlign: 'center', background: 'linear-gradient(135deg, #e65100 0%, #ff9800 100%)', color: 'white', padding: '4rem 2rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(230, 81, 0, 0.3)' }}>
-                <h2 style={{ fontSize: '2.2rem', marginBottom: '2rem', fontWeight: '800' }}>Lời khuyên thực tế & Hỗ trợ</h2>
+                <h2 style={{ fontSize: '2.2rem', marginBottom: '2rem', fontWeight: '800' }}>{t('housing_cta_title')}</h2>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginBottom: '3rem' }}>
                     {['Không chuyển tiền trước khi xem nhà', 'Chụp ảnh hiện trạng khi nhận', 'Giữ bản sao giấy tờ', 'Hỏi kỹ quy định tiếng ồn/khách'].map((tip, i) => (
@@ -195,7 +195,7 @@ export default function HousingPage() {
                     ))}
                 </div>
 
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Cần hỗ trợ tìm nhà tại Nha Trang?</h3>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('housing_cta_sub')}</h3>
                 <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', opacity: '0.9' }}>
                     Chúng tôi hỗ trợ bạn từ khâu tìm nhà đến hoàn tất thủ tục pháp lý, kiểm tra hợp đồng và đăng ký tạm trú.
                 </p>
@@ -211,7 +211,7 @@ export default function HousingPage() {
                     cursor: 'pointer',
                     transition: 'transform 0.2s'
                 }}>
-                    📩 Liên hệ hỗ trợ tìm nhà
+                    {t('housing_cta_btn')}
                 </button>
             </section>
         </div>

@@ -45,7 +45,7 @@ export default function Home() {
                     <h2 className={styles.sectionTitle}>{t('services_title')}</h2>
 
                     {filteredLinks.length === 0 && (
-                        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>No results found.</p>
+                        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>{t('no_results')}</p>
                     )}
 
                     <div className={styles.grid}>

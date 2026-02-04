@@ -30,7 +30,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className={styles.copyright}>
-                © {new Date().getFullYear()} Nha Trang Expat Support. All rights reserved.
+                {t('footer_copyright')}
             </div>
         </footer>
     )

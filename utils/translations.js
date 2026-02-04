@@ -101,7 +101,51 @@ export const translations = {
         page_guides_sub: 'Tài nguyên toàn diện hỗ trợ cuộc sống của bạn.',
         page_services_title: 'Danh bạ Dịch vụ',
         page_services_btn: 'Xem nhà cung cấp',
-        page_community_title: 'Diễn đàn Cộng đồng'
+        page_community_title: 'Diễn đàn Cộng đồng',
+
+        // New UI Keys
+        no_results: 'Không tìm thấy kết quả.',
+        auth_logout: 'Đăng xuất',
+        toggle_theme: 'Chuyển đổi giao diện',
+        footer_rights: 'Đã đăng ký bản quyền',
+        footer_copyright: '© 2024 Nha Trang Expat Support. Đã đăng ký bản quyền.',
+
+        // Jobs Page
+        jobs_title: 'Tìm việc làm tại Nha Trang',
+        jobs_subtitle: 'Khám phá cơ hội cho người nước ngoài và người dân địa phương tại thành phố biển.',
+        jobs_back: '← Quay lại Dịch vụ',
+        jobs_apply: 'Ứng tuyển ngay',
+        job_salary: 'Lương:',
+        job_location: 'Địa điểm:',
+        job_type: 'Loại hình:',
+        job_posted: 'Đăng:',
+
+        // Housing Page
+        housing_hero_title: 'Tìm ngôi nhà của bạn tại Nha Trang',
+        housing_sub: 'Tìm nhà và thuê nhà tại Nha Trang cho người nước ngoài',
+        housing_intro: 'Nha Trang là một trong những thành phố biển được người nước ngoài lựa chọn nhiều nhất. Tuy nhiên, việc thuê nhà vẫn tiềm ẩn rủi ro nếu không hiểu rõ thị trường và luật pháp.',
+        housing_sec1_title: '1. Người nước ngoài có được thuê nhà không?',
+        housing_sec1_yes: 'Có, được phép!',
+        housing_sec1_note: 'Lưu ý quan trọng',
+        housing_sec2_title: '2. Các loại hình nhà ở phổ biến',
+        housing_sec3_title: '3. Khu vực phổ biến',
+        housing_sec4_title: '4. Giá thuê (Tham khảo)',
+        housing_sec5_title: '📝 Hợp đồng & Chi phí phát sinh',
+        housing_sec7_title: '7. Khai báo tạm trú bắt buộc',
+        housing_sec8_title: '8. Rủi ro thường gặp',
+        housing_cta_title: 'Lời khuyên thực tế & Hỗ trợ',
+        housing_cta_sub: 'Cần hỗ trợ tìm nhà tại Nha Trang?',
+        housing_cta_btn: '📩 Liên hệ hỗ trợ tìm nhà',
+
+        // Driving License Page
+        dl_title: 'Đổi Bằng Lái Xe',
+        dl_sub: 'Hướng dẫn đổi bằng lái xe nước ngoài sang bằng Việt Nam',
+        dl_intro: 'Bạn muốn lái xe hợp pháp tại Việt Nam? Hãy đổi bằng lái xe quốc tế của bạn sang bằng lái xe Việt Nam (PET) để tránh rắc rối với cảnh sát giao thông và bảo hiểm.',
+        dl_sec1_title: '1. Ai đủ điều kiện đổi bằng?',
+        dl_sec2_title: '2. Hồ sơ cần chuẩn bị',
+        dl_sec3_title: '3. Quy trình thực hiện',
+        dl_cta_title: 'Cần hỗ trợ dịch vụ?',
+        dl_cta_btn: 'Liên hệ ngay'
     },
     en: {
         // Navbar
@@ -205,7 +249,51 @@ export const translations = {
         page_guides_sub: 'Comprehensive resources to assist your move.',
         page_services_title: 'Services Directory',
         page_services_btn: 'View Providers',
-        page_community_title: 'Community Forum'
+        page_community_title: 'Community Forum',
+
+        // New UI Keys
+        no_results: 'No results found.',
+        auth_logout: 'Logout',
+        toggle_theme: 'Toggle Theme',
+        footer_rights: 'All rights reserved',
+        footer_copyright: '© 2024 Nha Trang Expat Support. All rights reserved.',
+
+        // Jobs Page
+        jobs_title: 'Find Work in Nha Trang',
+        jobs_subtitle: 'Browse opportunities for expats and locals in the coastal city.',
+        jobs_back: '← Back to Services',
+        jobs_apply: 'Apply Now',
+        job_salary: 'Salary:',
+        job_location: 'Location:',
+        job_type: 'Type:',
+        job_posted: 'Posted:',
+
+        // Housing Page
+        housing_hero_title: 'Find Your Home in Nha Trang',
+        housing_sub: 'Find and rent a home in Nha Trang for foreigners',
+        housing_intro: 'Nha Trang is one of the most popular beach cities for expats. However, renting can be risky without understanding the market and laws.',
+        housing_sec1_title: '1. Can Foreigners Rent?',
+        housing_sec1_yes: 'Yes, Permitted!',
+        housing_sec1_note: 'Important Note',
+        housing_sec2_title: '2. Common Housing Types',
+        housing_sec3_title: '3. Popular Areas',
+        housing_sec4_title: '4. Rental Prices (Reference)',
+        housing_sec5_title: '📝 Contracts & Extra Costs',
+        housing_sec7_title: '7. Mandatory Residence Registration',
+        housing_sec8_title: '8. Common Risks',
+        housing_cta_title: 'Practical Tips & Support',
+        housing_cta_sub: 'Need help finding a home in Nha Trang?',
+        housing_cta_btn: '📩 Contact for Housing Support',
+
+        // Driving License Page
+        dl_title: 'Driving License Exchange',
+        dl_sub: 'Guide to exchanging foreign driving license to Vietnamese license',
+        dl_intro: 'Want to drive legally in Vietnam? Exchange your international license for a Vietnamese (PET) license to avoid trouble with traffic police and insurance.',
+        dl_sec1_title: '1. Who is Eligible?',
+        dl_sec2_title: '2. Required Documents',
+        dl_sec3_title: '3. Application Process',
+        dl_cta_title: 'Need Service Support?',
+        dl_cta_btn: 'Contact Now'
     },
     ko: {
         // Navbar
@@ -309,7 +397,51 @@ export const translations = {
         page_guides_sub: '이주를 돕는 포괄적인 자료.',
         page_services_title: '서비스 디렉토리',
         page_services_btn: '제공자 보기',
-        page_community_title: '커뮤니티 포럼'
+        page_community_title: '커뮤니티 포럼',
+
+        // New UI Keys
+        no_results: '결과를 찾을 수 없습니다.',
+        auth_logout: '로그아웃',
+        toggle_theme: '테마 변경',
+        footer_rights: '판권 소유',
+        footer_copyright: '© 2024 Nha Trang Expat Support. All rights reserved.',
+
+        // Jobs Page
+        jobs_title: '나트랑 일자리 찾기',
+        jobs_subtitle: '해변 도시에서의 외국인 및 현지인을 위한 기회를 찾아보세요.',
+        jobs_back: '← 서비스로 돌아가기',
+        jobs_apply: '지금 지원하기',
+        job_salary: '급여:',
+        job_location: '위치:',
+        job_type: '유형:',
+        job_posted: '게시됨:',
+
+        // Housing Page
+        housing_hero_title: '나트랑에서 집 찾기',
+        housing_sub: '외국인을 위한 나트랑 집 찾기 및 임대',
+        housing_intro: '나트랑은 외국인이 가장 선호하는 해변 도시 중 하나입니다. 하지만 시장과 법률을 이해하지 못하면 임대는 위험할 수 있습니다.',
+        housing_sec1_title: '1. 외국인이 임대할 수 있나요?',
+        housing_sec1_yes: '네, 가능합니다!',
+        housing_sec1_note: '중요 참고 사항',
+        housing_sec2_title: '2. 일반적인 주택 유형',
+        housing_sec3_title: '3. 인기 지역',
+        housing_sec4_title: '4. 임대 가격 (참고)',
+        housing_sec5_title: '📝 계약 및 추가 비용',
+        housing_sec7_title: '7. 의무 거주 등록',
+        housing_sec8_title: '8. 일반적인 위험',
+        housing_cta_title: '실제적인 팁 및 지원',
+        housing_cta_sub: '나트랑에서 집을 찾는 데 도움이 필요하신가요?',
+        housing_cta_btn: '📩 주거 지원 문의',
+
+        // Driving License Page
+        dl_title: '운전 면허증 교환',
+        dl_sub: '외국 운전 면허증을 베트남 면허증으로 교환하는 가이드',
+        dl_intro: '베트남에서 합법적으로 운전하고 싶으신가요? 교통 경찰 및 보험 문제를 피하기 위해 국제 면허증을 베트남 (PET) 면허증으로 교환하세요.',
+        dl_sec1_title: '1. 자격 요건은 무엇인가요?',
+        dl_sec2_title: '2. 필요 서류',
+        dl_sec3_title: '3. 신청 절차',
+        dl_cta_title: '서비스 지원이 필요하신가요?',
+        dl_cta_btn: '지금 문의하기'
     },
     zh: {
         // Navbar
@@ -413,6 +545,51 @@ export const translations = {
         page_guides_sub: '协助您搬迁的综合资源。',
         page_services_title: '服务目录',
         page_services_btn: '查看提供商',
-        page_community_title: '社区论坛'
+        page_community_title: '社区论坛',
+
+        // New UI Keys
+        no_results: '未找到结果。',
+        auth_logout: '登出',
+        toggle_theme: '切换主题',
+        footer_rights: '保留所有权利',
+        footer_copyright: '© 2024 Nha Trang Expat Support. 保留所有权利。',
+
+        // Jobs Page
+        jobs_title: '在芽庄找工作',
+        jobs_subtitle: '浏览沿海城市为外籍人士和当地人提供的机会。',
+        jobs_back: '← 返回服务',
+        jobs_apply: '立即申请',
+        job_salary: '薪水:',
+        job_location: '地点:',
+        job_type: '类型:',
+        job_posted: '发布:',
+
+        // Housing Page
+        housing_hero_title: '在芽庄安家',
+        housing_sub: '为外国人寻找和租用芽庄的房屋',
+        housing_intro: '芽庄是外籍人士最受欢迎的海滨城市之一。然而，如果不了解市场和法律，租房可能会有风险。',
+        housing_sec1_title: '1. 外国人可以租房吗？',
+        housing_sec1_yes: '是的，允许！',
+        housing_sec1_note: '重要提示',
+        housing_sec2_title: '2. 常见房屋类型',
+        housing_sec3_title: '3. 热门区域',
+        housing_sec4_title: '4. 租金价格（参考）',
+        housing_sec5_title: '📝 合同与额外费用',
+        housing_sec7_title: '7. 强制暂住登记',
+        housing_sec8_title: '8. 常见风险',
+        housing_cta_title: '实用建议与支持',
+        housing_cta_sub: '需要帮助在芽庄找房吗？',
+        housing_cta_btn: '📩 联系房屋支持',
+
+        // Driving License Page
+        dl_title: '驾驶执照交换',
+        dl_sub: '将外国驾驶执照换成越南驾驶执照的指南',
+        dl_intro: '想在越南合法驾驶吗？将您的国际驾照换成越南（PET）驾照，以避免与交通警察和保险发生麻烦。',
+        dl_sec1_title: '1. 谁有资格？',
+        dl_sec2_title: '2. 所需文件',
+        dl_sec3_title: '3. 申请流程',
+        dl_cta_title: '需要服务支持吗？',
+        dl_cta_btn: '立即联系'
     }
 }
+

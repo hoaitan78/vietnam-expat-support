@@ -11,10 +11,10 @@ export default function DrivingLicensePage() {
             {/* HERO */}
             <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                 <div style={{ background: 'linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                    <h1 style={{ color: '#0d47a1', fontSize: '2.8rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>Driving License Exchange</h1>
-                    <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '0.5rem', fontWeight: '500' }}>Hướng dẫn đổi bằng lái xe nước ngoài sang bằng Việt Nam</p>
+                    <h1 style={{ color: '#0d47a1', fontSize: '2.8rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>{t('dl_title')}</h1>
+                    <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '0.5rem', fontWeight: '500' }}>{t('dl_sub')}</p>
                     <p style={{ maxWidth: '700px', margin: '0 auto 2.5rem auto', lineHeight: '1.6', color: '#666' }}>
-                        Bạn muốn lái xe hợp pháp tại Việt Nam? Hãy đổi bằng lái xe quốc tế của bạn sang bằng lái xe Việt Nam (PET) để tránh rắc rối với cảnh sát giao thông và bảo hiểm.
+                        {t('dl_intro')}
                     </p>
 
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
@@ -39,7 +39,7 @@ export default function DrivingLicensePage() {
 
             {/* 1. ELIGIBILITY */}
             <section style={{ marginBottom: '5rem' }}>
-                <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>1. Ai đủ điều kiện đổi bằng?</h2>
+                <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('dl_sec1_title')}</h2>
                 <div style={{ display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
                     <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
                         <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>📋</span> Đối tượng áp dụng</h3>
@@ -60,7 +60,7 @@ export default function DrivingLicensePage() {
 
             {/* 2. REQUIRED DOCUMENTS */}
             <section style={{ marginBottom: '5rem' }}>
-                <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>2. Hồ sơ cần chuẩn bị</h2>
+                <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('dl_sec2_title')}</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
                     {[
                         { title: 'Đơn đề nghị', icon: '📝', desc: 'Mẫu đơn đề nghị đổi giấy phép lái xe (theo mẫu quy định).' },
@@ -81,7 +81,7 @@ export default function DrivingLicensePage() {
 
             {/* 3. PROCESS */}
             <section style={{ marginBottom: '5rem' }}>
-                <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>3. Quy trình thực hiện</h2>
+                <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('dl_sec3_title')}</h2>
                 <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
                     {[
                         { step: '1', title: 'Nộp hồ sơ', desc: 'Nộp hồ sơ trực tiếp tại Sở Giao thông Vận tải hoặc Tổng cục Đường bộ Việt Nam.' },
@@ -105,7 +105,7 @@ export default function DrivingLicensePage() {
 
             {/* CTA */}
             <section style={{ textAlign: 'center', background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)', color: 'white', padding: '4rem 2rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(21, 101, 192, 0.3)' }}>
-                <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontWeight: '800' }}>Cần hỗ trợ dịch vụ?</h2>
+                <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontWeight: '800' }}>{t('dl_cta_title')}</h2>
                 <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', opacity: '0.9' }}>
                     Nếu bạn gặp khó khăn về ngôn ngữ hoặc thủ tục, chúng tôi có thể giới thiệu các đơn vị dịch vụ uy tín để hỗ trợ bạn trọn gói.
                 </p>
@@ -123,7 +123,7 @@ export default function DrivingLicensePage() {
                         textDecoration: 'none',
                         display: 'inline-block'
                     }}>
-                        Liên hệ ngay
+                        {t('dl_cta_btn')}
                     </Link>
                 </div>
             </section>

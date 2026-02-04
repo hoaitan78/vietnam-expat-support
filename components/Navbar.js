@@ -53,7 +53,7 @@ export default function Navbar() {
                             padding: '0.5rem',
                             cursor: 'pointer'
                         }}
-                        title="Toggle Dark Mode"
+                        title={t('toggle_theme')}
                     >
                         {theme === 'light' ? '🌙' : '☀️'}
                     </button>
@@ -105,7 +105,7 @@ export default function Navbar() {
                             </button>
                             <div className={styles.dropdownContent}>
                                 <div className={styles.dropdownItem} onClick={() => logout()} style={{ cursor: 'pointer' }}>
-                                    {t('auth_logout') || 'Logout'}
+                                    {t('auth_logout')}
                                 </div>
                             </div>
                         </div>

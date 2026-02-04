@@ -174,7 +174,7 @@ export default function HousingPage() {
 
                 <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('housing_cta_sub')}</h3>
                 <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', opacity: '0.9' }}>
-                    Chúng tôi hỗ trợ bạn từ khâu tìm nhà đến hoàn tất thủ tục pháp lý, kiểm tra hợp đồng và đăng ký tạm trú.
+                    {t('housing_cta_desc')}
                 </p>
                 <button className="btn" style={{
                     background: 'white',

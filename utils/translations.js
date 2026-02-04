@@ -135,6 +135,7 @@ export const translations = {
         housing_sec8_title: '8. Rủi ro thường gặp',
         housing_cta_title: 'Lời khuyên thực tế & Hỗ trợ',
         housing_cta_sub: 'Cần hỗ trợ tìm nhà tại Nha Trang?',
+        housing_cta_desc: 'Chúng tôi hỗ trợ bạn từ khâu tìm nhà đến hoàn tất thủ tục pháp lý, kiểm tra hợp đồng và đăng ký tạm trú.',
         housing_cta_btn: '📩 Liên hệ hỗ trợ tìm nhà',
 
         // Driving License Page
@@ -430,6 +431,7 @@ export const translations = {
         housing_sec8_title: '8. Common Risks',
         housing_cta_title: 'Practical Tips & Support',
         housing_cta_sub: 'Need help finding a home in Nha Trang?',
+        housing_cta_desc: 'We support you from finding a house to completing legal procedures, checking contracts, and registering temporary residence.',
         housing_cta_btn: '📩 Contact for Housing Support',
 
         // Driving License Page
@@ -727,6 +729,7 @@ export const translations = {
         housing_sec8_title: '8. 일반적인 위험',
         housing_cta_title: '실제적인 팁 및 지원',
         housing_cta_sub: '나트랑에서 집을 찾는 데 도움이 필요하신가요?',
+        housing_cta_desc: '집 찾기부터 법적 절차 완료, 계약서 확인 및 임시 거주 등록까지 지원해 드립니다.',
         housing_cta_btn: '📩 주거 지원 문의',
 
         // Driving License Page
@@ -1023,6 +1026,7 @@ export const translations = {
         housing_sec8_title: '8. 常见风险',
         housing_cta_title: '实用建议与支持',
         housing_cta_sub: '需要帮助在芽庄找房吗？',
+        housing_cta_desc: '我们为您提供从找房到完成法律程序、检查合同和办理暂住登记的全程支持。',
         housing_cta_btn: '📩 联系房屋支持',
 
         // Driving License Page

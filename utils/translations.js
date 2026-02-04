@@ -147,6 +147,28 @@ export const translations = {
             { slug: 'banking', title: 'Mở tài khoản ngân hàng', category: 'Tài chính' }
         ],
 
+        // Motorbike Guide
+        moto_title: 'Sở hữu xe máy tại Việt Nam',
+        moto_intro: 'Người nước ngoài hoàn toàn có thể sở hữu và đứng tên xe máy tại Việt Nam, nếu đáp ứng đúng các điều kiện pháp lý.',
+        moto_cond_title: 'Điều kiện cơ bản',
+        moto_cond_list: [
+            'Hộ chiếu còn hạn sử dụng',
+            'Visa hợp pháp hoặc thẻ tạm trú (lao động, đầu tư, kinh doanh...)',
+            'Giấy xác nhận tạm trú tại địa phương do công an phường cấp',
+            '⚠️ Visa du lịch ngắn hạn thường khó hoặc không thể đứng tên xe'
+        ],
+        moto_ways_title: 'Các cách sở hữu xe máy',
+        moto_ways_list: [
+            { title: '1. Mua xe mới (Khuyên dùng)', desc: 'An toàn và hợp pháp nhất. Xe được đăng ký chính chủ tên bạn.' },
+            { title: '2. Mua xe cũ & Sang tên', desc: 'Chỉ khả thi nếu xe chính chủ và bạn có visa dài hạn. Thủ tục phức tạp.' },
+            { title: '3. Nhờ người Việt đứng tên', desc: '⚠️ Không khuyến khích. Tiềm ẩn rủi ro về pháp lý và tranh chấp quyền sở hữu.' }
+        ],
+        moto_req_title: 'Bằng lái & Bảo hiểm',
+        moto_req_list: [
+            'Người điều khiển xe trên 50cc phải có bằng lái hợp lệ tại Việt Nam',
+            'Bảo hiểm trách nhiệm dân sự là bắt buộc'
+        ],
+
         // Driving License Page
         dl_title: 'Đổi Bằng Lái Xe',
         dl_sub: 'Hướng dẫn đổi bằng lái xe nước ngoài sang bằng Việt Nam',
@@ -450,6 +472,28 @@ export const translations = {
             { slug: 'housing', title: 'Renting in Saigon vs Hanoi', category: 'Housing' },
             { slug: 'transportation', title: 'Mastering the Motorbike', category: 'Lifestyle' },
             { slug: 'banking', title: 'Opening a Bank Account', category: 'Finance' }
+        ],
+
+        // Motorbike Guide
+        moto_title: 'Owning a Motorbike in Vietnam',
+        moto_intro: 'Foreigners can fully own and register a motorbike in Vietnam, provided they meet the legal requirements.',
+        moto_cond_title: 'Basic Conditions',
+        moto_cond_list: [
+            'Valid Passport',
+            'Legal Visa or Temporary Residence Card (TRC)',
+            'Residence confirmation letter from local police',
+            '⚠️ Short-term tourist visas typically cannot register vehicles'
+        ],
+        moto_ways_title: 'Ways to Own',
+        moto_ways_list: [
+            { title: '1. Buy New (Recommended)', desc: 'Safest method. The bike is registered directly in your name.' },
+            { title: '2. Buy Used & Transfer', desc: 'Complex process. Requires original owner verification and a long-term visa.' },
+            { title: '3. Vietnamese Nominee', desc: '⚠️ Not recommended. High legal risk regarding ownership disputes.' }
+        ],
+        moto_req_title: 'License & Insurance',
+        moto_req_list: [
+            'Valid Vietnamese Driving License required for bikes over 50cc',
+            'Civil Liability Insurance is mandatory'
         ],
 
         // Driving License Page
@@ -759,6 +803,28 @@ export const translations = {
             { slug: 'banking', title: '은행 계좌 개설', category: '금융' }
         ],
 
+        // Motorbike Guide
+        moto_title: '베트남에서 오토바이 소유하기',
+        moto_intro: '법적 요건을 충족하면 외국인도 베트남에서 오토바이를 완전히 소유하고 등록할 수 있습니다.',
+        moto_cond_title: '기본 조건',
+        moto_cond_list: [
+            '유효한 여권',
+            '합법적인 비자 또는 거주증 (TRC)',
+            '지역 경찰서에서 발급한 거주 확인서',
+            '⚠️ 단기 관광 비자로는 일반적으로 차량을 등록할 수 없습니다'
+        ],
+        moto_ways_title: '소유 방법',
+        moto_ways_list: [
+            { title: '1. 신차 구매 (권장)', desc: '가장 안전한 방법입니다. 오토바이가 본인 명의로 등록됩니다.' },
+            { title: '2. 중고차 구매 및 명의 이전', desc: '절차가 복잡하며, 원 소유주 확인과 장기 비자가 필요합니다.' },
+            { title: '3. 베트남인 명의 차명 (비추천)', desc: '⚠️ 권장하지 않습니다. 소유권 분쟁의 법적 위험이 높습니다.' }
+        ],
+        moto_req_title: '면허 및 보험',
+        moto_req_list: [
+            '50cc 초과 오토바이는 유효한 베트남 운전 면허증 필수',
+            '민사 책임 보험은 의무입니다'
+        ],
+
         // Driving License Page
         dl_title: '운전 면허증 교환',
         dl_sub: '외국 운전 면허증을 베트남 면허증으로 교환하는 가이드',
@@ -1063,6 +1129,28 @@ export const translations = {
             { slug: 'housing', title: '西贡与河内租房对比', category: '住房' },
             { slug: 'transportation', title: '掌握摩托车驾驶', category: '生活方式' },
             { slug: 'banking', title: '开设银行账户', category: '金融' }
+        ],
+
+        // Motorbike Guide
+        moto_title: '在越南拥有摩托车',
+        moto_intro: '只要符合法律要求，外国人完全可以在越南拥有并注册摩托车。',
+        moto_cond_title: '基本条件',
+        moto_cond_list: [
+            '有效护照',
+            '合法签证或暂住证 (TRC)',
+            '当地派出所出具的居住证明',
+            '⚠️ 短期旅游签证通常无法注册车辆'
+        ],
+        moto_ways_title: '拥有方式',
+        moto_ways_list: [
+            { title: '1. 购买新车（推荐）', desc: '最安全的方法。车辆直接注册在您的名下。' },
+            { title: '2. 购买二手车并过户', desc: '流程复杂。需要原车主验证及长期签证。' },
+            { title: '3. 借用越南人名义（不推荐）', desc: '⚠️ 不推荐。存在所有权纠纷的高法律风险。' }
+        ],
+        moto_req_title: '驾照与保险',
+        moto_req_list: [
+            '驾驶50cc以上的摩托车必须持有有效的越南驾照',
+            '必须购买民事责任保险'
         ],
 
         // Driving License Page

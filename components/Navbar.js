@@ -28,7 +28,7 @@ export default function Navbar() {
                 <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ''}`}>
                     <li><Link href="/" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_home')}</Link></li>
                     <li><Link href="/guides" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_guides')}</Link></li>
-                    <li><Link href="/#services" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_services')}</Link></li>
+                    <li><Link href="/services" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_services')}</Link></li>
                     <li><Link href="/community" className={styles.link} onClick={() => setIsMenuOpen(false)}>{t('nav_community')}</Link></li>
                     <li className={styles.dropdown}>
                         <span className={styles.link} style={{ cursor: 'pointer' }}>{t('nav_contact')} ▾</span>

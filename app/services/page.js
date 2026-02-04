@@ -1,19 +1,34 @@
 'use client'
 
+import Link from 'next/link'
 import { useLanguage } from '../../contexts/LanguageContext'
+import { QUICK_LINKS } from '../../lib/constants'
+import styles from './services.module.css'
 
 export default function ServicesPage() {
     const { t } = useLanguage()
 
+    // Map content using translations
+    const services = QUICK_LINKS.map(link => ({
+        ...link,
+        title: t(link.titleKey),
+        desc: t(link.descKey),
+        btn: t(link.btnKey)
+    }))
+
     return (
-        <div className="container" style={{ padding: '4rem 1rem' }}>
-            <h1>{t('page_services_title')}</h1>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
-                {['Housing Agents', 'Visa Agencies', 'Language Schools', 'International Hospitals'].map(service => (
-                    <div key={service} style={{ background: 'white', padding: '2rem', borderRadius: '8px', border: '1px solid #ddd' }}>
-                        <h2>{service}</h2>
-                        <p>Find trusted {service.toLowerCase()} here.</p>
-                        <button className="btn btn-primary" style={{ marginTop: '1rem' }}>{t('page_services_btn')}</button>
+        <div className={styles.container}>
+            <h1 className={styles.title}>{t('services_title')}</h1>
+
+            <div className={styles.grid}>
+                {services.map((service, index) => (
+                    <div key={index} className={styles.card}>
+                        <span className={styles.cardIcon}>{service.icon}</span>
+                        <h2 className={styles.cardTitle}>{service.title}</h2>
+                        <p className={styles.cardText}>{service.desc}</p>
+                        <Link href={service.href} className="btn btn-primary">
+                            {service.btn}
+                        </Link>
                     </div>
                 ))}
             </div>

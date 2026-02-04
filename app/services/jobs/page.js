@@ -80,7 +80,7 @@ export default function JobsPage() {
             </div>
 
             <div className={styles.jobList}>
-                {jobs.map(job => (
+                {(t('jobs_list') || []).map((job) => (
                     <div key={job.id} className={styles.jobCard}>
                         <div className={styles.mainInfo}>
                             <h3 className={styles.jobTitle}>{job.title}</h3>

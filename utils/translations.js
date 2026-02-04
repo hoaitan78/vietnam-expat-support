@@ -145,7 +145,95 @@ export const translations = {
         dl_sec2_title: '2. Hồ sơ cần chuẩn bị',
         dl_sec3_title: '3. Quy trình thực hiện',
         dl_cta_title: 'Cần hỗ trợ dịch vụ?',
-        dl_cta_btn: 'Liên hệ ngay'
+        dl_cta_btn: 'Liên hệ ngay',
+
+        // Structured Data (Arrays/Objects)
+        dl_conditions_list: [
+            'Có giấy phép lái xe quốc gia do nước ngoài cấp, còn thời hạn.',
+            'Có hộ chiếu còn hiệu lực và thẻ tạm trú/thường trú tại Việt Nam từ 3 tháng trở lên.'
+        ],
+        dl_docs_list: [
+            'Đơn đề nghị đổi bằng lái xe theo mẫu của Bộ Công an.',
+            'Giấy phép lái xe nước ngoài bản gốc và bản dịch sang tiếng Việt có công chứng.',
+            'Hộ chiếu còn hiệu lực (có dấu nhập cảnh).',
+            'Bản sao thẻ tạm trú hoặc thẻ thường trú (thời hạn ≥ 3 tháng).',
+            'Giấy khám sức khỏe do cơ sở y tế đủ điều kiện cấp (trừ trường hợp được miễn).'
+        ],
+        dl_steps_list: [
+            { step: 'Bước 1', title: 'Nộp hồ sơ', desc: 'Tại Phòng Cảnh sát giao thông Công an tỉnh Khánh Hòa hoặc điểm tiếp nhận.' },
+            { step: 'Bước 2', title: 'Kiểm tra & Chụp ảnh', desc: 'Cán bộ kiểm tra, chụp ảnh, đối chiếu hồ sơ.' },
+            { step: 'Bước 3', title: 'Xử lý hồ sơ', desc: 'Cấp bằng mới trong vòng khoảng 5 ngày làm việc.' },
+            { step: 'Bước 4', title: 'Nhận bằng', desc: 'Nhận trực tiếp hoặc đăng ký qua bưu điện.' }
+        ],
+        housing_check_list: [
+            'Có visa còn hiệu lực hoặc thẻ tạm trú',
+            'Có hợp đồng thuê nhà hợp pháp',
+            'Thực hiện khai báo tạm trú với công an'
+        ],
+        housing_types_list: [
+            { title: 'Căn hộ chung cư', icon: '🏢', feature: 'An ninh, tiện ích', target: 'Độc thân, Cặp đôi', desc: 'Phổ biến ở khu trung tâm và ven biển. Có bảo vệ, lễ tân.' },
+            { title: 'Nhà riêng', icon: '🏠', feature: 'Rộng rãi, Riêng tư', target: 'Gia đình', desc: 'Không gian thoải mái nhưng cần kiểm tra kỹ pháp lý và an ninh khu vực.' },
+            { title: 'Căn hộ dịch vụ', icon: '🏨', feature: 'Trọn gói, Tiện lợi', target: 'Người mới đến', desc: 'Đã bao gồm dọn phòng, internet, điện nước. Giá cao hơn nhưng ít rủi ro.' }
+        ],
+        housing_tips_list: [
+            'Thông tin chủ nhà (đúng người, đúng giấy tờ)',
+            'Thời hạn thuê và điều kiện chấm dứt',
+            'Tiền đặt cọc (thường 1–2 tháng)',
+            'Ai chịu chi phí sửa chữa?',
+            'Điều kiện hoàn cọc (Rất quan trọng!)'
+        ],
+        visa_hero_points: [
+            'Hiểu đúng các loại visa đang áp dụng tại Việt Nam',
+            'Biết gia hạn visa cần giấy tờ gì, làm ở đâu',
+            'Tránh phạt, quá hạn và các rắc rối xuất – nhập cảnh',
+            'Phù hợp cho người mới đến và expat ở lâu dài'
+        ],
+        visa_pain_points: [
+            'Không biết visa mình có được gia hạn hay không',
+            'Làm việc nhưng đang dùng visa du lịch',
+            'Visa sắp hết hạn nhưng chưa có giấy phép lao động',
+            'Hồ sơ bị từ chối vì thiếu giấy tờ hoặc sai quy trình',
+            'Không rõ nên gia hạn, chuyển đổi hay xuất cảnh'
+        ],
+        visa_types_list: [
+            { code: 'DL', title: 'Visa du lịch', desc: 'Ngắn hạn, không được làm việc (1-3 tháng)', icon: '✈️', color: '#2196f3' },
+            { code: 'DN', title: 'Visa công tác', desc: 'Làm việc với doanh nghiệp Việt Nam', icon: '💼', color: '#3f51b5' },
+            { code: 'LĐ', title: 'Visa lao động', desc: 'Dành cho người có giấy phép lao động', icon: '🛠️', color: '#ff9800' },
+            { code: 'TT', title: 'Visa thăm thân', desc: 'Vợ/chồng/con bảo lãnh', icon: '👨‍👩‍👧', color: '#e91e63' },
+            { code: 'TRC', title: 'Thẻ tạm trú', desc: 'Lưu trú dài hạn 1–3 năm', icon: '💳', color: '#009688' },
+        ],
+        jobs_list: [
+            {
+                id: 1,
+                title: 'Giáo viên tiếng Anh',
+                company: 'Trung tâm Anh ngữ ILA',
+                salary: '$1,500 - $2,000',
+                location: 'Nha Trang',
+                type: 'Toàn thời gian',
+                posted: '2 ngày trước',
+                tags: ['Giáo dục', 'Tiếng Anh', 'Visa']
+            },
+            {
+                id: 2,
+                title: 'Quản lý Khách sạn',
+                company: 'Vinpearl Resort',
+                salary: '$2,000 - $3,000',
+                location: 'Đảo Hòn Tre',
+                type: 'Toàn thời gian',
+                posted: '1 tuần trước',
+                tags: ['Du lịch', 'Quản lý', 'Cao cấp']
+            },
+            {
+                id: 3,
+                title: 'Chuyên viên Marketing',
+                company: 'Skylight Nha Trang',
+                salary: '$1,000 - $1,500',
+                location: 'Trung tâm TP',
+                type: 'Bán thời gian',
+                posted: '3 ngày trước',
+                tags: ['Marketing', 'Sự kiện', 'Đêm']
+            }
+        ],
     },
     en: {
         // Navbar
@@ -293,7 +381,95 @@ export const translations = {
         dl_sec2_title: '2. Required Documents',
         dl_sec3_title: '3. Application Process',
         dl_cta_title: 'Need Service Support?',
-        dl_cta_btn: 'Contact Now'
+        dl_cta_btn: 'Contact Now',
+
+        // Structured Data (Arrays/Objects)
+        dl_conditions_list: [
+            'Have a valid national driving license issued by a foreign country.',
+            'Have a valid passport and temporary/permanent residence card in Vietnam for 3 months or more.'
+        ],
+        dl_docs_list: [
+            'Application form for driving license exchange (Ministry of Public Security form).',
+            'Original foreign driving license and notarized Vietnamese translation.',
+            'Valid passport (with entry stamp).',
+            'Copy of temporary or permanent residence card (validity ≥ 3 months).',
+            'Health certificate issued by a qualified medical facility (unless exempted).'
+        ],
+        dl_steps_list: [
+            { step: 'Step 1', title: 'Submit Application', desc: 'At the Khanh Hoa Department of Transport or receiving point.' },
+            { step: 'Step 2', title: 'Check & Photo', desc: 'Officers check documents and take your photo.' },
+            { step: 'Step 3', title: 'Processing', desc: 'New license issued within about 5 working days.' },
+            { step: 'Step 4', title: 'Receive License', desc: 'Pick up in person or register for postal delivery.' }
+        ],
+        housing_check_list: [
+            'Valid visa or temporary residence card',
+            'Legal tenancy agreement',
+            'Temporary residence registration with police'
+        ],
+        housing_types_list: [
+            { title: 'Apartment/Condo', icon: '🏢', feature: 'Security, Amenities', target: 'Singles, Couples', desc: 'Popular in center and coastal areas. Has security, reception.' },
+            { title: 'Private House', icon: '🏠', feature: 'Spacious, Private', target: 'Families', desc: 'Comfortable space but check legal status and area security carefully.' },
+            { title: 'Serviced Apartment', icon: '🏨', feature: 'All-inclusive, Easy', target: 'Newcomers', desc: 'Includes cleaning, internet, utilities. Higher price but lower risk.' }
+        ],
+        housing_tips_list: [
+            'Landlord info (correct person, papers)',
+            'Lease term and termination conditions',
+            'Deposit (usually 1–2 months)',
+            'Who covers repair costs?',
+            'Deposit refund conditions (Very important!)'
+        ],
+        visa_hero_points: [
+            'Understand the correct visa types applied in Vietnam',
+            'Know what documents are needed for extension and where to do it',
+            'Avoid fines, overstays, and immigration troubles',
+            'Suitable for newcomers and long-term expats'
+        ],
+        visa_pain_points: [
+            'Not knowing if your visa can be extended',
+            'Working while on a tourist visa',
+            'Visa expiring but no work permit yet',
+            'Application rejected due to missing papers or wrong process',
+            'Unsure whether to extend, convert, or do a border run'
+        ],
+        visa_types_list: [
+            { code: 'DL', title: 'Tourist Visa', desc: 'Short term, no work allowed (1-3 months)', icon: '✈️', color: '#2196f3' },
+            { code: 'DN', title: 'Business Visa', desc: 'Working with Vietnamese enterprises', icon: '💼', color: '#3f51b5' },
+            { code: 'LD', title: 'Labor Visa', desc: 'For those with work permits', icon: '🛠️', color: '#ff9800' },
+            { code: 'TT', title: 'Family Visa', desc: 'Sponsored by spouse/parent', icon: '👨‍👩‍👧', color: '#e91e63' },
+            { code: 'TRC', title: 'Temp Residence Card', desc: 'Long term stay 1–3 years', icon: '💳', color: '#009688' },
+        ],
+        jobs_list: [
+            {
+                id: 1,
+                title: 'English Teacher',
+                company: 'ILA English Center',
+                salary: '$1,500 - $2,000',
+                location: 'Nha Trang',
+                type: 'Full-time',
+                posted: '2 days ago',
+                tags: ['Education', 'English', 'Visa']
+            },
+            {
+                id: 2,
+                title: 'Hotel Manager',
+                company: 'Vinpearl Resort',
+                salary: '$2,000 - $3,000',
+                location: 'Hon Tre Island',
+                type: 'Full-time',
+                posted: '1 week ago',
+                tags: ['Tourism', 'Management', 'Luxury']
+            },
+            {
+                id: 3,
+                title: 'Marketing Specialist',
+                company: 'Skylight Nha Trang',
+                salary: '$1,000 - $1,500',
+                location: 'City Center',
+                type: 'Part-time',
+                posted: '3 days ago',
+                tags: ['Marketing', 'Events', 'Nightlife']
+            }
+        ],
     },
     ko: {
         // Navbar
@@ -441,7 +617,95 @@ export const translations = {
         dl_sec2_title: '2. 필요 서류',
         dl_sec3_title: '3. 신청 절차',
         dl_cta_title: '서비스 지원이 필요하신가요?',
-        dl_cta_btn: '지금 문의하기'
+        dl_cta_btn: '지금 문의하기',
+
+        // Structured Data (Arrays/Objects)
+        dl_conditions_list: [
+            '외국에서 발급된 유효한 국가 운전 면허증 소지.',
+            '베트남에서 3개월 이상 유효한 여권 및 임시/영주 거주증 소지.'
+        ],
+        dl_docs_list: [
+            '운전 면허증 교환 신청서 (공안부 양식).',
+            '외국 운전 면허증 원본 및 공증된 베트남어 번역본.',
+            '유효한 여권 (입국 도장 포함).',
+            '임시 또는 영주 거주증 사본 (유효 기간 ≥ 3개월).',
+            '자격 있는 의료 기관에서 발급한 건강 진단서 (면제 대상 제외).'
+        ],
+        dl_steps_list: [
+            { step: '1단계', title: '서류 제출', desc: '칸호아 교통국 또는 접수처에서 제출.' },
+            { step: '2단계', title: '확인 & 사진', desc: '담당 공무원이 서류 확인 및 사진 촬영.' },
+            { step: '3단계', title: '서류 처리', desc: '약 5일(근무일 기준) 이내에 새 면허증 발급.' },
+            { step: '4단계', title: '면허증 수령', desc: '직접 방문 수령 또는 우편 배송 신청.' }
+        ],
+        housing_check_list: [
+            '유효한 비자 또는 임시 거주증',
+            '법적 임대 계약서',
+            '경찰에 임시 거주 신고'
+        ],
+        housing_types_list: [
+            { title: '아파트/콘도', icon: '🏢', feature: '보안, 편의시설', target: '독신, 커플', desc: '중심가 및 해안 지역에서 인기. 보안 요원, 프론트 데스크 있음.' },
+            { title: '단독 주택', icon: '🏠', feature: '넓은 공간, 사생활', target: '가족', desc: '편안한 공간이지만 법적 상태와 지역 치안을 꼼꼼히 확인해야 함.' },
+            { title: '서비스 아파트', icon: '🏨', feature: '풀 옵션, 편리함', target: '신규 입국자', desc: '청소, 인터넷, 공과금 포함. 가격은 높지만 위험이 낮음.' }
+        ],
+        housing_tips_list: [
+            '집주인 정보 (정확한 인물, 서류)',
+            '임대 기간 및 해지 조건',
+            '보증금 (보통 1~2개월치)',
+            '수리 비용 부담 주체?',
+            '보증금 환불 조건 (매우 중요!)'
+        ],
+        visa_hero_points: [
+            '베트남에서 적용되는 올바른 비자 유형 이해',
+            '연장에 필요한 서류와 장소 파악',
+            '벌금, 체류 기간 초과 및 출입국 문제 방지',
+            '신규 입국자 및 장기 거주자에게 적합'
+        ],
+        visa_pain_points: [
+            '내 비자가 연장 가능한지 모름',
+            '관광 비자로 일하고 있음',
+            '비자가 만료되는데 취업 허가증이 아직 없음',
+            '서류 부족이나 잘못된 절차로 신청 거절',
+            '연장, 전환, 출국 중 무엇을 해야 할지 확신이 없음'
+        ],
+        visa_types_list: [
+            { code: 'DL', title: '관광 비자', desc: '단기, 취업 불가 (1-3개월)', icon: '✈️', color: '#2196f3' },
+            { code: 'DN', title: '상용 비자', desc: '베트남 기업과 업무', icon: '💼', color: '#3f51b5' },
+            { code: 'LD', title: '노동 비자', desc: '취업 허가증 소지자용', icon: '🛠️', color: '#ff9800' },
+            { code: 'TT', title: '가족 비자', desc: '배우자/부모 보증', icon: '👨‍👩‍👧', color: '#e91e63' },
+            { code: 'TRC', title: '임시 거주증', desc: '장기 체류 1–3년', icon: '💳', color: '#009688' },
+        ],
+        jobs_list: [
+            {
+                id: 1,
+                title: '영어 교사',
+                company: 'ILA 영어 센터',
+                salary: '$1,500 - $2,000',
+                location: '나트랑',
+                type: '풀타임',
+                posted: '2일 전',
+                tags: ['교육', '영어', '비자']
+            },
+            {
+                id: 2,
+                title: '호텔 매니저',
+                company: '빈펄 리조트',
+                salary: '$2,000 - $3,000',
+                location: '혼트레 섬',
+                type: '풀타임',
+                posted: '1주 전',
+                tags: ['관광', '경영', '럭셔리']
+            },
+            {
+                id: 3,
+                title: '마케팅 전문가',
+                company: '스카이라이트 나트랑',
+                salary: '$1,000 - $1,500',
+                location: '시내 중심',
+                type: '파트타임',
+                posted: '3일 전',
+                tags: ['마케팅', '이벤트', '나이트라이프']
+            }
+        ],
     },
     zh: {
         // Navbar
@@ -589,7 +853,95 @@ export const translations = {
         dl_sec2_title: '2. 所需文件',
         dl_sec3_title: '3. 申请流程',
         dl_cta_title: '需要服务支持吗？',
-        dl_cta_btn: '立即联系'
+        dl_cta_btn: '立即联系',
+
+        // Structured Data (Arrays/Objects)
+        dl_conditions_list: [
+            '持有外国签发的有效国家驾驶执照。',
+            '持有有效护照和在越南的暂住证/常住证 3 个月以上。'
+        ],
+        dl_docs_list: [
+            '驾驶执照换领申请表（公安部表格）。',
+            '外国驾驶执照原件及经公证的越南语翻译件。',
+            '有效护照（有入境章）。',
+            '暂住证或常住证复印件（有效期 ≥ 3 个月）。',
+            '由合格医疗机构签发的健康证明（豁免情况除外）。'
+        ],
+        dl_steps_list: [
+            { step: '步骤 1', title: '提交申请', desc: '在庆和省交通运输厅或受理点提交。' },
+            { step: '步骤 2', title: '检查与拍照', desc: '工作人员检查文件并为您拍照。' },
+            { step: '步骤 3', title: '处理申请', desc: '在大约 5 个工作日内签发新驾照。' },
+            { step: '步骤 4', title: '领取驾照', desc: '亲自领取或登记邮寄。' }
+        ],
+        housing_check_list: [
+            '有效签证或暂住证',
+            '合法租赁协议',
+            '向公安机关办理暂住登记'
+        ],
+        housing_types_list: [
+            { title: '公寓/康管公寓', icon: '🏢', feature: '安保，设施', target: '单身，情侣', desc: '在市中心和沿海地区很受欢迎。有保安、前台。' },
+            { title: '私宅', icon: '🏠', feature: '宽敞，私密', target: '家庭', desc: '空间舒适，但需仔细检查法律状况和区域治安。' },
+            { title: '服务式公寓', icon: '🏨', feature: '全包，便捷', target: '新来者', desc: '包括清洁、互联网、水电费。价格较高但风险较低。' }
+        ],
+        housing_tips_list: [
+            '房东信息（正确的人，证件）',
+            '租赁期限和终止条件',
+            '押金（通常 1-2 个月）',
+            '谁承担维修费用？',
+            '押金退还条件（非常重要！）'
+        ],
+        visa_hero_points: [
+            '了解越南适用的正确签证类型',
+            '知道延期需要什么文件以及在哪里办理',
+            '避免罚款、逾期居留和移民麻烦',
+            '适合新来者和长期外籍人士'
+        ],
+        visa_pain_points: [
+            '不知道您的签证是否可以延期',
+            '持旅游签证工作',
+            '签证即将到期但还没有工作许可证',
+            '因缺少文件或流程错误导致申请被拒',
+            '不确定是延期、转换还是出境'
+        ],
+        visa_types_list: [
+            { code: 'DL', title: '旅游签证', desc: '短期，不允许工作（1-3 个月）', icon: '✈️', color: '#2196f3' },
+            { code: 'DN', title: '商务签证', desc: '与越南企业合作', icon: '💼', color: '#3f51b5' },
+            { code: 'LĐ', title: '劳动签证', desc: '适用于持有工作许可证的人', icon: '🛠️', color: '#ff9800' },
+            { code: 'TT', title: '探亲签证', desc: '由配偶/父母担保', icon: '👨‍👩‍👧', color: '#e91e63' },
+            { code: 'TRC', title: '暂住证', desc: '长期居留 1-3 年', icon: '💳', color: '#009688' },
+        ],
+        jobs_list: [
+            {
+                id: 1,
+                title: '英语老师',
+                company: 'ILA 英语中心',
+                salary: '$1,500 - $2,000',
+                location: '芽庄',
+                type: '全职',
+                posted: '2 天前',
+                tags: ['教育', '英语', '签证']
+            },
+            {
+                id: 2,
+                title: '酒店经理',
+                company: 'Vinpearl 度假村',
+                salary: '$2,000 - $3,000',
+                location: '竹岛',
+                type: '全职',
+                posted: '1 周前',
+                tags: ['旅游', '管理', '豪华']
+            },
+            {
+                id: 3,
+                title: '营销专家',
+                company: 'Skylight 芽庄',
+                salary: '$1,000 - $1,500',
+                location: '市中心',
+                type: '兼职',
+                posted: '3 天前',
+                tags: ['营销', '活动', '夜生活']
+            }
+        ],
     }
 }
 

@@ -44,9 +44,9 @@ export default function HousingPage() {
                 <div style={{ display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
                     <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
                         <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>👉</span> {t('housing_sec1_yes')}</h3>
-                        <p>Theo pháp luật Việt Nam, bạn được thuê nhà hợp pháp để ở hoặc làm việc nếu:</p>
+                        <p>{t('housing_cond_intro')}</p>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
-                            {['Có visa còn hiệu lực hoặc thẻ tạm trú', 'Có hợp đồng thuê nhà hợp pháp', 'Thực hiện khai báo tạm trú với công an'].map((item, i) => (
+                            {(t('housing_check_list') || []).map((item, i) => (
                                 <li key={i} style={{ marginBottom: '0.5rem', display: 'flex', gap: '0.5rem' }}><span>✅</span> {item}</li>
                             ))}
                         </ul>
@@ -54,9 +54,8 @@ export default function HousingPage() {
                     <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350' }}>
                         <h3 style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>⚠️</span> {t('housing_sec1_note')}</h3>
                         <p style={{ fontStyle: 'italic', fontWeight: '500' }}>
-                            "Người nước ngoài không được tự ý thuê nhà không hợp đồng hoặc thuê “miệng”, dù giá rẻ."
+                            "Foreigners cannot rent without a contract or rely on verbal agreements, even if cheap."
                         </p>
-                        <p>Rủi ro pháp lý rất cao và bạn có thể bị phạt hoặc trục xuất nếu không tuân thủ quy định đăng ký tạm trú.</p>
                     </div>
                 </div>
             </section>
@@ -65,11 +64,7 @@ export default function HousingPage() {
             <section style={{ marginBottom: '5rem' }}>
                 <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec2_title')}</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                    {[
-                        { title: 'Căn hộ chung cư', icon: '🏢', feature: 'An ninh, tiện ích', target: 'Độc thân, Cặp đôi', desc: 'Phổ biến ở khu trung tâm và ven biển. Có bảo vệ, lễ tân.' },
-                        { title: 'Nhà riêng', icon: '🏠', feature: 'Rộng rãi, Riêng tư', target: 'Gia đình', desc: 'Không gian thoải mái nhưng cần kiểm tra kỹ pháp lý và an ninh khu vực.' },
-                        { title: 'Căn hộ dịch vụ', icon: '🏨', feature: 'Trọn gói, Tiện lợi', target: 'Người mới đến', desc: 'Đã bao gồm dọn phòng, internet, điện nước. Giá cao hơn nhưng ít rủi ro.' }
-                    ].map((item, i) => (
+                    {(t('housing_types_list') || []).map((item, i) => (
                         <div key={i} style={{ padding: '2rem', background: 'white', border: '1px solid #eee', borderRadius: '16px', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', textAlign: 'center' }}>
                             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{item.icon}</div>
                             <h3 style={{ color: '#333', marginBottom: '0.5rem' }}>{item.title}</h3>
@@ -132,19 +127,12 @@ export default function HousingPage() {
                     <h2 style={{ color: '#f57f17', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec5_title')}</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                         <div>
-                            <h3 style={{ marginBottom: '1rem', color: '#333' }}>Điều khoản Hợp đồng cần soi kỹ:</h3>
+                            <h3 style={{ marginBottom: '1rem', color: '#333' }}>Tips:</h3>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
-                                {[
-                                    'Thông tin chủ nhà (đúng người, đúng giấy tờ)',
-                                    'Thời hạn thuê và điều kiện chấm dứt',
-                                    'Tiền đặt cọc (thường 1–2 tháng)',
-                                    'Ai chịu chi phí sửa chữa?',
-                                    'Điều kiện hoàn cọc (Rất quan trọng!)'
-                                ].map((item, i) => (
+                                {(t('housing_tips_list') || []).map((item, i) => (
                                     <li key={i} style={{ marginBottom: '0.8rem', display: 'flex', gap: '0.5rem' }}><span>🔍</span> {item}</li>
                                 ))}
                             </ul>
-                            <p style={{ fontWeight: 'bold', color: '#f57f17' }}>👉 Hợp đồng nên song ngữ Việt – Anh!</p>
                         </div>
                         <div>
                             <h3 style={{ marginBottom: '1rem', color: '#333' }}>Điện, Nước, Internet:</h3>

@@ -42,17 +42,11 @@ export default function DrivingLicensePage() {
                 <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('dl_sec1_title')}</h2>
                 <div style={{ display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
                     <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
-                        <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>📋</span> Đối tượng áp dụng</h3>
-                        <ul style={{ listStyle: 'none', padding: 0, marginTop: '1rem' }}>
-                            <li style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
-                                <span>✅</span> Người nước ngoài cư trú, làm việc, học tập tại Việt Nam ít nhất 3 tháng.
-                            </li>
-                            <li style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
-                                <span>✅</span> Giấy phép lái xe nước ngoài còn đủ thời hạn sử dụng, không bị rách nát, tẩy xóa.
-                            </li>
-                            <li style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
-                                <span>✅</span> Có Visa hoặc Thẻ tạm trú (TRC) còn thời hạn.
-                            </li>
+                        <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>📋</span> Conditions</h3>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            {(t('dl_conditions_list') || []).map((item, i) => (
+                                <li key={i} style={{ marginBottom: '0.5rem', display: 'flex', gap: '0.5rem' }}><span>✅</span> {item}</li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -62,18 +56,10 @@ export default function DrivingLicensePage() {
             <section style={{ marginBottom: '5rem' }}>
                 <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('dl_sec2_title')}</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-                    {[
-                        { title: 'Đơn đề nghị', icon: '📝', desc: 'Mẫu đơn đề nghị đổi giấy phép lái xe (theo mẫu quy định).' },
-                        { title: 'Bản dịch thuật', icon: '📄', desc: 'Bản dịch giấy phép lái xe nước ngoài ra tiếng Việt được công chứng.' },
-                        { title: 'Hộ chiếu & Visa', icon: '🛂', desc: 'Bản sao hộ chiếu (phần ảnh và visa/TRC) - Mang bản chính để đối chiếu.' },
-                        { title: 'Bằng lái gốc', icon: '💳', desc: 'Giấy phép lái xe nước ngoài (bản gốc) để đối chiếu.' },
-                        { title: 'Ảnh thẻ', icon: '📸', desc: '02 ảnh 3x4 hoặc 4x6 (phông nền trắng) chụp không quá 6 tháng.' },
-                        { title: 'Phí lệ phí', icon: '💵', desc: '135.000 VNĐ (lệ phí cấp đổi bằng lái xe theo quy định nhà nước).' }
-                    ].map((item, i) => (
-                        <div key={i} style={{ padding: '2rem', background: 'white', border: '1px solid #eee', borderRadius: '16px', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{item.icon}</div>
-                            <h3 style={{ color: '#333', marginBottom: '0.5rem', fontSize: '1.1rem' }}>{item.title}</h3>
-                            <p style={{ color: '#666', fontSize: '0.95rem' }}>{item.desc}</p>
+                    {(t('dl_docs_list') || []).map((item, i) => (
+                        <div key={i} style={{ padding: '1.5rem', background: 'white', border: '1px solid #dcdcdc', borderRadius: '12px', display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                            <span style={{ fontSize: '1.5rem', color: '#2196f3' }}>📌</span>
+                            <p style={{ margin: 0 }}>{item}</p>
                         </div>
                     ))}
                 </div>
@@ -83,20 +69,14 @@ export default function DrivingLicensePage() {
             <section style={{ marginBottom: '5rem' }}>
                 <h2 style={{ color: '#0d47a1', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('dl_sec3_title')}</h2>
                 <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
-                    {[
-                        { step: '1', title: 'Nộp hồ sơ', desc: 'Nộp hồ sơ trực tiếp tại Sở Giao thông Vận tải hoặc Tổng cục Đường bộ Việt Nam.' },
-                        { step: '2', title: 'Chụp ảnh', desc: 'Đến nơi nộp hồ sơ để chụp ảnh trực tiếp in lên bằng lái (không dùng ảnh mang theo).' },
-                        { step: '3', title: 'Đóng lệ phí', desc: 'Đóng lệ phí cấp đổi giấy phép lái xe (khoảng 135.000 VNĐ).' },
-                        { step: '4', title: 'Nhận giấy hẹn', desc: 'Nhận giấy hẹn trả kết quả.' },
-                        { step: '5', title: 'Nhận bằng', desc: 'Đến nhận bằng theo lịch hẹn hoặc đăng ký gửi qua bưu điện (khoảng 5-7 ngày làm việc).' }
-                    ].map((step, i) => (
-                        <div key={i} style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem', alignItems: 'flex-start' }}>
-                            <div style={{ background: '#1976d2', color: 'white', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>
-                                {step.step}
+                    {(t('dl_steps_list') || []).map((item, i) => (
+                        <div key={i} style={{ marginBottom: '2rem', display: 'flex', gap: '1.5rem' }}>
+                            <div style={{ background: '#2196f3', color: 'white', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>
+                                {i + 1}
                             </div>
                             <div>
-                                <h3 style={{ margin: '0 0 0.5rem 0', color: '#1565c0' }}>{step.title}</h3>
-                                <p style={{ margin: 0, color: '#555' }}>{step.desc}</p>
+                                <h3 style={{ margin: '0 0 0.5rem 0', color: '#1565c0' }}>{item.title}</h3>
+                                <p style={{ margin: 0, color: '#666' }}>{item.desc}</p>
                             </div>
                         </div>
                     ))}

@@ -140,6 +140,13 @@ export const translations = {
         housing_cta_desc: 'Chúng tôi hỗ trợ bạn từ khâu tìm nhà đến hoàn tất thủ tục pháp lý, kiểm tra hợp đồng và đăng ký tạm trú.',
         housing_cta_btn: '📩 Liên hệ hỗ trợ tìm nhà',
 
+        guides_list: [
+            { slug: 'visa', title: 'Hướng dẫn Visa Việt Nam 2024', category: 'Pháp lý' },
+            { slug: 'housing', title: 'Thuê nhà tại Sài Gòn vs Hà Nội', category: 'Nhà ở' },
+            { slug: 'transportation', title: 'Làm chủ xe máy', category: 'Đời sống' },
+            { slug: 'banking', title: 'Mở tài khoản ngân hàng', category: 'Tài chính' }
+        ],
+
         // Driving License Page
         dl_title: 'Đổi Bằng Lái Xe',
         dl_sub: 'Hướng dẫn đổi bằng lái xe nước ngoài sang bằng Việt Nam',
@@ -437,6 +444,13 @@ export const translations = {
         housing_cta_sub: 'Need help finding a home in Nha Trang?',
         housing_cta_desc: 'We support you from finding a house to completing legal procedures, checking contracts, and registering temporary residence.',
         housing_cta_btn: '📩 Contact for Housing Support',
+
+        guides_list: [
+            { slug: 'visa', title: 'Vietnam Visa Guide 2024', category: 'Legal' },
+            { slug: 'housing', title: 'Renting in Saigon vs Hanoi', category: 'Housing' },
+            { slug: 'transportation', title: 'Mastering the Motorbike', category: 'Lifestyle' },
+            { slug: 'banking', title: 'Opening a Bank Account', category: 'Finance' }
+        ],
 
         // Driving License Page
         dl_title: 'Driving License Exchange',
@@ -738,6 +752,13 @@ export const translations = {
         housing_cta_desc: '집 찾기부터 법적 절차 완료, 계약서 확인 및 임시 거주 등록까지 지원해 드립니다.',
         housing_cta_btn: '📩 주거 지원 문의',
 
+        guides_list: [
+            { slug: 'visa', title: '베트남 비자 가이드 2024', category: '법률' },
+            { slug: 'housing', title: '사이공 vs 하노이 임대', category: '주거' },
+            { slug: 'transportation', title: '오토바이 마스터하기', category: '라이프스타일' },
+            { slug: 'banking', title: '은행 계좌 개설', category: '금융' }
+        ],
+
         // Driving License Page
         dl_title: '운전 면허증 교환',
         dl_sub: '외국 운전 면허증을 베트남 면허증으로 교환하는 가이드',
@@ -1036,6 +1057,13 @@ export const translations = {
         housing_cta_sub: '需要帮助在芽庄找房吗？',
         housing_cta_desc: '我们为您提供从找房到完成法律程序、检查合同和办理暂住登记的全程支持。',
         housing_cta_btn: '📩 联系房屋支持',
+
+        guides_list: [
+            { slug: 'visa', title: '2024年越南签证指南', category: '法律' },
+            { slug: 'housing', title: '西贡与河内租房对比', category: '住房' },
+            { slug: 'transportation', title: '掌握摩托车驾驶', category: '生活方式' },
+            { slug: 'banking', title: '开设银行账户', category: '金融' }
+        ],
 
         // Driving License Page
         dl_title: '驾驶执照交换',

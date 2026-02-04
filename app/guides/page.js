@@ -3,15 +3,9 @@
 import Link from 'next/link'
 import { useLanguage } from '../../contexts/LanguageContext'
 
-const GUIDES = [
-    { slug: 'visa', title: 'Vietnam Visa Guide 2024', category: 'Legal' },
-    { slug: 'housing', title: 'Renting in Saigon vs Hanoi', category: 'Housing' },
-    { slug: 'transportation', title: 'Mastering the Motorbike', category: 'Lifestyle' },
-    { slug: 'banking', title: 'Opening a Bank Account', category: 'Finance' },
-]
-
 export default function GuidesPage() {
     const { t } = useLanguage()
+    const guides = t('guides_list') || []
 
     return (
         <div className="container" style={{ padding: '4rem 1rem' }}>
@@ -19,8 +13,8 @@ export default function GuidesPage() {
             <p style={{ marginBottom: '2rem' }}>{t('page_guides_sub')}</p>
 
             <div style={{ display: 'grid', gap: '1rem' }}>
-                {GUIDES.map(guide => (
-                    <div key={guide.slug} style={{
+                {Array.isArray(guides) && guides.map((guide, index) => (
+                    <div key={guide.slug || index} style={{
                         padding: '1.5rem',
                         background: 'white',
                         borderRadius: '8px',

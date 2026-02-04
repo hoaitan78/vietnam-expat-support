@@ -21,12 +21,7 @@ export default function HousingPage() {
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
                         <div style={{ textAlign: 'left', background: 'white', padding: '1.5rem 2.5rem', borderRadius: '16px', boxShadow: '0 2px 10px rgba(0,0,0,0.03)', display: 'inline-block' }}>
                             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                                {[
-                                    'Kinh nghiệm thực tế thuê nhà an toàn',
-                                    'Các loại hình nhà ở phổ biến & Giá cả',
-                                    'Lưu ý quan trọng về Hợp đồng & Pháp lý',
-                                    'Tránh các tranh chấp không đáng có'
-                                ].map((item, index) => (
+                                {(t('housing_hero_list') || []).map((item, index) => (
                                     <li key={index} style={{ marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.05rem', color: '#333' }}>
                                         <span style={{ color: '#ef6c00', fontSize: '1.2rem', flexShrink: 0 }}>✓</span>
                                         {item}
@@ -82,40 +77,35 @@ export default function HousingPage() {
                 <div>
                     <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('housing_sec3_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
-                        {[
-                            { area: 'Trung tâm thành phố', desc: 'Gần biển, tiện sinh hoạt' },
-                            { area: 'Khu ven biển Trần Phú', desc: 'Giá cao, tiện du lịch' },
-                            { area: 'Khu Vĩnh Hải – Vĩnh Phước', desc: 'Yên tĩnh, giá hợp lý' },
-                            { area: 'Khu phía Nam', desc: 'Phù hợp ở lâu dài, ít du lịch' }
-                        ].map((loc, i) => (
+                        {(t('housing_locations_list') || []).map((loc, i) => (
                             <li key={i} style={{ marginBottom: '1rem', padding: '1rem', background: '#fafafa', borderRadius: '8px' }}>
                                 <strong>📍 {loc.area}:</strong> <span style={{ color: '#666' }}>{loc.desc}</span>
                             </li>
                         ))}
                     </ul>
                     <div style={{ background: '#fff3e0', padding: '1rem', borderRadius: '8px', marginTop: '1rem' }}>
-                        <strong>💡 Kinh nghiệm:</strong> Không nên chọn nhà chỉ vì “gần biển”, hãy cân nhắc đi lại, chợ, bệnh viện và môi trường sống lâu dài.
+                        {t('housing_prices.location_tip')}
                     </div>
                 </div>
                 <div>
                     <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('housing_sec4_title')}</h2>
                     <div style={{ background: 'white', border: '1px solid #eee', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
-                        <p>Giá thuê phụ thuộc vào: <strong>Vị trí, Diện tích, Nội thất, Thời hạn.</strong></p>
+                        <p dangerouslySetInnerHTML={{ __html: t('housing_prices.dep_factor') }}></p>
                         <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '1rem 0' }} />
                         <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
-                            <span>Căn hộ 1 phòng ngủ</span>
-                            <strong>Trung bình – Khá</strong>
+                            <span>{t('housing_prices.one_bed')}</span>
+                            <strong>{t('housing_prices.one_bed_val')}</strong>
                         </div>
                         <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
-                            <span>Nhà riêng</span>
-                            <strong>Cao hơn (tùy khu)</strong>
+                            <span>{t('housing_prices.house')}</span>
+                            <strong>{t('housing_prices.house_val')}</strong>
                         </div>
                         <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
-                            <span>Căn hộ dịch vụ</span>
-                            <strong>Cao nhất (an toàn)</strong>
+                            <span>{t('housing_prices.serviced')}</span>
+                            <strong>{t('housing_prices.serviced_val')}</strong>
                         </div>
                         <div style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#d32f2f', fontStyle: 'italic' }}>
-                            ⚠️ Giá thuê cho người nước ngoài có thể cao hơn người Việt nếu không thương lượng tốt.
+                            {t('housing_prices.note')}
                         </div>
                     </div>
                 </div>

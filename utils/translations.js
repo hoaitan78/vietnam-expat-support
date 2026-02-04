@@ -146,6 +146,29 @@ export const translations = {
         dl_sec3_title: '3. Quy trình thực hiện',
         dl_cta_title: 'Cần hỗ trợ dịch vụ?',
         dl_cta_btn: 'Liên hệ ngay',
+        housing_hero_list: [
+            'Kinh nghiệm thực tế thuê nhà an toàn',
+            'Các loại hình nhà ở phổ biến & Giá cả',
+            'Lưu ý quan trọng về Hợp đồng & Pháp lý',
+            'Tránh các tranh chấp không đáng có'
+        ],
+        housing_locations_list: [
+            { area: 'Trung tâm thành phố', desc: 'Gần biển, tiện sinh hoạt' },
+            { area: 'Khu ven biển Trần Phú', desc: 'Giá cao, tiện du lịch' },
+            { area: 'Khu Vĩnh Hải – Vĩnh Phước', desc: 'Yên tĩnh, giá hợp lý' },
+            { area: 'Khu phía Nam', desc: 'Phù hợp ở lâu dài, ít du lịch' }
+        ],
+        housing_prices: {
+            dep_factor: 'Giá thuê phụ thuộc vào: **Vị trí, Diện tích, Nội thất, Thời hạn.**',
+            one_bed: 'Căn hộ 1 phòng ngủ',
+            one_bed_val: 'Trung bình – Khá',
+            house: 'Nhà riêng',
+            house_val: 'Cao hơn (tùy khu)',
+            serviced: 'Căn hộ dịch vụ',
+            serviced_val: 'Cao nhất (an toàn)',
+            note: '⚠️ Giá thuê cho người nước ngoài có thể cao hơn người Việt nếu không thương lượng tốt.',
+            location_tip: '💡 Kinh nghiệm: Không nên chọn nhà chỉ vì “gần biển”, hãy cân nhắc đi lại, chợ, bệnh viện và môi trường sống lâu dài.'
+        },
 
         // Structured Data (Arrays/Objects)
         dl_conditions_list: [
@@ -383,6 +406,31 @@ export const translations = {
         dl_cta_title: 'Need Service Support?',
         dl_cta_btn: 'Contact Now',
 
+        housing_hero_list: [
+            'Practical experience for safe renting',
+            'Common housing types & Prices',
+            'Important notes on Contracts & Legal',
+            'Avoid unnecessary disputes'
+        ],
+        housing_locations_list: [
+            { area: 'City Center', desc: 'Near beach, convenient living' },
+            { area: 'Tran Phu Beach Area', desc: 'High price, touristy' },
+            { area: 'Vinh Hai – Vinh Phuoc Area', desc: 'Quiet, reasonable price' },
+            { area: 'South Area (An Vien)', desc: 'Suitable for long-term, less touristy' }
+        ],
+        housing_prices: {
+            dep_factor: 'Rent depends on: **Location, Size, Furniture, Duration.**',
+            one_bed: '1-Bedroom Apartment',
+            one_bed_val: 'Average – Good',
+            house: 'Private House',
+            house_val: 'Higher (depends on area)',
+            serviced: 'Serviced Apartment',
+            serviced_val: 'Highest (safe & easy)',
+            note: '⚠️ Rent for foreigners might be higher if not negotiated well.',
+            location_tip: '💡 Tip: Don’t choose a house just because it’s "near the beach". Consider traffic, markets, hospitals, and long-term environment.'
+        },
+
+
         // Structured Data (Arrays/Objects)
         dl_conditions_list: [
             'Have a valid national driving license issued by a foreign country.',
@@ -619,6 +667,30 @@ export const translations = {
         dl_cta_title: '서비스 지원이 필요하신가요?',
         dl_cta_btn: '지금 문의하기',
 
+        housing_hero_list: [
+            '안전한 임대를 위한 실질적인 경험',
+            '일반적인 주택 유형 및 가격',
+            '계약 및 법률에 관한 중요 사항',
+            '불필요한 분쟁 피하기'
+        ],
+        housing_locations_list: [
+            { area: '시내 중심', desc: '해변 근처, 편리한 생활' },
+            { area: '쩐푸 해변 지역', desc: '높은 가격, 관광지' },
+            { area: '빈하이 – 빈프억 지역', desc: '조용함, 합리적인 가격' },
+            { area: '남부 지역 (안비엔)', desc: '장기 거주 적합, 관광객 적음' }
+        ],
+        housing_prices: {
+            dep_factor: '임대료 결정 요인: **위치, 면적, 가구, 기간.**',
+            one_bed: '침실 1개 아파트',
+            one_bed_val: '평균 – 좋음',
+            house: '단독 주택',
+            house_val: '더 높음 (구역에 따라 다름)',
+            serviced: '서비스 아파트',
+            serviced_val: '가장 높음 (안전 & 편리)',
+            note: '⚠️ 외국인 임대료는 잘 협상하지 않으면 더 비쌀 수 있습니다.',
+            location_tip: '💡 팁: 단순히 "해변 근처"라고 해서 집을 선택하지 마세요. 교통, 시장, 병원 및 장기 거주 환경을 고려하세요.'
+        },
+
         // Structured Data (Arrays/Objects)
         dl_conditions_list: [
             '외국에서 발급된 유효한 국가 운전 면허증 소지.',
@@ -650,7 +722,7 @@ export const translations = {
         housing_tips_list: [
             '집주인 정보 (정확한 인물, 서류)',
             '임대 기간 및 해지 조건',
-            '보증금 (보통 1~2개월치)',
+            '보증금 (보통 1–2개월치)',
             '수리 비용 부담 주체?',
             '보증금 환불 조건 (매우 중요!)'
         ],
@@ -854,6 +926,30 @@ export const translations = {
         dl_sec3_title: '3. 申请流程',
         dl_cta_title: '需要服务支持吗？',
         dl_cta_btn: '立即联系',
+
+        housing_hero_list: [
+            '安全租房的实战经验',
+            '常见住房类型及价格',
+            '关于合同与法律的重要注意事项',
+            '避免不必要的纠纷'
+        ],
+        housing_locations_list: [
+            { area: '市中心', desc: '靠近海滩，生活便利' },
+            { area: '陈富海滩区', desc: '价格高，游客多' },
+            { area: '永海 – 永福区', desc: '安静，价格合理' },
+            { area: '南部地区 (An Vien)', desc: '适合长期居住，游客较少' }
+        ],
+        housing_prices: {
+            dep_factor: '租金取决于：**位置、面积、家具、期限。**',
+            one_bed: '一室公寓',
+            one_bed_val: '平均 – 良好',
+            house: '私宅',
+            house_val: '较高（视区域而定）',
+            serviced: '服务式公寓',
+            serviced_val: '最高（安全且便捷）',
+            note: '⚠️ 如果没有协商好，外国人的租金可能会更高。',
+            location_tip: '💡 提示：不要仅仅因为“靠近海滩”就选择房子。请考虑交通、市场、医院和长期生活环境。'
+        },
 
         // Structured Data (Arrays/Objects)
         dl_conditions_list: [

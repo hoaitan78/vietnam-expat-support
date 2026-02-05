@@ -25,9 +25,9 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
     return (
         <div style={{ marginTop: '2rem' }}>
             <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
-                <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{t('community_discussion_title')} #{initialTopic.id}</h3>
+                <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{initialTopic.title || `${t('community_discussion_title')} #${initialTopic.id}`}</h3>
                 <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-                    <p style={{ lineHeight: '1.6', color: '#333' }}>{initialTopic.content}</p>
+                    <div style={{ lineHeight: '1.6', color: '#333' }}>{initialTopic.content}</div>
                 </div>
             </div>
 

@@ -17,8 +17,21 @@ export default function TopicPage({ params }) {
     // Mock data for the specific discussion
     const topic = {
         id: params.id,
+        title: isSpecialTopic
+            ? 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang'
+            : `Discussion Topic #${params.id}`,
         content: isSpecialTopic
-            ? 'Nha Trang có 3 khu vực chính mà cộng đồng người nước ngoài thường lựa chọn sinh sống: Khu Phố Tây (Tân Lập), Khu An Viên, và Khu Vĩnh Điềm Trung / Vĩnh Hải.'
+            ? (
+                <div>
+                    <h1 style={{ fontSize: '1.5rem', marginTop: 0 }}>Các khu vực tập trung nhiều người nước ngoài ở Nha Trang</h1>
+                    <p>Nha Trang có 3 khu vực chính mà cộng đồng người nước ngoài thường lựa chọn sinh sống:</p>
+                    <ul>
+                        <li><strong>Khu Phố Tây (Tân Lập):</strong> Sôi động, nhiều nhà hàng, quán bar, thuận tiện du lịch.</li>
+                        <li><strong>Khu An Viên:</strong> Yên tĩnh, cao cấp, an ninh tốt, thích hợp nghỉ dưỡng.</li>
+                        <li><strong>Khu Vĩnh Điềm Trung / Vĩnh Hải:</strong> Giá cả phải chăng, gần gũi với cuộc sống người dân địa phương.</li>
+                    </ul>
+                </div>
+            )
             : 'Original post content goes here. This is where the user asks their question. How can I find the best visa agent in town?'
     }
 
@@ -29,21 +42,7 @@ export default function TopicPage({ params }) {
 
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
-            {isSpecialTopic ? (
-                <>
-                    <h1>Các khu vực tập trung nhiều người nước ngoài ở Nha Trang</h1>
-                    <div style={{ background: 'white', padding: '2rem', marginBottom: '2rem', borderRadius: '8px' }}>
-                        <p>Nha Trang có 3 khu vực chính mà cộng đồng người nước ngoài thường lựa chọn sinh sống:</p>
-                        <ul>
-                            <li><strong>Khu Phố Tây (Tân Lập):</strong> Sôi động, nhiều nhà hàng, quán bar, thuận tiện du lịch.</li>
-                            <li><strong>Khu An Viên:</strong> Yên tĩnh, cao cấp, an ninh tốt, thích hợp nghỉ dưỡng.</li>
-                            <li><strong>Khu Vĩnh Điềm Trung / Vĩnh Hải:</strong> Giá cả phải chăng, gần gũi với cuộc sống người dân địa phương.</li>
-                        </ul>
-                    </div>
-                </>
-            ) : (
-                <DiscussionSection initialTopic={topic} initialReplies={initialReplies} />
-            )}
+            <DiscussionSection initialTopic={topic} initialReplies={initialReplies} />
         </div>
     )
 }

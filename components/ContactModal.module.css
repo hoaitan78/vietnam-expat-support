@@ -1,0 +1,147 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease-out;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.closeBtn:hover {
+    color: #333;
+}
+
+.title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #eee;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.facebook {
+    background: #f0f7ff;
+    border-color: #e3f2fd;
+}
+
+.facebook .icon {
+    background: #1877f2;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.phone {
+    background: #f1f8e9;
+    border-color: #e8f5e9;
+}
+
+.phone .icon {
+    background: #4caf50;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-weight: 700;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.subtext {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,20 +1,19 @@
-
-// Metadata cannot be exported from a Client Component. 
-// If dynamic metadata is needed, it should be in a separate Server Component wrapper or layout.
-// For now, we rely on the static metadata or context.
-
 'use client'
 
 import { useLanguage } from '../../../contexts/LanguageContext'
+import { useState } from 'react'
+import ContactModal from '../../../components/ContactModal'
 
 export default function GuideSlug({ params }) {
     const { t } = useLanguage()
     const { slug } = params // Next.js 14+ best practice safe access
     const isVisa = slug === 'visa'
+    const [showContactModal, setShowContactModal] = useState(false)
 
     if (isVisa) {
         return (
             <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
                 {/* BLOCK 1: HERO */}
                 <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                     <div style={{ background: 'linear-gradient(135deg, #e0f2f1 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
@@ -90,18 +89,23 @@ export default function GuideSlug({ params }) {
                 <section style={{ textAlign: 'center', background: 'linear-gradient(135deg, #00695c 0%, #004d40 100%)', color: 'white', padding: '4rem 2rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0, 77, 64, 0.3)' }}>
                     <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontWeight: '800' }}>Need Help?</h2>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-                        <button className="btn" style={{
-                            background: 'white',
-                            color: '#00695c',
-                            fontWeight: '800',
-                            padding: '1rem 3rem',
-                            fontSize: '1.2rem',
-                            border: 'none',
-                            borderRadius: '50px',
-                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                            cursor: 'pointer',
-                            transition: 'transform 0.2s'
-                        }}>
+                        <button
+                            onClick={() => setShowContactModal(true)}
+                            className="btn"
+                            style={{
+                                background: 'white',
+                                color: '#00695c',
+                                fontWeight: '800',
+                                padding: '1rem 3rem',
+                                fontSize: '1.2rem',
+                                border: 'none',
+                                borderRadius: '50px',
+                                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                                cursor: 'pointer',
+                                transition: 'transform 0.2s',
+                                fontFamily: "'Inter', sans-serif"
+                            }}
+                        >
                             {t('nav_contact')}
                         </button>
                     </div>
@@ -115,6 +119,7 @@ export default function GuideSlug({ params }) {
     if (isHousing) {
         return (
             <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
                 {/* HERO */}
                 <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                     <div style={{ background: 'linear-gradient(135deg, #fff3e0 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
@@ -305,18 +310,23 @@ export default function GuideSlug({ params }) {
                     <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', opacity: '0.9' }}>
                         Chúng tôi hỗ trợ bạn từ khâu tìm nhà đến hoàn tất thủ tục pháp lý, kiểm tra hợp đồng và đăng ký tạm trú.
                     </p>
-                    <button className="btn" style={{
-                        background: 'white',
-                        color: '#e65100',
-                        fontWeight: '800',
-                        padding: '1rem 3rem',
-                        fontSize: '1.2rem',
-                        border: 'none',
-                        borderRadius: '50px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                        cursor: 'pointer',
-                        transition: 'transform 0.2s'
-                    }}>
+                    <button
+                        onClick={() => setShowContactModal(true)}
+                        className="btn"
+                        style={{
+                            background: 'white',
+                            color: '#e65100',
+                            fontWeight: '800',
+                            padding: '1rem 3rem',
+                            fontSize: '1.2rem',
+                            border: 'none',
+                            borderRadius: '50px',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                            cursor: 'pointer',
+                            transition: 'transform 0.2s',
+                            fontFamily: "'Inter', sans-serif"
+                        }}
+                    >
                         📩 Liên hệ hỗ trợ tìm nhà
                     </button>
                 </section>
@@ -331,6 +341,7 @@ export default function GuideSlug({ params }) {
     if (isBanking) {
         return (
             <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
                 {/* HERO */}
                 <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                     <div style={{ background: 'linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
@@ -400,17 +411,22 @@ export default function GuideSlug({ params }) {
                     <p style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '700px', margin: '0 auto 2rem auto', lineHeight: '1.6' }}>
                         {t('bank_cta_desc')}
                     </p>
-                    <button className="btn" style={{
-                        background: 'white',
-                        color: '#2e7d32',
-                        fontWeight: '800',
-                        padding: '1rem 3rem',
-                        fontSize: '1.2rem',
-                        border: 'none',
-                        borderRadius: '50px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                        cursor: 'pointer'
-                    }}>
+                    <button
+                        onClick={() => setShowContactModal(true)}
+                        className="btn"
+                        style={{
+                            background: 'white',
+                            color: '#2e7d32',
+                            fontWeight: '800',
+                            padding: '1rem 3rem',
+                            fontSize: '1.2rem',
+                            border: 'none',
+                            borderRadius: '50px',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                            cursor: 'pointer',
+                            fontFamily: "'Inter', sans-serif"
+                        }}
+                    >
                         {t('nav_contact')}
                     </button>
                 </section>
@@ -421,6 +437,7 @@ export default function GuideSlug({ params }) {
     if (isTransportation) {
         return (
             <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
                 {/* HERO */}
                 <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                     <div style={{ background: 'linear-gradient(135deg, #fff3e0 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
@@ -475,17 +492,22 @@ export default function GuideSlug({ params }) {
                 {/* CTA */}
                 <section style={{ textAlign: 'center', background: 'linear-gradient(135deg, #e65100 0%, #ff9800 100%)', color: 'white', padding: '4rem 2rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(230, 81, 0, 0.3)' }}>
                     <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', fontWeight: '800' }}>{t('hero_cta')}</h2>
-                    <button className="btn" style={{
-                        background: 'white',
-                        color: '#e65100',
-                        fontWeight: '800',
-                        padding: '1rem 3rem',
-                        fontSize: '1.2rem',
-                        border: 'none',
-                        borderRadius: '50px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                        cursor: 'pointer'
-                    }}>
+                    <button
+                        onClick={() => setShowContactModal(true)}
+                        className="btn"
+                        style={{
+                            background: 'white',
+                            color: '#e65100',
+                            fontWeight: '800',
+                            padding: '1rem 3rem',
+                            fontSize: '1.2rem',
+                            border: 'none',
+                            borderRadius: '50px',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                            cursor: 'pointer',
+                            fontFamily: "'Inter', sans-serif"
+                        }}
+                    >
                         {t('nav_contact')}
                     </button>
                 </section>

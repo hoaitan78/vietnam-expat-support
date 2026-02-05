@@ -104,8 +104,8 @@ export default function JobsPage() {
                 ))}
             </div>
 
-            <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-                <Link href="/services" className="btn btn-secondary">
+            <div style={{ marginTop: '3rem', textAlign: 'center', fontFamily: "'Inter', sans-serif" }}>
+                <Link href="/services" className="btn btn-secondary" style={{ fontWeight: 'bold' }}>
                     {t('jobs_back')}
                 </Link>
             </div>

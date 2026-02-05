@@ -1,14 +1,19 @@
 'use client'
 
+import { useState } from 'react'
 import { useLanguage } from '../../../contexts/LanguageContext'
 import Link from 'next/link'
 import styles from './page.module.css'
+import ContactModal from '../../../components/ContactModal'
 
 export default function HousingPage() {
     const { t } = useLanguage()
+    const [showContactModal, setShowContactModal] = useState(false)
 
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+            <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
+
             {/* HERO */}
             <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                 <div style={{ background: 'linear-gradient(135deg, #fff3e0 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
@@ -176,18 +181,23 @@ export default function HousingPage() {
                 <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto', opacity: '0.9' }}>
                     {t('housing_cta_desc')}
                 </p>
-                <button className="btn" style={{
-                    background: 'white',
-                    color: '#e65100',
-                    fontWeight: '800',
-                    padding: '1rem 3rem',
-                    fontSize: '1.2rem',
-                    border: 'none',
-                    borderRadius: '50px',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s'
-                }}>
+                <button
+                    onClick={() => setShowContactModal(true)}
+                    className="btn"
+                    style={{
+                        background: 'white',
+                        color: '#e65100',
+                        fontWeight: '800',
+                        padding: '1rem 3rem',
+                        fontSize: '1.2rem',
+                        border: 'none',
+                        borderRadius: '50px',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                        cursor: 'pointer',
+                        transition: 'transform 0.2s',
+                        fontFamily: "'Inter', sans-serif"
+                    }}
+                >
                     {t('housing_cta_btn')}
                 </button>
             </section>

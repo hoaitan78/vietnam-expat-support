@@ -1,13 +1,18 @@
 'use client'
 
+import { useState } from 'react'
 import { useLanguage } from '../../../contexts/LanguageContext'
 import Link from 'next/link'
+import ContactModal from '../../../components/ContactModal'
 
 export default function DrivingLicensePage() {
     const { t } = useLanguage()
+    const [showContactModal, setShowContactModal] = useState(false)
 
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '1000px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+            <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
+
             {/* HERO */}
             <section style={{ textAlign: 'center', marginBottom: '5rem' }}>
                 <div style={{ background: 'linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%)', padding: '3rem 2rem', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
@@ -85,21 +90,25 @@ export default function DrivingLicensePage() {
                     {t('dl_cta_desc')}
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                    <Link href="/contact" className="btn" style={{
-                        background: 'white',
-                        color: '#1565c0',
-                        fontWeight: '800',
-                        padding: '1rem 3rem',
-                        fontSize: '1.2rem',
-                        border: 'none',
-                        borderRadius: '50px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                        cursor: 'pointer',
-                        textDecoration: 'none',
-                        display: 'inline-block'
-                    }}>
+                    <button
+                        onClick={() => setShowContactModal(true)}
+                        className="btn"
+                        style={{
+                            background: 'white',
+                            color: '#1565c0',
+                            fontWeight: '800',
+                            padding: '1rem 3rem',
+                            fontSize: '1.2rem',
+                            border: 'none',
+                            borderRadius: '50px',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                            cursor: 'pointer',
+                            display: 'inline-block',
+                            fontFamily: "'Inter', sans-serif"
+                        }}
+                    >
                         {t('dl_cta_btn')}
-                    </Link>
+                    </button>
                 </div>
             </section>
         </div>

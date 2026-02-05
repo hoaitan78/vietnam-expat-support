@@ -96,6 +96,14 @@ export const translations = {
         calc_res_transport: 'Di chuyển',
         calc_res_leisure: 'Giải trí',
 
+        // Community Discussion
+        community_discussion_title: 'Discussion Topic', // Requested to keep English
+        community_replies_title: 'Trả lời',
+        community_ask_placeholder: 'Đặt câu hỏi...',
+        community_reply_placeholder: 'Viết câu trả lời...',
+        community_post_btn: 'Đăng',
+        community_reply_btn: 'Trả lời',
+
         // Placeholders
         page_guides_title: 'Cẩm nang Expat',
         page_guides_sub: 'Tài nguyên toàn diện hỗ trợ cuộc sống của bạn.',
@@ -452,6 +460,14 @@ export const translations = {
         calc_res_food: 'Food & Drink',
         calc_res_transport: 'Transport',
         calc_res_leisure: 'Leisure',
+
+        // Community Discussion
+        community_discussion_title: 'Discussion Topic',
+        community_replies_title: 'Replies',
+        community_ask_placeholder: 'Ask a question...',
+        community_reply_placeholder: 'Write a reply...',
+        community_post_btn: 'Post',
+        community_reply_btn: 'Reply',
 
         // Placeholders
         page_guides_title: 'Expat Guides',
@@ -812,6 +828,14 @@ export const translations = {
         calc_res_transport: '교통',
         calc_res_leisure: '여가',
 
+        // Community Discussion
+        community_discussion_title: '토론 주제',
+        community_replies_title: '답글',
+        community_ask_placeholder: '질문하기...',
+        community_reply_placeholder: '답글 작성...',
+        community_post_btn: '게시',
+        community_reply_btn: '답글',
+
         // Placeholders
         page_guides_title: '외국인 가이드',
         page_guides_sub: '이주를 돕는 포괄적인 자료.',
@@ -1169,6 +1193,14 @@ export const translations = {
         calc_res_food: '餐饮',
         calc_res_transport: '交通',
         calc_res_leisure: '休闲',
+
+        // Community Discussion
+        community_discussion_title: '讨论话题',
+        community_replies_title: '回复',
+        community_ask_placeholder: '提问...',
+        community_reply_placeholder: '写回复...',
+        community_post_btn: '发布',
+        community_reply_btn: '回复',
 
         // Placeholders
         page_guides_title: '外籍人士指南',

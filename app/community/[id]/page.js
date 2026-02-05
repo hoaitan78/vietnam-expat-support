@@ -1,3 +1,4 @@
+import DiscussionSection from '../../components/DiscussionSection'
 
 export async function generateMetadata({ params }) {
     const title = params.id === '2'
@@ -11,9 +12,24 @@ export async function generateMetadata({ params }) {
 }
 
 export default function TopicPage({ params }) {
+    const isSpecialTopic = params.id === '2'
+
+    // Mock data for the specific discussion
+    const topic = {
+        id: params.id,
+        content: isSpecialTopic
+            ? 'Nha Trang có 3 khu vực chính mà cộng đồng người nước ngoài thường lựa chọn sinh sống: Khu Phố Tây (Tân Lập), Khu An Viên, và Khu Vĩnh Điềm Trung / Vĩnh Hải.'
+            : 'Original post content goes here. This is where the user asks their question. How can I find the best visa agent in town?'
+    }
+
+    const initialReplies = [
+        { id: 101, user: 'John Doe', content: 'Good question! I recommend checking the Visa Guide section.', time: '2 hours ago' },
+        { id: 102, user: 'Jane Smith', content: 'I used a local agent near the center, very fast service.', time: '1 hour ago' }
+    ]
+
     return (
-        <div className="container" style={{ padding: '4rem 1rem' }}>
-            {params.id === '2' ? (
+        <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+            {isSpecialTopic ? (
                 <>
                     <h1>Các khu vực tập trung nhiều người nước ngoài ở Nha Trang</h1>
                     <div style={{ background: 'white', padding: '2rem', marginBottom: '2rem', borderRadius: '8px' }}>
@@ -26,20 +42,8 @@ export default function TopicPage({ params }) {
                     </div>
                 </>
             ) : (
-                <>
-                    <h1>Discussion Topic #{params.id}</h1>
-                    <div style={{ background: 'white', padding: '2rem', marginBottom: '2rem', borderRadius: '8px' }}>
-                        <p>Original post content goes here. This is where the user asks their question.</p>
-                    </div>
-                </>
+                <DiscussionSection initialTopic={topic} initialReplies={initialReplies} />
             )}
-
-            <h3>Replies</h3>
-            <div style={{ marginLeft: '2rem', borderLeft: '2px solid #eee', paddingLeft: '1rem' }}>
-                <p><strong>ReplyUser1:</strong> Good question! I think...</p>
-                <br />
-                <p><strong>ReplyUser2:</strong> I disagree, usually it's better to...</p>
-            </div>
         </div>
     )
 }

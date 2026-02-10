@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import styles from './page.module.css'
 import Link from 'next/link'
 import { useLanguage } from '../contexts/LanguageContext'
@@ -28,6 +29,15 @@ export default function Home() {
         <>
             <section className={styles.hero}>
                 <div className="container">
+                    <div className={styles.heroLogo}>
+                        <Image
+                            src="/images/logo.png"
+                            alt="Nha Trang Expat Support Logo"
+                            width={120}
+                            height={120}
+                            priority
+                        />
+                    </div>
                     <h1 className={styles.heroTitle}>{t('hero_title')}</h1>
                     <p className={styles.heroSubtitle}>
                         {t('hero_subtitle')}

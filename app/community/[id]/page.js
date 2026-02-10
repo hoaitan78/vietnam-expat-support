@@ -3,11 +3,11 @@ import DiscussionSection from '../../../components/DiscussionSection'
 export async function generateMetadata({ params }) {
     const title = params.id === '2'
         ? 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang'
-        : `Discussion Topic #${params.id}`;
+        : `Chủ đề Thảo luận #${params.id}`;
 
     return {
         title: `${title} - Vietnam Expat Support`,
-        description: `Join the discussion about ${title} in our community forum.`
+        description: `Tham gia thảo luận về ${title} trong diễn đàn cộng đồng của chúng tôi.`
     }
 }
 
@@ -19,7 +19,7 @@ export default function TopicPage({ params }) {
         id: params.id,
         title: isSpecialTopic
             ? 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang'
-            : `Discussion Topic #${params.id}`,
+            : null, // Let DiscussionSection handle translation
         content: isSpecialTopic
             ? (
                 <div>

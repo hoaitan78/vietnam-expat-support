@@ -97,7 +97,9 @@ export const translations = {
         calc_res_leisure: 'Giải trí',
 
         // Community Discussion
-        community_discussion_title: 'Discussion Topic', // Requested to keep English
+        community_discussion_title: 'Chủ đề Thảo luận',
+        community_delete_topic: 'Xóa chủ đề',
+        confirm_delete_topic: 'Bạn có chắc chắn muốn xóa chủ đề này không?',
         community_replies_title: 'Trả lời',
         community_ask_placeholder: 'Đặt câu hỏi...',
         community_reply_placeholder: 'Viết câu trả lời...',
@@ -464,6 +466,8 @@ export const translations = {
 
         // Community Discussion
         community_discussion_title: 'Discussion Topic',
+        community_delete_topic: 'Delete Topic',
+        confirm_delete_topic: 'Are you sure you want to delete this topic?',
         community_replies_title: 'Replies',
         community_ask_placeholder: 'Ask a question...',
         community_reply_placeholder: 'Write a reply...',

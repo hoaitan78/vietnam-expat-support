@@ -12,7 +12,7 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
     const [newReply, setNewReply] = useState('')
 
     // Mock Admin Email List - In a real app, this should be handled by backend roles/claims
-    const ADMIN_EMAILS = ['admin@example.com', currentUser?.email] // Temporarily added current user for testing
+    const ADMIN_EMAILS = ['admin@example.com', 'hoaitan78@gmail.com', currentUser?.email] // Temporarily added current user for testing
 
     const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
 

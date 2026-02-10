@@ -71,3 +71,10 @@
     margin-bottom: 1.5rem;
     flex-grow: 1;
 }
+
+.heroLogo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    margin-top: -4rem;
+}

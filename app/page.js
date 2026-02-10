@@ -31,7 +31,7 @@ export default function Home() {
                 <div className="container">
                     <div className={styles.heroLogo}>
                         <Image
-                            src="/images/logo.svg"
+                            src="/images/logo.png"
                             alt="Nha Trang Expat Support Logo"
                             width={120}
                             height={120}

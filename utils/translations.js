@@ -103,6 +103,7 @@ export const translations = {
         community_reply_placeholder: 'Viết câu trả lời...',
         community_post_btn: 'Đăng',
         community_reply_btn: 'Trả lời',
+        community_login_required: 'Vui lòng đăng nhập để tham gia thảo luận.',
 
         // Placeholders
         page_guides_title: 'Cẩm nang Expat',
@@ -468,6 +469,7 @@ export const translations = {
         community_reply_placeholder: 'Write a reply...',
         community_post_btn: 'Post',
         community_reply_btn: 'Reply',
+        community_login_required: 'Please login to participate in the discussion.',
 
         // Placeholders
         page_guides_title: 'Expat Guides',
@@ -835,6 +837,7 @@ export const translations = {
         community_reply_placeholder: '답글 작성...',
         community_post_btn: '게시',
         community_reply_btn: '답글',
+        community_login_required: '토론에 참여하려면 로그인하십시오.',
 
         // Placeholders
         page_guides_title: '외국인 가이드',
@@ -1201,6 +1204,7 @@ export const translations = {
         community_reply_placeholder: '写回复...',
         community_post_btn: '发布',
         community_reply_btn: '回复',
+        community_login_required: '请登录以参与讨论。',
 
         // Placeholders
         page_guides_title: '外籍人士指南',

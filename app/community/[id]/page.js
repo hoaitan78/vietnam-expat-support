@@ -1,4 +1,4 @@
-import DiscussionSection from '../../components/DiscussionSection'
+import DiscussionSection from '../../../components/DiscussionSection'
 
 export async function generateMetadata({ params }) {
     const title = params.id === '2'

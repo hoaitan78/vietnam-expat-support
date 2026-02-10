@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="100" fill="#1A4D2E"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#D4AF37" stroke-width="5"/>
+  <path d="M100 40 L120 80 L160 85 L130 115 L140 160 L100 140 L60 160 L70 115 L40 85 L80 80 Z" fill="#D4AF37"/>
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#FFFFFF" font-weight="bold">NHA TRANG</text>
+</svg>

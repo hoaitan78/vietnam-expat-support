@@ -11,6 +11,11 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
     const [replies, setReplies] = useState(initialReplies)
     const [newReply, setNewReply] = useState('')
 
+    // Mock Admin Email List - In a real app, this should be handled by backend roles/claims
+    const ADMIN_EMAILS = ['admin@example.com', currentUser?.email] // Temporarily added current user for testing
+
+    const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
+
     const handlePostReply = () => {
         if (!newReply.trim()) return
 
@@ -18,12 +23,31 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
             id: Date.now(),
             user: currentUser?.email || 'Anonymous',
             content: newReply,
-            time: 'Just now'
+            time: 'Just now',
+            status: isAdmin ? 'approved' : 'pending' // Admins auto-approve their own posts
         }
 
         setReplies([...replies, reply])
         setNewReply('')
     }
+
+    const handleDeleteReply = (replyId) => {
+        if (window.confirm(t('confirm_delete_reply') || 'Are you sure you want to delete this reply?')) {
+            setReplies(replies.filter(r => r.id !== replyId))
+        }
+    }
+
+    const handleUpdateStatus = (replyId, newStatus) => {
+        setReplies(replies.map(r =>
+            r.id === replyId ? { ...r, status: newStatus } : r
+        ))
+    }
+
+    // Filter replies for non-admins: only show approved ones
+    // For admins: show all
+    const visibleReplies = isAdmin
+        ? replies
+        : replies.filter(r => r.status === 'approved')
 
     return (
         <div style={{ marginTop: '2rem' }}>
@@ -34,18 +58,69 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
                 </div>
             </div>
 
-            <h3 style={{ color: '#004d40', marginBottom: '1.5rem' }}>{t('community_replies_title')}</h3>
+            <h3 style={{ color: '#004d40', marginBottom: '1.5rem' }}>{t('community_replies_title')} ({visibleReplies.length})</h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
-                {replies.map((reply) => (
-                    <div key={reply.id} style={{ display: 'flex', gap: '1rem' }}>
+                {visibleReplies.length === 0 && (
+                    <p style={{ fontStyle: 'italic', color: '#777' }}>{t('no_replies_yet') || 'No replies yet. Be the first to share your thoughts!'}</p>
+                )}
+
+                {visibleReplies.map((reply) => (
+                    <div key={reply.id} style={{
+                        display: 'flex',
+                        gap: '1rem',
+                        opacity: reply.status === 'pending' || reply.status === 'rejected' ? 0.6 : 1,
+                        background: reply.status === 'pending' ? '#fffde7' : reply.status === 'rejected' ? '#ffebee' : 'transparent',
+                        padding: (reply.status === 'pending' || reply.status === 'rejected') ? '1rem' : '0',
+                        borderRadius: '8px'
+                    }}>
                         <div style={{ width: '2px', background: '#ccc' }}></div>
                         <div style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
                                 <strong style={{ color: '#00695c' }}>{reply.user}</strong>
                                 <span style={{ fontSize: '0.85rem', color: '#999' }}>• {reply.time}</span>
+                                {isAdmin && (
+                                    <span style={{
+                                        fontSize: '0.75rem',
+                                        padding: '2px 6px',
+                                        borderRadius: '4px',
+                                        background: reply.status === 'approved' ? '#e8f5e9' : reply.status === 'rejected' ? '#ffebee' : '#fff8e1',
+                                        color: reply.status === 'approved' ? '#2e7d32' : reply.status === 'rejected' ? '#c62828' : '#f9a825',
+                                        border: '1px solid',
+                                        borderColor: reply.status === 'approved' ? '#a5d6a7' : reply.status === 'rejected' ? '#ef9a9a' : '#ffe082'
+                                    }}>
+                                        {reply.status ? reply.status.toUpperCase() : 'APPROVED'}
+                                    </span>
+                                )}
                             </div>
                             <p style={{ margin: 0, color: '#444' }}>{reply.content}</p>
+
+                            {isAdmin && (
+                                <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.5rem' }}>
+                                    {reply.status !== 'approved' && (
+                                        <button
+                                            onClick={() => handleUpdateStatus(reply.id, 'approved')}
+                                            style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#e8f5e9', border: '1px solid #a5d6a7', color: '#2e7d32', borderRadius: '4px' }}
+                                        >
+                                            Approve
+                                        </button>
+                                    )}
+                                    {reply.status !== 'rejected' && (
+                                        <button
+                                            onClick={() => handleUpdateStatus(reply.id, 'rejected')}
+                                            style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#ffebee', border: '1px solid #ef9a9a', color: '#c62828', borderRadius: '4px' }}
+                                        >
+                                            Reject
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => handleDeleteReply(reply.id)}
+                                        style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#fafafa', border: '1px solid #ddd', color: '#555', borderRadius: '4px' }}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -54,7 +129,7 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
             {currentUser ? (
                 <div style={{ background: '#fff', border: '1px solid #eee', borderRadius: '12px', padding: '1.5rem' }}>
                     <div style={{ marginBottom: '1rem', fontStyle: 'italic', color: '#666' }}>
-                        Posting as: <strong>{currentUser.email}</strong>
+                        Posting as: <strong>{currentUser.email}</strong> {isAdmin && '(Admin)'}
                     </div>
                     <textarea
                         value={newReply}

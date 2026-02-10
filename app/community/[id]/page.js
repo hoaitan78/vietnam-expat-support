@@ -36,8 +36,8 @@ export default function TopicPage({ params }) {
     }
 
     const initialReplies = [
-        { id: 101, user: 'John Doe', content: 'Good question! I recommend checking the Visa Guide section.', time: '2 hours ago' },
-        { id: 102, user: 'Jane Smith', content: 'I used a local agent near the center, very fast service.', time: '1 hour ago' }
+        { id: 101, user: 'John Doe', content: 'Good question! I recommend checking the Visa Guide section.', time: '2 hours ago', status: 'approved' },
+        { id: 102, user: 'Jane Smith', content: 'I used a local agent near the center, very fast service.', time: '1 hour ago', status: 'approved' }
     ]
 
     return (

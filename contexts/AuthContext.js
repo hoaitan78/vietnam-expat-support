@@ -9,7 +9,9 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider,
     signInWithPopup,
-    sendPasswordResetEmail
+    signInWithPopup,
+    sendPasswordResetEmail,
+    FacebookAuthProvider
 } from 'firebase/auth'
 
 const AuthContext = createContext()
@@ -39,6 +41,11 @@ export function AuthProvider({ children }) {
         return signInWithPopup(auth, provider)
     }
 
+    function facebookLogin() {
+        const provider = new FacebookAuthProvider()
+        return signInWithPopup(auth, provider)
+    }
+
     function resetPassword(email) {
         return sendPasswordResetEmail(auth, email)
     }
@@ -58,6 +65,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         googleLogin,
+        facebookLogin,
         resetPassword
     }
 

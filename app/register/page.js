@@ -10,7 +10,7 @@ import { updateProfile } from 'firebase/auth'
 
 export default function RegisterPage() {
     const { t } = useLanguage()
-    const { signup } = useAuth()
+    const { signup, googleLogin, facebookLogin } = useAuth()
     const router = useRouter()
 
     const [name, setName] = useState('')
@@ -34,6 +34,32 @@ export default function RegisterPage() {
         } catch (err) {
             console.error(err)
             setError('Failed to create account: ' + err.message)
+        }
+        setLoading(false)
+    }
+
+    async function handleGoogleSignIn() {
+        try {
+            setError('')
+            setLoading(true)
+            await googleLogin()
+            router.push('/')
+        } catch (err) {
+            console.error(err)
+            setError('Failed to google login: ' + err.message)
+        }
+        setLoading(false)
+    }
+
+    async function handleFacebookSignIn() {
+        try {
+            setError('')
+            setLoading(true)
+            await facebookLogin()
+            router.push('/')
+        } catch (err) {
+            console.error(err)
+            setError('Failed to facebook login: ' + err.message)
         }
         setLoading(false)
     }
@@ -87,6 +113,30 @@ export default function RegisterPage() {
                         {loading ? 'Creating...' : t('auth_signup')}
                     </button>
                 </form>
+
+                <div className={styles.divider}>
+                    <span className={styles.dividerSpan}>{t('auth_or')}</span>
+                </div>
+
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ width: '100%' }}
+                    onClick={handleGoogleSignIn}
+                    disabled={loading}
+                >
+                    {t('auth_google')}
+                </button>
+
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ width: '100%', marginTop: '0.5rem', backgroundColor: '#1877F2', color: 'white', border: 'none' }}
+                    onClick={handleFacebookSignIn}
+                    disabled={loading}
+                >
+                    {t('auth_facebook')}
+                </button>
 
                 <div className={styles.footer}>
                     {t('auth_has_account')} <Link href="/login" className={styles.link}>{t('auth_login_link')}</Link>

@@ -19,6 +19,16 @@ export default function Footer() {
                         <li><a href="/guides">{t('nav_guides')}</a></li>
                         <li><a href="/services">{t('nav_services')}</a></li>
                         <li><a href="/community">{t('nav_community')}</a></li>
+                        <li>
+                            <a
+                                href="https://www.facebook.com/profile.php?id=61587738368961"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}
+                            >
+                                <span style={{ fontSize: '1.2rem' }}>🔵</span> Facebook Page
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div className={styles.col}>

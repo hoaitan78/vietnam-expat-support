@@ -9,7 +9,7 @@ import { useAuth } from '../../contexts/AuthContext'
 
 export default function LoginPage() {
     const { t } = useLanguage()
-    const { login, googleLogin } = useAuth()
+    const { login, googleLogin, facebookLogin } = useAuth()
     const router = useRouter()
 
     const [email, setEmail] = useState('')
@@ -41,6 +41,19 @@ export default function LoginPage() {
         } catch (err) {
             console.error(err)
             setError('Failed to google login: ' + err.message)
+        }
+        setLoading(false)
+    }
+
+    async function handleFacebookSignIn() {
+        try {
+            setError('')
+            setLoading(true)
+            await facebookLogin()
+            router.push('/')
+        } catch (err) {
+            console.error(err)
+            setError('Failed to facebook login: ' + err.message)
         }
         setLoading(false)
     }
@@ -100,6 +113,16 @@ export default function LoginPage() {
                     disabled={loading}
                 >
                     {t('auth_google')}
+                </button>
+
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ width: '100%', marginTop: '0.5rem', backgroundColor: '#1877F2', color: 'white', border: 'none' }}
+                    onClick={handleFacebookSignIn}
+                    disabled={loading}
+                >
+                    {t('auth_facebook')}
                 </button>
 
                 <div className={styles.footer}>

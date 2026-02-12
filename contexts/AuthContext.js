@@ -9,7 +9,6 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider,
     signInWithPopup,
-    signInWithPopup,
     sendPasswordResetEmail,
     FacebookAuthProvider
 } from 'firebase/auth'

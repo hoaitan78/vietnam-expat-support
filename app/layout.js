@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { LanguageProvider } from '../contexts/LanguageContext'
 import { AuthProvider } from '../contexts/AuthContext'
+import { ThemeProvider } from '../contexts/ThemeContext'
 import FacebookMsg from '../components/FacebookMsg'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,14 +25,16 @@ export default function RootLayout({ children }) {
             <body className={inter.className}>
                 <AuthProvider>
                     <LanguageProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <Navbar />
-                            <main className="main-content">
-                                {children}
-                            </main>
-                            <Footer />
-                        </div>
-                        <FacebookMsg />
+                        <ThemeProvider>
+                            <div className="flex flex-col min-h-screen">
+                                <Navbar />
+                                <main className="main-content">
+                                    {children}
+                                </main>
+                                <Footer />
+                            </div>
+                            <FacebookMsg />
+                        </ThemeProvider>
                     </LanguageProvider>
                 </AuthProvider>
             </body>

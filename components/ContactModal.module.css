@@ -89,8 +89,13 @@
 }
 
 .whatsapp {
+    color: #333;
     background: #e8f5e9;
     border-color: #c8e6c9;
+}
+
+.whatsapp .label {
+    color: #111;
 }
 
 .whatsapp .icon {

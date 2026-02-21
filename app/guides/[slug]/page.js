@@ -153,7 +153,7 @@ export default function GuideSlug({ params }) {
                 <section style={{ marginBottom: '5rem' }}>
                     <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>1. Người nước ngoài có được thuê nhà không?</h2>
                     <div style={{ display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
-                        <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
+                        <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a', color: '#333' }}>
                             <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>👉</span> Có, được phép!</h3>
                             <p>Theo pháp luật Việt Nam, bạn được thuê nhà hợp pháp để ở hoặc làm việc nếu:</p>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -162,7 +162,7 @@ export default function GuideSlug({ params }) {
                                 ))}
                             </ul>
                         </div>
-                        <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350' }}>
+                        <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350', color: '#333' }}>
                             <h3 style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>⚠️</span> Lưu ý quan trọng</h3>
                             <p style={{ fontStyle: 'italic', fontWeight: '500' }}>
                                 "Người nước ngoài không được tự ý thuê nhà không hợp đồng hoặc thuê “miệng”, dù giá rẻ."
@@ -204,18 +204,18 @@ export default function GuideSlug({ params }) {
                                 { area: 'Khu Vĩnh Hải – Vĩnh Phước', desc: 'Yên tĩnh, giá hợp lý' },
                                 { area: 'Khu phía Nam', desc: 'Phù hợp ở lâu dài, ít du lịch' }
                             ].map((loc, i) => (
-                                <li key={i} style={{ marginBottom: '1rem', padding: '1rem', background: '#fafafa', borderRadius: '8px' }}>
+                                <li key={i} style={{ marginBottom: '1rem', padding: '1rem', background: '#fafafa', borderRadius: '8px', color: '#333' }}>
                                     <strong>📍 {loc.area}:</strong> <span style={{ color: '#666' }}>{loc.desc}</span>
                                 </li>
                             ))}
                         </ul>
-                        <div style={{ background: '#fff3e0', padding: '1rem', borderRadius: '8px', marginTop: '1rem' }}>
+                        <div style={{ background: '#fff3e0', padding: '1rem', borderRadius: '8px', marginTop: '1rem', color: '#333' }}>
                             <strong>💡 Kinh nghiệm:</strong> Không nên chọn nhà chỉ vì “gần biển”, hãy cân nhắc đi lại, chợ, bệnh viện và môi trường sống lâu dài.
                         </div>
                     </div>
                     <div>
                         <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>4. Giá thuê (Tham khảo)</h2>
-                        <div style={{ background: 'white', border: '1px solid #eee', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                        <div style={{ background: 'white', border: '1px solid #eee', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', color: '#333' }}>
                             <p>Giá thuê phụ thuộc vào: <strong>Vị trí, Diện tích, Nội thất, Thời hạn.</strong></p>
                             <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '1rem 0' }} />
                             <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -239,7 +239,7 @@ export default function GuideSlug({ params }) {
 
                 {/* 5. CONTRACT & 6. UTILITIES */}
                 <section style={{ marginBottom: '5rem' }}>
-                    <div style={{ background: '#fff8e1', padding: '3rem 2rem', borderRadius: '24px' }}>
+                    <div style={{ background: '#fff8e1', padding: '3rem 2rem', borderRadius: '24px', color: '#333' }}>
                         <h2 style={{ color: '#f57f17', textAlign: 'center', marginBottom: '2rem' }}>📝 Hợp đồng & Chi phí phát sinh</h2>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                             <div>
@@ -275,7 +275,7 @@ export default function GuideSlug({ params }) {
 
                 {/* 7. REGISTRATION & 8. RISKS */}
                 <section style={{ marginBottom: '5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-                    <div style={{ padding: '2rem', border: '2px solid #2196f3', borderRadius: '16px', background: '#e3f2fd' }}>
+                    <div style={{ padding: '2rem', border: '2px solid #2196f3', borderRadius: '16px', background: '#e3f2fd', color: '#333' }}>
                         <h2 style={{ color: '#1565c0', marginBottom: '1rem', fontSize: '1.5rem' }}>7. Khai báo tạm trú bắt buộc</h2>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             <li style={{ marginBottom: '1rem' }}>👮 Phải khai báo trong vòng <strong>24 giờ</strong> sau khi đến.</li>
@@ -284,7 +284,7 @@ export default function GuideSlug({ params }) {
                         </ul>
                         <p style={{ fontSize: '0.9rem', color: '#0d47a1' }}>Ảnh hưởng: Không gia hạn được Visa/TRC nếu thiếu giấy này.</p>
                     </div>
-                    <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee' }}>
+                    <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee', color: '#333' }}>
                         <h2 style={{ color: '#c62828', marginBottom: '1rem', fontSize: '1.5rem' }}>8. Rủi ro thường gặp</h2>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             <li style={{ marginBottom: '0.5rem' }}>🚫 Chủ nhà không có quyền cho thuê</li>
@@ -355,7 +355,7 @@ export default function GuideSlug({ params }) {
                 {/* 1. DOCUMENTS */}
                 <section style={{ marginBottom: '5rem' }}>
                     <h2 style={{ color: '#2e7d32', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('bank_docs_title')}</h2>
-                    <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
+                    <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a', color: '#333' }}>
                         <p style={{ marginBottom: '1rem', fontWeight: '500' }}>{t('bank_docs_desc')}</p>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('bank_docs_list') || []).map((item, i) => (
@@ -369,7 +369,7 @@ export default function GuideSlug({ params }) {
 
                 {/* 2. RESIDENCY */}
                 <section style={{ marginBottom: '5rem', display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
-                    <div style={{ padding: '2rem', background: 'white', border: '1px solid #eee', borderRadius: '16px', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                    <div style={{ padding: '2rem', background: 'white', border: '1px solid #eee', borderRadius: '16px', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', color: '#333' }}>
                         <h2 style={{ color: '#2e7d32', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('bank_residency_title')}</h2>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('bank_residency_list') || []).map((item, i) => (
@@ -380,7 +380,7 @@ export default function GuideSlug({ params }) {
                         </ul>
                     </div>
 
-                    <div style={{ padding: '2rem', background: '#e3f2fd', borderRadius: '16px' }}>
+                    <div style={{ padding: '2rem', background: '#e3f2fd', borderRadius: '16px', color: '#333' }}>
                         <h2 style={{ color: '#1565c0', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('bank_types_title')}</h2>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('bank_types_list') || []).map((item, i) => (
@@ -395,7 +395,7 @@ export default function GuideSlug({ params }) {
                 {/* 3. NOTES */}
                 <section style={{ marginBottom: '5rem' }}>
                     <h2 style={{ color: '#2e7d32', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('bank_notes_title')}</h2>
-                    <div style={{ background: '#fff8e1', padding: '2rem', borderRadius: '16px', border: '1px solid #ffecb3' }}>
+                    <div style={{ background: '#fff8e1', padding: '2rem', borderRadius: '16px', border: '1px solid #ffecb3', color: '#333' }}>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('bank_notes_list') || []).map((item, i) => (
                                 <li key={i} style={{ marginBottom: '0.8rem', display: 'flex', gap: '0.75rem', fontSize: '1.1rem', color: '#f57f17' }}>
@@ -451,7 +451,7 @@ export default function GuideSlug({ params }) {
                 {/* 1. CONDITIONS */}
                 <section style={{ marginBottom: '5rem' }}>
                     <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('moto_cond_title')}</h2>
-                    <div style={{ background: '#fbe9e7', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ff5722' }}>
+                    <div style={{ background: '#fbe9e7', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ff5722', color: '#333' }}>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('moto_cond_list') || []).map((item, i) => (
                                 <li key={i} style={{ marginBottom: '0.8rem', display: 'flex', gap: '0.75rem', fontSize: '1.1rem' }}>
@@ -478,7 +478,7 @@ export default function GuideSlug({ params }) {
                 {/* 3. LICENSE & INSURANCE */}
                 <section style={{ marginBottom: '5rem' }}>
                     <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('moto_req_title')}</h2>
-                    <div style={{ background: '#e3f2fd', padding: '2rem', borderRadius: '16px', textAlign: 'center' }}>
+                    <div style={{ background: '#e3f2fd', padding: '2rem', borderRadius: '16px', textAlign: 'center', color: '#333' }}>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('moto_req_list') || []).map((item, i) => (
                                 <li key={i} style={{ marginBottom: '1rem', fontSize: '1.2rem', fontWeight: '500', color: '#1565c0' }}>

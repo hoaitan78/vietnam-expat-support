@@ -42,7 +42,7 @@ export default function HousingPage() {
             <section style={{ marginBottom: '5rem' }}>
                 <h2 style={{ color: '#e65100', fontSize: '2rem', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec1_title')}</h2>
                 <div style={{ display: 'grid', md: { gridTemplateColumns: '1fr 1fr' }, gap: '2rem' }}>
-                    <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a' }}>
+                    <div style={{ background: '#f1f8e9', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #66bb6a', color: '#333' }}>
                         <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>👉</span> {t('housing_sec1_yes')}</h3>
                         <p>{t('housing_cond_intro')}</p>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -51,7 +51,7 @@ export default function HousingPage() {
                             ))}
                         </ul>
                     </div>
-                    <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350' }}>
+                    <div style={{ background: '#ffebee', padding: '2rem', borderRadius: '16px', borderLeft: '5px solid #ef5350', color: '#333' }}>
                         <h3 style={{ color: '#c62828', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>⚠️</span> {t('housing_sec1_note')}</h3>
                         <p style={{ fontStyle: 'italic', fontWeight: '500' }}>
                             {t('housing_sec1_quote')}
@@ -83,18 +83,18 @@ export default function HousingPage() {
                     <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('housing_sec3_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         {(t('housing_locations_list') || []).map((loc, i) => (
-                            <li key={i} style={{ marginBottom: '1rem', padding: '1rem', background: '#fafafa', borderRadius: '8px' }}>
+                            <li key={i} style={{ marginBottom: '1rem', padding: '1rem', background: '#fafafa', borderRadius: '8px', color: '#333' }}>
                                 <strong>📍 {loc.area}:</strong> <span style={{ color: '#666' }}>{loc.desc}</span>
                             </li>
                         ))}
                     </ul>
-                    <div style={{ background: '#fff3e0', padding: '1rem', borderRadius: '8px', marginTop: '1rem' }}>
+                    <div style={{ background: '#fff3e0', padding: '1rem', borderRadius: '8px', marginTop: '1rem', color: '#333' }}>
                         {t('housing_prices.location_tip')}
                     </div>
                 </div>
                 <div>
                     <h2 style={{ color: '#e65100', fontSize: '1.8rem', marginBottom: '1.5rem' }}>{t('housing_sec4_title')}</h2>
-                    <div style={{ background: 'white', border: '1px solid #eee', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                    <div style={{ background: 'white', border: '1px solid #eee', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', color: '#333' }}>
                         <p dangerouslySetInnerHTML={{ __html: t('housing_prices.dep_factor') }}></p>
                         <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '1rem 0' }} />
                         <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -118,7 +118,7 @@ export default function HousingPage() {
 
             {/* 5. CONTRACT & 6. UTILITIES */}
             <section style={{ marginBottom: '5rem' }}>
-                <div style={{ background: '#fff8e1', padding: '3rem 2rem', borderRadius: '24px' }}>
+                <div style={{ background: '#fff8e1', padding: '3rem 2rem', borderRadius: '24px', color: '#333' }}>
                     <h2 style={{ color: '#f57f17', textAlign: 'center', marginBottom: '2rem' }}>{t('housing_sec5_title')}</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                         <div>
@@ -147,7 +147,7 @@ export default function HousingPage() {
 
             {/* 7. REGISTRATION & 8. RISKS */}
             <section style={{ marginBottom: '5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-                <div style={{ padding: '2rem', border: '2px solid #2196f3', borderRadius: '16px', background: '#e3f2fd' }}>
+                <div style={{ padding: '2rem', border: '2px solid #2196f3', borderRadius: '16px', background: '#e3f2fd', color: '#333' }}>
                     <h2 style={{ color: '#1565c0', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec7_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         {(t('housing_registration_list') || []).map((item, i) => (
@@ -156,7 +156,7 @@ export default function HousingPage() {
                     </ul>
                     <p style={{ fontSize: '0.9rem', color: '#0d47a1' }}>{t('housing_sec7_note')}</p>
                 </div>
-                <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee' }}>
+                <div style={{ padding: '2rem', border: '2px solid #ef5350', borderRadius: '16px', background: '#ffebee', color: '#333' }}>
                     <h2 style={{ color: '#c62828', marginBottom: '1rem', fontSize: '1.5rem' }}>{t('housing_sec8_title')}</h2>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         {(t('housing_risks_list') || []).map((item, i) => (

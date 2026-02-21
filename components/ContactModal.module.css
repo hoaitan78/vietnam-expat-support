@@ -88,6 +88,17 @@
     font-family: sans-serif;
 }
 
+.whatsapp {
+    background: #e8f5e9;
+    border-color: #c8e6c9;
+}
+
+.whatsapp .icon {
+    background: #25D366;
+    color: white;
+    font-weight: bold;
+}
+
 .phone {
     background: #f1f8e9;
     border-color: #e8f5e9;

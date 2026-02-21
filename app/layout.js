@@ -6,6 +6,7 @@ import { LanguageProvider } from '../contexts/LanguageContext'
 import { AuthProvider } from '../contexts/AuthContext'
 import { ThemeProvider } from '../contexts/ThemeContext'
 import FacebookMsg from '../components/FacebookMsg'
+import WhatsAppMsg from '../components/WhatsAppMsg'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
                                 </main>
                                 <Footer />
                             </div>
+                            <WhatsAppMsg />
                             <FacebookMsg />
                         </ThemeProvider>
                     </LanguageProvider>

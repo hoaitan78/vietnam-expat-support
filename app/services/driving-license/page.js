@@ -45,7 +45,7 @@ export default function DrivingLicensePage() {
                         <h3 style={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ fontSize: '1.5rem' }}>📋</span> Conditions</h3>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             {(t('dl_conditions_list') || []).map((item, i) => (
-                                <li key={i} style={{ marginBottom: '0.5rem', display: 'flex', gap: '0.5rem' }}><span>✅</span> {item}</li>
+                                <li key={i} style={{ marginBottom: '0.5rem', display: 'flex', gap: '0.5rem', color: '#000' }}><span>✅</span> {item}</li>
                             ))}
                         </ul>
                     </div>
@@ -59,7 +59,7 @@ export default function DrivingLicensePage() {
                     {(t('dl_docs_list') || []).map((item, i) => (
                         <div key={i} style={{ padding: '1.5rem', background: 'white', border: '1px solid #dcdcdc', borderRadius: '12px', display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                             <span style={{ fontSize: '1.5rem', color: '#2196f3' }}>📌</span>
-                            <p style={{ margin: 0 }}>{item}</p>
+                            <p style={{ margin: 0, color: '#000' }}>{item}</p>
                         </div>
                     ))}
                 </div>

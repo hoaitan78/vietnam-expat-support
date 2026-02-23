@@ -14,7 +14,7 @@
 }
 
 .modal {
-    background: white;
+    background: var(--color-surface);
     padding: 2.5rem;
     border-radius: 24px;
     width: 90%;
@@ -32,12 +32,12 @@
     border: none;
     font-size: 2rem;
     cursor: pointer;
-    color: #888;
+    color: var(--color-text);
     transition: color 0.2s;
 }
 
 .closeBtn:hover {
-    color: #333;
+    color: var(--color-text);
 }
 
 .title {
@@ -77,8 +77,8 @@
 }
 
 .facebook {
-    background: #f0f7ff;
-    border-color: #e3f2fd;
+    background: var(--color-surface);
+    border-color: var(--color-surface);
 }
 
 .facebook .icon {
@@ -90,8 +90,8 @@
 
 .whatsapp {
     color: #333;
-    background: #e8f5e9;
-    border-color: #c8e6c9;
+    background: var(--color-surface);
+    border-color: var(--color-surface);
 }
 
 .whatsapp .label {
@@ -105,8 +105,8 @@
 }
 
 .phone {
-    background: #f1f8e9;
-    border-color: #e8f5e9;
+    background: var(--color-surface);
+    border-color: var(--color-surface);
 }
 
 .phone .icon {

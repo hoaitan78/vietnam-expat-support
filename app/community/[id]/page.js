@@ -1,48 +1,38 @@
 import DiscussionSection from '../../../components/DiscussionSection'
+import { db } from '../../../lib/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 
 export async function generateMetadata({ params }) {
-    const title = params.id === '2'
-        ? 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang'
-        : `Chủ đề Thảo luận #${params.id}`;
-
     return {
-        title: `${title} - Vietnam Expat Support`,
-        description: `Tham gia thảo luận về ${title} trong diễn đàn cộng đồng của chúng tôi.`
+        title: `Community Discussion - Vietnam Expat Support`,
+        description: `Join the community discussion`
     }
 }
 
-export default function TopicPage({ params }) {
-    const isSpecialTopic = params.id === '2'
+export default async function TopicPage({ params }) {
+    // Note: in a pure App Router we might fetch data directly here if it's a server component
+    // But since TopicPage might be rendered on client (or DiscussionSection is client),
+    // we can either fetch here (if it's an async component) or pass ID. Let's make it an async Server Component to fetch initial data.
 
-    // Mock data for the specific discussion
-    const topic = {
-        id: params.id,
-        title: isSpecialTopic
-            ? 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang'
-            : null, // Let DiscussionSection handle translation
-        content: isSpecialTopic
-            ? (
-                <div>
-                    <h1 style={{ fontSize: '1.5rem', marginTop: 0 }}>Các khu vực tập trung nhiều người nước ngoài ở Nha Trang</h1>
-                    <p>Nha Trang có 3 khu vực chính mà cộng đồng người nước ngoài thường lựa chọn sinh sống:</p>
-                    <ul>
-                        <li><strong>Khu Phố Tây (Tân Lập):</strong> Sôi động, nhiều nhà hàng, quán bar, thuận tiện du lịch.</li>
-                        <li><strong>Khu An Viên:</strong> Yên tĩnh, cao cấp, an ninh tốt, thích hợp nghỉ dưỡng.</li>
-                        <li><strong>Khu Vĩnh Điềm Trung / Vĩnh Hải:</strong> Giá cả phải chăng, gần gũi với cuộc sống người dân địa phương.</li>
-                    </ul>
-                </div>
-            )
-            : 'Original post content goes here. This is where the user asks their question. How can I find the best visa agent in town?'
+    // As per Next.js app dir, we can await data here.
+    let topic = null;
+    try {
+        const docRef = doc(db, 'topics', params.id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            topic = { id: docSnap.id, ...docSnap.data() };
+        }
+    } catch (error) {
+        console.error("Error fetching topic for SSR:", error);
     }
 
-    const initialReplies = [
-        { id: 101, user: 'John Doe', content: 'Good question! I recommend checking the Visa Guide section.', time: '2 hours ago', status: 'approved' },
-        { id: 102, user: 'Jane Smith', content: 'I used a local agent near the center, very fast service.', time: '1 hour ago', status: 'approved' }
-    ]
+    if (!topic) {
+        return <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>Topic not found</div>
+    }
 
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
-            <DiscussionSection initialTopic={topic} initialReplies={initialReplies} />
+            <DiscussionSection topicId={params.id} initialTopic={topic} />
         </div>
     )
 }

@@ -44,8 +44,7 @@ export const translations = {
         // Footer
         footer_quicklinks: 'Liên kết nhanh',
         footer_legal: 'Pháp lý',
-        footer_privacy: 'Chính sách bảo mật',
-        footer_terms: 'Điều khoản dịch vụ',
+        footer_privacy_terms: 'Chính sách bảo mật & Điều khoản dịch vụ',
         footer_desc: 'Giúp bạn hòa nhập cuộc sống mới.',
 
         // Authentication
@@ -413,8 +412,7 @@ export const translations = {
         // Footer
         footer_quicklinks: 'Quick Links',
         footer_legal: 'Legal',
-        footer_privacy: 'Privacy Policy',
-        footer_terms: 'Terms of Service',
+        footer_privacy_terms: 'Privacy Policy & Terms of Service',
         footer_desc: 'Helping you thrive in your new home.',
 
         // Authentication
@@ -784,8 +782,7 @@ export const translations = {
         // Footer
         footer_quicklinks: '빠른 링크',
         footer_legal: '법적 고지',
-        footer_privacy: '개인정보 처리방침',
-        footer_terms: '이용 약관',
+        footer_privacy_terms: '개인정보 처리방침 및 이용 약관',
         footer_desc: '새로운 터전에서의 적응을 돕습니다.',
 
         // Authentication
@@ -1152,8 +1149,7 @@ export const translations = {
         // Footer
         footer_quicklinks: '快速链接',
         footer_legal: '法律',
-        footer_privacy: '隐私政策',
-        footer_terms: '服务条款',
+        footer_privacy_terms: '隐私政策与服务条款',
         footer_desc: '帮助您融入新家。',
 
         // Authentication

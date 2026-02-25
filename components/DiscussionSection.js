@@ -1,14 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useAuth } from '../contexts/AuthContext'
+import { db } from '../lib/firebase'
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, serverTimestamp, query, orderBy, increment } from 'firebase/firestore'
 
-export default function DiscussionSection({ initialTopic, initialReplies = [] }) {
+export default function DiscussionSection({ topicId, initialTopic }) {
     const { t } = useLanguage()
     const { currentUser } = useAuth()
-    const [replies, setReplies] = useState(initialReplies)
+    const [replies, setReplies] = useState([])
     const [newReply, setNewReply] = useState('')
 
     // Mock Admin Email List - In a real app, this should be handled by backend roles/claims
@@ -16,31 +18,78 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
 
     const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
 
-    const handlePostReply = () => {
-        if (!newReply.trim()) return
-
-        const reply = {
-            id: Date.now(),
-            user: currentUser?.email || 'Anonymous',
-            content: newReply,
-            time: 'Just now',
-            status: isAdmin ? 'approved' : 'pending' // Admins auto-approve their own posts
+    useEffect(() => {
+        if (!topicId) return;
+        const fetchReplies = async () => {
+            try {
+                const q = query(collection(db, 'topics', topicId, 'replies'), orderBy('createdAt', 'asc'))
+                const querySnapshot = await getDocs(q)
+                const repliesData = []
+                querySnapshot.forEach((doc) => {
+                    repliesData.push({ id: doc.id, ...doc.data() })
+                })
+                setReplies(repliesData)
+            } catch (error) {
+                console.error("Error fetching replies:", error)
+            }
         }
+        fetchReplies()
+    }, [topicId])
 
-        setReplies([...replies, reply])
-        setNewReply('')
+    const handlePostReply = async () => {
+        if (!newReply.trim() || !currentUser) return
+
+        try {
+            const replyData = {
+                user: currentUser.email,
+                userId: currentUser.uid,
+                content: newReply,
+                createdAt: serverTimestamp(),
+                status: isAdmin ? 'approved' : 'pending' // Admins auto-approve their own posts
+            }
+
+            const docRef = await addDoc(collection(db, 'topics', topicId, 'replies'), replyData)
+
+            // Update replies count in the main topic document
+            await updateDoc(doc(db, 'topics', topicId), {
+                repliesCount: increment(1)
+            })
+
+            // Optimistically update UI
+            setReplies([...replies, { ...replyData, id: docRef.id, createdAt: new Date() }])
+            setNewReply('')
+        } catch (error) {
+            console.error("Error posting reply:", error)
+            alert("Failed to post reply. Please try again.")
+        }
     }
 
-    const handleDeleteReply = (replyId) => {
+    const handleDeleteReply = async (replyId) => {
         if (window.confirm(t('confirm_delete_reply') || 'Are you sure you want to delete this reply?')) {
-            setReplies(replies.filter(r => r.id !== replyId))
+            try {
+                await deleteDoc(doc(db, 'topics', topicId, 'replies', replyId))
+                // Decrement replies count
+                await updateDoc(doc(db, 'topics', topicId), {
+                    repliesCount: increment(-1)
+                })
+                setReplies(replies.filter(r => r.id !== replyId))
+            } catch (error) {
+                console.error("Error deleting reply:", error)
+            }
         }
     }
 
-    const handleUpdateStatus = (replyId, newStatus) => {
-        setReplies(replies.map(r =>
-            r.id === replyId ? { ...r, status: newStatus } : r
-        ))
+    const handleUpdateStatus = async (replyId, newStatus) => {
+        try {
+            await updateDoc(doc(db, 'topics', topicId, 'replies', replyId), {
+                status: newStatus
+            })
+            setReplies(replies.map(r =>
+                r.id === replyId ? { ...r, status: newStatus } : r
+            ))
+        } catch (error) {
+            console.error("Error updating status:", error)
+        }
     }
 
     // Filter replies for non-admins: only show approved ones
@@ -78,7 +127,7 @@ export default function DiscussionSection({ initialTopic, initialReplies = [] })
                         <div style={{ flex: 1 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
                                 <strong style={{ color: '#00695c' }}>{reply.user}</strong>
-                                <span style={{ fontSize: '0.85rem', color: '#999' }}>• {reply.time}</span>
+                                <span style={{ fontSize: '0.85rem', color: '#999' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Just now'}</span>
                                 {isAdmin && (
                                     <span style={{
                                         fontSize: '0.75rem',

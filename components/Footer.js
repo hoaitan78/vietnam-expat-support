@@ -34,8 +34,7 @@ export default function Footer() {
                 <div className={styles.col}>
                     <h3>{t('footer_legal')}</h3>
                     <ul>
-                        <li><a href="/privacy">{t('footer_privacy')}</a></li>
-                        <li><a href="/terms">{t('footer_terms')}</a></li>
+                        <li><a href="/legal">{t('footer_privacy_terms')}</a></li>
                     </ul>
                 </div>
             </div>

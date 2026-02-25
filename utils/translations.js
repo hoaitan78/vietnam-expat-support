@@ -1,5 +1,38 @@
 export const translations = {
     vi: {
+        // Legal Page
+        legal_title: 'PRIVACY POLICY & TERMS OF SERVICE',
+        legal_operated_by: 'Website được vận hành bởi Hộ kinh doanh <strong>Vietnam Expat Support</strong>, đăng ký hoạt động tại Nha Trang, Khánh Hòa, Việt Nam.',
+        legal_sec1_title: '1. Thu thập & sử dụng thông tin',
+        legal_sec1_desc: 'Chúng tôi có thể thu thập thông tin như: họ tên, email, số điện thoại, quốc tịch, tình trạng visa và nhu cầu dịch vụ (nhà ở, cư trú, thủ tục hành chính tại Việt Nam).',
+        legal_sec1_sub: 'Thông tin được sử dụng để:',
+        legal_sec1_list: [
+            'Tư vấn và hỗ trợ dịch vụ',
+            'Liên hệ khách hàng',
+            'Cải thiện trải nghiệm website'
+        ],
+        legal_sec1_foot: 'Chúng tôi không bán hoặc chia sẻ dữ liệu cá nhân cho bên thứ ba vì mục đích thương mại.',
+        legal_sec2_title: '2. Phạm vi dịch vụ',
+        legal_sec2_desc: 'Vietnam Expat Support cung cấp hỗ trợ thông tin và kết nối liên quan đến:',
+        legal_sec2_list: [
+            'Thủ tục visa và cư trú tại Việt Nam',
+            'Hỗ trợ tìm nhà tại Nha Trang',
+            'Hướng dẫn thủ tục hành chính địa phương',
+            'Định hướng sinh sống cho người nước ngoài'
+        ],
+        legal_sec2_foot: 'Chúng tôi không phải cơ quan nhà nước và không thay thế tư vấn pháp lý chuyên môn khi luật yêu cầu.',
+        legal_sec3_title: '3. Giới hạn trách nhiệm',
+        legal_sec3_desc: 'Chúng tôi không chịu trách nhiệm đối với:',
+        legal_sec3_list: [
+            'Quyết định của cơ quan nhà nước',
+            'Thay đổi chính sách pháp luật',
+            'Hành vi của bên thứ ba'
+        ],
+        legal_sec4_title: '4. Đồng ý điều khoản',
+        legal_sec4_desc: 'Việc sử dụng website đồng nghĩa với việc bạn đồng ý với nội dung trên. Điều khoản có thể được cập nhật khi cần thiết.',
+        legal_sec5_title: '5. Luật áp dụng',
+        legal_sec5_desc: 'Áp dụng theo pháp luật Việt Nam.',
+
         // Navbar
         nav_home: 'Trang chủ',
         nav_guides: 'Cẩm nang',
@@ -368,6 +401,39 @@ export const translations = {
         ],
     },
     en: {
+        // Legal Page
+        legal_title: 'PRIVACY POLICY & TERMS OF SERVICE',
+        legal_operated_by: 'The website is operated by <strong>Vietnam Expat Support</strong> Business Household, registered in Nha Trang, Khanh Hoa, Vietnam.',
+        legal_sec1_title: '1. Information Collection & Use',
+        legal_sec1_desc: 'We may collect information such as: full name, email, phone number, nationality, visa status, and service needs (housing, residence, administrative procedures in Vietnam).',
+        legal_sec1_sub: 'The information is used to:',
+        legal_sec1_list: [
+            'Provide consulting and service support',
+            'Contact customers',
+            'Improve website experience'
+        ],
+        legal_sec1_foot: 'We do not sell or share personal data with third parties for commercial purposes.',
+        legal_sec2_title: '2. Scope of Services',
+        legal_sec2_desc: 'Vietnam Expat Support provides information and connection support related to:',
+        legal_sec2_list: [
+            'Visa and residency procedures in Vietnam',
+            'Housing assistance in Nha Trang',
+            'Guidance on local administrative procedures',
+            'Living orientation for expats'
+        ],
+        legal_sec2_foot: 'We are not a government agency and do not replace professional legal advice when required by law.',
+        legal_sec3_title: '3. Limitation of Liability',
+        legal_sec3_desc: 'We are not responsible for:',
+        legal_sec3_list: [
+            'Decisions by state agencies',
+            'Changes in legal policies',
+            'Actions of third parties'
+        ],
+        legal_sec4_title: '4. Agreement to Terms',
+        legal_sec4_desc: 'By using the website, you agree to the above content. Terms may be updated as necessary.',
+        legal_sec5_title: '5. Governing Law',
+        legal_sec5_desc: 'Subject to the laws of Vietnam.',
+
         // Navbar
         nav_home: 'Home',
         nav_guides: 'Guides',
@@ -738,6 +804,39 @@ export const translations = {
         ],
     },
     ko: {
+        // Legal Page
+        legal_title: '개인정보 처리방침 및 이용 약관',
+        legal_operated_by: '이 웹사이트는 베트남 카인호아성 나트랑에 등록된 <strong>Vietnam Expat Support</strong> 사업 가구에서 운영합니다.',
+        legal_sec1_title: '1. 정보 수집 및 이용',
+        legal_sec1_desc: '당사는 성명, 이메일, 전화번호, 국적, 비자 상태, 서비스 수요(베트남 내 주거, 거주, 행정 절차 등)와 같은 정보를 수집할 수 있습니다.',
+        legal_sec1_sub: '수집된 정보는 다음 목적을 위해 사용됩니다:',
+        legal_sec1_list: [
+            '상담 및 서비스 지원',
+            '고객 연락',
+            '웹사이트 경험 개선'
+        ],
+        legal_sec1_foot: '당사는 상업적 목적으로 제3자에게 개인 데이터를 판매하거나 공유하지 않습니다.',
+        legal_sec2_title: '2. 서비스 범위',
+        legal_sec2_desc: 'Vietnam Expat Support는 다음과 관련된 정보 및 연결 지원을 제공합니다:',
+        legal_sec2_list: [
+            '베트남 비자 및 거주 절차',
+            '나트랑 주택 임대 지원',
+            '현지 행정 절차 안내',
+            '외국인을 위한 생활 오리엔테이션'
+        ],
+        legal_sec2_foot: '당사는 정부 기관이 아니며, 법적으로 요구되는 경우에도 전문적인 법률 자문을 대신하지 않습니다.',
+        legal_sec3_title: '3. 책임의 한계',
+        legal_sec3_desc: '당사는 다음 사항에 대해 책임을 지지 않습니다:',
+        legal_sec3_list: [
+            '정부 기관의 결정',
+            '법적 정책의 변경',
+            '제3자의 행위'
+        ],
+        legal_sec4_title: '4. 약관 동의',
+        legal_sec4_desc: '웹사이트를 이용함으로써 귀하는 위 내용에 동의하는 것으로 간주됩니다. 약관은 필요에 따라 업데이트될 수 있습니다.',
+        legal_sec5_title: '5. 준거법',
+        legal_sec5_desc: '베트남 법률이 적용됩니다.',
+
         // Navbar
         nav_home: '홈',
         nav_guides: '가이드',
@@ -1105,6 +1204,39 @@ export const translations = {
         ],
     },
     zh: {
+        // Legal Page
+        legal_title: '隐私政策与服务条款',
+        legal_operated_by: '本网站由在越南庆和省芽庄注册的 <strong>Vietnam Expat Support</strong> 商业个体户运营。',
+        legal_sec1_title: '1. 信息收集与使用',
+        legal_sec1_desc: '我们可能会收集以下信息：全名、电子邮件、电话号码、国籍、签证状态以及服务需求（如在越南的住房、居住、行政手续）。',
+        legal_sec1_sub: '该信息用于：',
+        legal_sec1_list: [
+            '提供咨询和服务支持',
+            '联系客户',
+            '改善网站体验'
+        ],
+        legal_sec1_foot: '我们绝不会出于商业目的向第三方出售或分享个人数据。',
+        legal_sec2_title: '2. 服务范围',
+        legal_sec2_desc: 'Vietnam Expat Support 提供以下相关信息和业务对接：',
+        legal_sec2_list: [
+            '越南的签证和居住手续',
+            '在芽庄租房的协助',
+            '当地行政手续指导',
+            '外籍人士的生活适应指南'
+        ],
+        legal_sec2_foot: '我们不是政府机构，在法律要求的情况下，不能取代专业的法律咨询。',
+        legal_sec3_title: '3. 责任限制',
+        legal_sec3_desc: '我们对以下情况不承担责任：',
+        legal_sec3_list: [
+            '国家机关的决定',
+            '法律政策的变更',
+            '第三方的行为'
+        ],
+        legal_sec4_title: '4. 同意条款',
+        legal_sec4_desc: '使用本网站即表示您同意上述内容。条款可能会根据需要进行更新。',
+        legal_sec5_title: '5. 适用法律',
+        legal_sec5_desc: '适用越南法律。',
+
         // Navbar
         nav_home: '首页',
         nav_guides: '指南',

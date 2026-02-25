@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { db } from '../../lib/firebase'
+import { db } from '../../../lib/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import { useAuth } from '../../contexts/AuthContext'
-import { useLanguage } from '../../contexts/LanguageContext'
+import { useAuth } from '../../../contexts/AuthContext'
+import { useLanguage } from '../../../contexts/LanguageContext'
 
 export default function NewTopicPage() {
     const [title, setTitle] = useState('')

@@ -2,6 +2,14 @@ import DiscussionSection from '../../../components/DiscussionSection'
 import { db } from '../../../lib/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 
+export async function generateStaticParams() {
+    return [
+        { id: '1' },
+        { id: '2' },
+        { id: '3' },
+    ];
+}
+
 export async function generateMetadata({ params }) {
     return {
         title: `Community Discussion - Vietnam Expat Support`,

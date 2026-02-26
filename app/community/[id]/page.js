@@ -17,20 +17,25 @@ export default async function TopicPage({ params }) {
     // Note: in a pure App Router we might fetch data directly here if it's a server component
     // But since TopicPage might be rendered on client (or DiscussionSection is client),
     // we can either fetch here (if it's an async component) or pass ID. Let's make it an async Server Component to fetch initial data.
-    const resolvedParams = await params;
 
     // As per Next.js app dir, we can await data here.
     let topic = null;
+    const isPredefined = ['1', '2', '3'].includes(params?.id);
+
     try {
-        const docRef = doc(db, 'topics', resolvedParams.id);
+        const docRef = doc(db, 'topics', params.id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             topic = { id: docSnap.id, ...docSnap.data() };
-        } else if (['1', '2', '3'].includes(resolvedParams.id)) {
-            topic = { id: resolvedParams.id };
+        } else if (isPredefined) {
+            topic = { id: params.id };
         }
     } catch (error) {
         console.error("Error fetching topic for SSR:", error);
+        // Fallback for predefined topics if Firebase fails on server
+        if (isPredefined) {
+            topic = { id: params.id };
+        }
     }
 
     if (!topic) {

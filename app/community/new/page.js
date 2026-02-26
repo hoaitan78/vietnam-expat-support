@@ -15,12 +15,16 @@ export default function NewTopicPage() {
     const { currentUser } = useAuth()
     const { t } = useLanguage()
 
+    // Mock Admin Email List
+    const ADMIN_EMAILS = ['hoaitan78@gmail.com']
+    const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!title.trim() || !content.trim()) return
 
-        if (!currentUser) {
-            alert(t('community_login_required') || 'Please login to post.')
+        if (!isAdmin) {
+            alert(t('community_admin_required') || 'Only admins can post new topics.')
             return
         }
 
@@ -42,10 +46,10 @@ export default function NewTopicPage() {
         }
     }
 
-    if (!currentUser) {
+    if (!isAdmin) {
         return (
             <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
-                <h2>{t('community_login_required') || 'Please login to post a new topic'}</h2>
+                <h2>{t('community_admin_required') || 'Only admins can post new topics'}</h2>
             </div>
         )
     }

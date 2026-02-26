@@ -12,7 +12,7 @@ export default function CommunityPage() {
     const { currentUser } = useAuth()
 
     // Mock Admin Email List
-    const ADMIN_EMAILS = ['admin@example.com', 'hoaitan78@gmail.com', currentUser?.email]
+    const ADMIN_EMAILS = ['hoaitan78@gmail.com']
     const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
 
     const [topics, setTopics] = useState([])
@@ -49,16 +49,18 @@ export default function CommunityPage() {
         <div className="container" style={{ padding: '4rem 1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h1>{t('page_community_title')}</h1>
-                <Link href="/community/new" style={{
-                    background: '#00695c',
-                    color: 'white',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '20px',
-                    textDecoration: 'none',
-                    fontWeight: '500'
-                }}>
-                    {t('community_post_new') || 'Post New Topic'}
-                </Link>
+                {isAdmin && (
+                    <Link href="/community/new" style={{
+                        background: '#00695c',
+                        color: 'white',
+                        padding: '0.75rem 1.5rem',
+                        borderRadius: '20px',
+                        textDecoration: 'none',
+                        fontWeight: '500'
+                    }}>
+                        {t('community_post_new') || 'Post New Topic'}
+                    </Link>
+                )}
             </div>
             <div style={{ marginTop: '2rem' }}>
                 {topics.length === 0 ? (

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useAuth } from '../contexts/AuthContext'
 import { db } from '../lib/firebase'
-import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, serverTimestamp, query, orderBy, increment } from 'firebase/firestore'
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, setDoc, serverTimestamp, query, orderBy, increment } from 'firebase/firestore'
 
 export default function DiscussionSection({ topicId, initialTopic }) {
     const { t } = useLanguage()
@@ -14,7 +14,7 @@ export default function DiscussionSection({ topicId, initialTopic }) {
     const [newReply, setNewReply] = useState('')
 
     // Mock Admin Email List - In a real app, this should be handled by backend roles/claims
-    const ADMIN_EMAILS = ['admin@example.com', 'hoaitan78@gmail.com', currentUser?.email] // Temporarily added current user for testing
+    const ADMIN_EMAILS = ['hoaitan78@gmail.com'] // Only the specified email has admin rights
 
     const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
 
@@ -50,10 +50,10 @@ export default function DiscussionSection({ topicId, initialTopic }) {
 
             const docRef = await addDoc(collection(db, 'topics', topicId, 'replies'), replyData)
 
-            // Update replies count in the main topic document
-            await updateDoc(doc(db, 'topics', topicId), {
+            // Update replies count in the main topic document (use setDoc with merge in case it doesn't exist yet)
+            await setDoc(doc(db, 'topics', topicId), {
                 repliesCount: increment(1)
-            })
+            }, { merge: true })
 
             // Optimistically update UI
             setReplies([...replies, { ...replyData, id: docRef.id, createdAt: new Date() }])
@@ -69,9 +69,9 @@ export default function DiscussionSection({ topicId, initialTopic }) {
             try {
                 await deleteDoc(doc(db, 'topics', topicId, 'replies', replyId))
                 // Decrement replies count
-                await updateDoc(doc(db, 'topics', topicId), {
+                await setDoc(doc(db, 'topics', topicId), {
                     repliesCount: increment(-1)
-                })
+                }, { merge: true })
                 setReplies(replies.filter(r => r.id !== replyId))
             } catch (error) {
                 console.error("Error deleting reply:", error)
@@ -98,12 +98,31 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         ? replies
         : replies.filter(r => r.status === 'approved')
 
+    let displayTitle = initialTopic.title;
+    let displayContent = initialTopic.content;
+
+    if (!displayTitle) {
+        if (topicId === '1') {
+            displayTitle = t('community_school_title');
+            displayContent = t('community_school_desc');
+        } else if (topicId === '2') {
+            displayTitle = t('community_license_title');
+            displayContent = t('community_license_desc');
+        } else if (topicId === '3') {
+            displayTitle = t('community_market_title');
+            displayContent = t('community_market_desc');
+        } else {
+            displayTitle = `${t('community_discussion_title')} #${initialTopic.id}`;
+            displayContent = '';
+        }
+    }
+
     return (
         <div style={{ marginTop: '2rem' }}>
             <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
-                <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{initialTopic.title || `${t('community_discussion_title')} #${initialTopic.id}`}</h3>
+                <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
                 <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-                    <div style={{ lineHeight: '1.6', color: '#333' }}>{initialTopic.content}</div>
+                    <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
                 </div>
             </div>
 

@@ -26,7 +26,16 @@ export default async function TopicPage({ params }) {
         const docRef = doc(db, 'topics', params.id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            topic = { id: docSnap.id, ...docSnap.data() };
+            const data = docSnap.data();
+            topic = {
+                id: docSnap.id,
+                title: data.title || '',
+                content: data.content || '',
+                user: data.user || '',
+                repliesCount: data.repliesCount || 0,
+                // Sanitize createdAt to a string if it's a Firebase Timestamp
+                createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : null
+            };
         } else if (isPredefined) {
             topic = { id: params.id };
         }

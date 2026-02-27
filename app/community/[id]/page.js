@@ -9,13 +9,19 @@ export default function TopicPage({ params }) {
     const [topic, setTopic] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const isPredefined = ['1', '2', '3'].includes(params?.id);
-
     useEffect(() => {
         const fetchTopic = async () => {
             try {
-                const docRef = doc(db, 'topics', params.id);
+                // Next.js parameters might be wrapped in a Promise in recent versions
+                const resolvedParams = await Promise.resolve(params);
+                const topicId = resolvedParams?.id;
+
+                if (!topicId) return;
+
+                const isPredefined = ['1', '2', '3'].includes(topicId);
+                const docRef = doc(db, 'topics', topicId);
                 const docSnap = await getDoc(docRef);
+
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     setTopic({
@@ -27,12 +33,13 @@ export default function TopicPage({ params }) {
                         createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : null
                     });
                 } else if (isPredefined) {
-                    setTopic({ id: params.id });
+                    setTopic({ id: topicId });
                 }
             } catch (error) {
                 console.error("Error fetching topic:", error);
-                if (isPredefined) {
-                    setTopic({ id: params.id });
+                const resolvedParams = await Promise.resolve(params);
+                if (['1', '2', '3'].includes(resolvedParams?.id)) {
+                    setTopic({ id: resolvedParams.id });
                 }
             } finally {
                 setLoading(false)
@@ -40,7 +47,7 @@ export default function TopicPage({ params }) {
         }
 
         fetchTopic()
-    }, [params.id, isPredefined])
+    }, [params])
 
     if (loading) {
         return <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>Loading...</div>

@@ -49,17 +49,34 @@ export default function TopicPage({ params }) {
         fetchTopic()
     }, [params])
 
-    if (loading) {
-        return <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>Loading...</div>
+    // Instead of completely aborting render, we display the title based on the URL ID
+    // for predefined themes ('1', '2', '3'), and only block or show a skeleton for dynamic themes.
+    const isPredefined = ['1', '2', '3'].includes(params?.id)
+    const renderTopic = topic || (isPredefined ? { id: params.id } : null)
+
+    if (loading && !renderTopic) {
+        return (
+            <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
+                <div style={{ marginTop: '2rem' }}>
+                    <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem', minHeight: '150px', animation: 'pulse 1.5s infinite' }}>
+                        <div style={{ height: '24px', background: '#ccc', borderRadius: '4px', width: '60%', marginBottom: '1rem' }}></div>
+                        <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', minHeight: '60px' }}>
+                            <div style={{ height: '16px', background: '#eee', borderRadius: '4px', width: '90%', marginBottom: '8px' }}></div>
+                            <div style={{ height: '16px', background: '#eee', borderRadius: '4px', width: '75%' }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
-    if (!topic) {
+    if (!loading && !topic && !isPredefined) {
         return <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>Topic not found</div>
     }
 
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
-            <DiscussionSection topicId={params.id} initialTopic={topic} />
+            <DiscussionSection topicId={params.id} initialTopic={renderTopic} />
         </div>
     )
 }

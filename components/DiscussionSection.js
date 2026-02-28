@@ -40,20 +40,27 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         if (!newReply.trim() || !currentUser) return
 
         try {
+            const isApproved = isAdmin;
             const replyData = {
                 user: currentUser.email,
                 userId: currentUser.uid,
                 content: newReply,
                 createdAt: serverTimestamp(),
-                status: isAdmin ? 'approved' : 'pending' // Admins auto-approve their own posts
+                status: isApproved ? 'approved' : 'pending' // Admins auto-approve their own posts
             }
 
             const docRef = await addDoc(collection(db, 'topics', topicId, 'replies'), replyData)
 
-            // Update replies count in the main topic document (use setDoc with merge in case it doesn't exist yet)
-            await setDoc(doc(db, 'topics', topicId), {
-                repliesCount: increment(1)
-            }, { merge: true })
+            if (isApproved) {
+                // Update replies count if approved
+                // Make sure we create the document first if it's a predefined one
+                const topicRef = doc(db, 'topics', topicId);
+                await setDoc(topicRef, {
+                    repliesCount: increment(1)
+                }, { merge: true })
+            } else {
+                alert(t('reply_pending_approval') || 'Your reply has been submitted and is awaiting admin approval.')
+            }
 
             // Optimistically update UI
             setReplies([...replies, { ...replyData, id: docRef.id, createdAt: new Date() }])
@@ -64,14 +71,19 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         }
     }
 
-    const handleDeleteReply = async (replyId) => {
+    const handleDeleteReply = async (replyId, currentStatus) => {
         if (window.confirm(t('confirm_delete_reply') || 'Are you sure you want to delete this reply?')) {
             try {
                 await deleteDoc(doc(db, 'topics', topicId, 'replies', replyId))
-                // Decrement replies count
-                await setDoc(doc(db, 'topics', topicId), {
-                    repliesCount: increment(-1)
-                }, { merge: true })
+
+                // Decrement replies count only if it was approved
+                if (currentStatus === 'approved') {
+                    const topicRef = doc(db, 'topics', topicId);
+                    await setDoc(topicRef, {
+                        repliesCount: increment(-1)
+                    }, { merge: true })
+                }
+
                 setReplies(replies.filter(r => r.id !== replyId))
             } catch (error) {
                 console.error("Error deleting reply:", error)
@@ -79,11 +91,24 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         }
     }
 
-    const handleUpdateStatus = async (replyId, newStatus) => {
+    const handleUpdateStatus = async (replyId, newStatus, currentStatus) => {
         try {
             await updateDoc(doc(db, 'topics', topicId, 'replies', replyId), {
                 status: newStatus
             })
+
+            // Adjust replies count if status changes to or from approved
+            const topicRef = doc(db, 'topics', topicId);
+            if (newStatus === 'approved' && currentStatus !== 'approved') {
+                await setDoc(topicRef, {
+                    repliesCount: increment(1)
+                }, { merge: true })
+            } else if (newStatus !== 'approved' && currentStatus === 'approved') {
+                await setDoc(topicRef, {
+                    repliesCount: increment(-1)
+                }, { merge: true })
+            }
+
             setReplies(replies.map(r =>
                 r.id === replyId ? { ...r, status: newStatus } : r
             ))
@@ -92,11 +117,11 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         }
     }
 
-    // Filter replies for non-admins: only show approved ones
+    // Filter replies for non-admins: only show approved ones and their own
     // For admins: show all
     const visibleReplies = isAdmin
         ? replies
-        : replies.filter(r => r.status === 'approved')
+        : replies.filter(r => r.status === 'approved' || (currentUser && r.userId === currentUser.uid))
 
     let displayTitle = initialTopic.title;
     let displayContent = initialTopic.content;
@@ -160,6 +185,30 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                                         {reply.status ? reply.status.toUpperCase() : 'APPROVED'}
                                     </span>
                                 )}
+                                {!isAdmin && reply.status === 'pending' && (
+                                    <span style={{
+                                        fontSize: '0.75rem',
+                                        padding: '2px 6px',
+                                        borderRadius: '4px',
+                                        background: '#fff8e1',
+                                        color: '#f9a825',
+                                        border: '1px solid #ffe082'
+                                    }}>
+                                        {t('status_pending') || 'Awaiting Approval'}
+                                    </span>
+                                )}
+                                {!isAdmin && reply.status === 'rejected' && (
+                                    <span style={{
+                                        fontSize: '0.75rem',
+                                        padding: '2px 6px',
+                                        borderRadius: '4px',
+                                        background: '#ffebee',
+                                        color: '#c62828',
+                                        border: '1px solid #ef9a9a'
+                                    }}>
+                                        {t('status_rejected') || 'Rejected'}
+                                    </span>
+                                )}
                             </div>
                             <p style={{ margin: 0, color: '#444' }}>{reply.content}</p>
 
@@ -167,7 +216,7 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                                 <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.5rem' }}>
                                     {reply.status !== 'approved' && (
                                         <button
-                                            onClick={() => handleUpdateStatus(reply.id, 'approved')}
+                                            onClick={() => handleUpdateStatus(reply.id, 'approved', reply.status)}
                                             style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#e8f5e9', border: '1px solid #a5d6a7', color: '#2e7d32', borderRadius: '4px' }}
                                         >
                                             Approve
@@ -175,14 +224,14 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                                     )}
                                     {reply.status !== 'rejected' && (
                                         <button
-                                            onClick={() => handleUpdateStatus(reply.id, 'rejected')}
+                                            onClick={() => handleUpdateStatus(reply.id, 'rejected', reply.status)}
                                             style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#ffebee', border: '1px solid #ef9a9a', color: '#c62828', borderRadius: '4px' }}
                                         >
                                             Reject
                                         </button>
                                     )}
                                     <button
-                                        onClick={() => handleDeleteReply(reply.id)}
+                                        onClick={() => handleDeleteReply(reply.id, reply.status)}
                                         style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#fafafa', border: '1px solid #ddd', color: '#555', borderRadius: '4px' }}
                                     >
                                         Delete
@@ -268,3 +317,4 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         </div>
     )
 }
+

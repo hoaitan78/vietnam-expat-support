@@ -139,6 +139,11 @@ export const translations = {
         community_post_btn: 'Đăng',
         community_reply_btn: 'Trả lời',
         community_login_required: 'Vui lòng đăng nhập để tham gia thảo luận.',
+        reply_pending_approval: 'Câu trả lời của bạn đã được gửi và đang chờ admin phê duyệt.',
+        status_pending: 'Chờ phê duyệt',
+        status_rejected: 'Bị từ chối',
+        community_admin_required: 'Chỉ admin mới có thể đăng chủ đề mới.',
+        community_post_new: 'Đăng chủ đề mới',
 
         // Placeholders
         page_guides_title: 'Cẩm nang Expat',
@@ -540,6 +545,11 @@ export const translations = {
         community_post_btn: 'Post',
         community_reply_btn: 'Reply',
         community_login_required: 'Please login to participate in the discussion.',
+        reply_pending_approval: 'Your reply has been submitted and is awaiting admin approval.',
+        status_pending: 'Awaiting Approval',
+        status_rejected: 'Rejected',
+        community_admin_required: 'Only admins can post new topics.',
+        community_post_new: 'Post New Topic',
 
         // Placeholders
         page_guides_title: 'Expat Guides',

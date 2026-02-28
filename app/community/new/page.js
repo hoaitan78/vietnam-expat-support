@@ -17,7 +17,7 @@ export default function NewTopicPage() {
 
     // Mock Admin Email List
     const ADMIN_EMAILS = ['hoaitan78@gmail.com']
-    const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
+    const isAdmin = currentUser && currentUser.email && ADMIN_EMAILS.some(email => email.toLowerCase() === currentUser.email.toLowerCase())
 
     const handleSubmit = async (e) => {
         e.preventDefault()

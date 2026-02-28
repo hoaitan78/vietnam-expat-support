@@ -16,7 +16,7 @@ export default function DiscussionSection({ topicId, initialTopic }) {
     // Mock Admin Email List - In a real app, this should be handled by backend roles/claims
     const ADMIN_EMAILS = ['hoaitan78@gmail.com'] // Only the specified email has admin rights
 
-    const isAdmin = currentUser && ADMIN_EMAILS.includes(currentUser.email)
+    const isAdmin = currentUser && currentUser.email && ADMIN_EMAILS.some(email => email.toLowerCase() === currentUser.email.toLowerCase())
 
     useEffect(() => {
         if (!topicId) return;

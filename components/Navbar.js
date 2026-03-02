@@ -95,7 +95,7 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    {currentUser ? (
+                    {currentUser && (
                         <div className={styles.dropdown} style={{ paddingBottom: 0, marginBottom: 0 }}>
                             <button
                                 className="btn btn-primary"
@@ -109,10 +109,6 @@ export default function Navbar() {
                                 </div>
                             </div>
                         </div>
-                    ) : (
-                        <Link href="/login" className="btn btn-primary">
-                            {t('nav_signin')}
-                        </Link>
                     )}
                 </div>
             </div>

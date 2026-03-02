@@ -79,9 +79,6 @@ export default function CommunityPage() {
                                 <p style={{ fontSize: '0.9rem', color: '#666' }}>Posted by {topic.user} • {topic.createdAt?.toDate ? topic.createdAt.toDate().toLocaleString() : 'Just now'}</p>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                <span style={{ background: '#eee', padding: '0.25rem 0.75rem', borderRadius: '1rem', fontSize: '0.8rem' }}>
-                                    {topic.repliesCount || 0} replies
-                                </span>
                                 {isAdmin && (
                                     <button
                                         onClick={() => handleDeleteTopic(topic.id)}

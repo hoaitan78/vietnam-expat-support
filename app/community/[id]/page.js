@@ -1,13 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import DiscussionSection from '../../../components/DiscussionSection'
 import { db } from '../../../lib/firebase'
 import { doc, getDoc } from 'firebase/firestore'
+import { useLanguage } from '../../../contexts/LanguageContext'
 
 export default function TopicPage({ params }) {
+    const { t } = useLanguage()
     const [topic, setTopic] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [resolvedId, setResolvedId] = useState(null)
 
     useEffect(() => {
         const fetchTopic = async () => {
@@ -15,6 +17,10 @@ export default function TopicPage({ params }) {
                 // Next.js parameters might be wrapped in a Promise in recent versions
                 const resolvedParams = await Promise.resolve(params);
                 const topicId = resolvedParams?.id;
+
+                if (topicId) {
+                    setResolvedId(topicId);
+                }
 
                 if (!topicId) return;
 
@@ -38,8 +44,11 @@ export default function TopicPage({ params }) {
             } catch (error) {
                 console.error("Error fetching topic:", error);
                 const resolvedParams = await Promise.resolve(params);
-                if (['1', '2', '3'].includes(resolvedParams?.id)) {
-                    setTopic({ id: resolvedParams.id });
+                if (resolvedParams?.id) {
+                    setResolvedId(resolvedParams.id);
+                    if (['1', '2', '3'].includes(resolvedParams.id)) {
+                        setTopic({ id: resolvedParams.id });
+                    }
                 }
             } finally {
                 setLoading(false)
@@ -51,8 +60,8 @@ export default function TopicPage({ params }) {
 
     // Instead of completely aborting render, we display the title based on the URL ID
     // for predefined themes ('1', '2', '3'), and only block or show a skeleton for dynamic themes.
-    const isPredefined = ['1', '2', '3'].includes(params?.id)
-    const renderTopic = topic || (isPredefined ? { id: params.id } : null)
+    const isPredefined = ['1', '2', '3'].includes(resolvedId)
+    const renderTopic = topic || (isPredefined ? { id: resolvedId } : null)
 
     if (loading && !renderTopic) {
         return (
@@ -74,9 +83,38 @@ export default function TopicPage({ params }) {
         return <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>Topic not found</div>
     }
 
+    let displayTitle = renderTopic?.title;
+    let displayContent = renderTopic?.content;
+
+    if (!displayTitle && resolvedId) {
+        if (resolvedId === '1') {
+            displayTitle = t('community_school_title');
+            displayContent = t('community_school_desc');
+        } else if (resolvedId === '2') {
+            displayTitle = t('community_license_title');
+            displayContent = t('community_license_desc');
+        } else if (resolvedId === '3') {
+            displayTitle = t('community_market_title');
+            displayContent = t('community_market_desc');
+        } else {
+            displayTitle = `${t('community_discussion_title')} #${resolvedId}`;
+            displayContent = '';
+        }
+    }
+
+
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
-            <DiscussionSection topicId={params.id} initialTopic={renderTopic} />
+            {resolvedId && (
+                <div style={{ marginTop: '2rem' }}>
+                    <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
+                        <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
+                        <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
+                            <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

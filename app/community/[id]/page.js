@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import DiscussionSection from '../../../components/DiscussionSection'
 import { db } from '../../../lib/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { useLanguage } from '../../../contexts/LanguageContext'
@@ -83,38 +84,9 @@ export default function TopicPage({ params }) {
         return <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>Topic not found</div>
     }
 
-    let displayTitle = renderTopic?.title;
-    let displayContent = renderTopic?.content;
-
-    if (!displayTitle && resolvedId) {
-        if (resolvedId === '1') {
-            displayTitle = t('community_school_title');
-            displayContent = t('community_school_desc');
-        } else if (resolvedId === '2') {
-            displayTitle = t('community_license_title');
-            displayContent = t('community_license_desc');
-        } else if (resolvedId === '3') {
-            displayTitle = t('community_market_title');
-            displayContent = t('community_market_desc');
-        } else {
-            displayTitle = `${t('community_discussion_title')} #${resolvedId}`;
-            displayContent = '';
-        }
-    }
-
-
     return (
         <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px', margin: '0 auto', fontFamily: "'Inter', sans-serif" }}>
-            {resolvedId && (
-                <div style={{ marginTop: '2rem' }}>
-                    <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
-                        <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
-                        <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-                            <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {resolvedId && <DiscussionSection topicId={resolvedId} initialTopic={renderTopic} />}
         </div>
     )
 }

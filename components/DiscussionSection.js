@@ -144,6 +144,43 @@ export default function DiscussionSection({ topicId, initialTopic }) {
 
     return (
         <div style={{ marginTop: '2rem' }}>
+            {isAdmin && (
+                <div style={{ background: '#fff', border: '1px solid #eee', borderRadius: '12px', padding: '1.5rem', marginBottom: '2rem' }}>
+                    <div style={{ marginBottom: '1rem', fontStyle: 'italic', color: '#666' }}>
+                        Posting as: <strong>{currentUser.email}</strong> {isAdmin && '(Admin)'}
+                    </div>
+                    <textarea
+                        value={newReply}
+                        onChange={(e) => setNewReply(e.target.value)}
+                        placeholder="Add an update or reply..."
+                        style={{
+                            width: '100%',
+                            padding: '1rem',
+                            borderRadius: '8px',
+                            border: '1px solid #ddd',
+                            marginBottom: '1rem',
+                            fontFamily: 'inherit',
+                            resize: 'vertical',
+                            minHeight: '100px'
+                        }}
+                    />
+                    <button
+                        onClick={handlePostReply}
+                        style={{
+                            background: '#00695c',
+                            color: 'white',
+                            border: 'none',
+                            padding: '0.75rem 2rem',
+                            borderRadius: '50px',
+                            fontWeight: 'bold',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Post Update
+                    </button>
+                </div>
+            )}
+
             <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
                 <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
                 <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
@@ -242,43 +279,6 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                     </div>
                 ))}
             </div>
-
-            {isAdmin && (
-                <div style={{ background: '#fff', border: '1px solid #eee', borderRadius: '12px', padding: '1.5rem' }}>
-                    <div style={{ marginBottom: '1rem', fontStyle: 'italic', color: '#666' }}>
-                        Posting as: <strong>{currentUser.email}</strong> {isAdmin && '(Admin)'}
-                    </div>
-                    <textarea
-                        value={newReply}
-                        onChange={(e) => setNewReply(e.target.value)}
-                        placeholder="Add an update or reply..."
-                        style={{
-                            width: '100%',
-                            padding: '1rem',
-                            borderRadius: '8px',
-                            border: '1px solid #ddd',
-                            marginBottom: '1rem',
-                            fontFamily: 'inherit',
-                            resize: 'vertical',
-                            minHeight: '100px'
-                        }}
-                    />
-                    <button
-                        onClick={handlePostReply}
-                        style={{
-                            background: '#00695c',
-                            color: 'white',
-                            border: 'none',
-                            padding: '0.75rem 2rem',
-                            borderRadius: '50px',
-                            fontWeight: 'bold',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Post Update
-                    </button>
-                </div>
-            )}
         </div>
     )
 }

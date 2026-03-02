@@ -66,7 +66,7 @@ export const translations = {
 
         // Community
         community_title: 'Tiêu điểm Cộng đồng',
-        community_read: 'Xem thảo luận →',
+        community_read: 'Nội dung bài →',
         community_school_title: 'Các trường học quốc tế ở Nha Trang',
         community_school_desc: 'Tìm kiếm các trường học quốc tế tốt nhất cho con bạn...',
         community_license_title: 'Các khu vực tập trung nhiều người nước ngoài ở Nha Trang',
@@ -472,7 +472,7 @@ export const translations = {
 
         // Community
         community_title: 'Community Highlights',
-        community_read: 'Read Discussion →',
+        community_read: 'Read Post →',
         community_school_title: 'International Schools in Nha Trang',
         community_school_desc: 'Finding the best international schools for your children...',
         community_license_title: 'Popular Expat Areas in Nha Trang',

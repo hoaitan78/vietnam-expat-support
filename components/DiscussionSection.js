@@ -39,34 +39,47 @@ export default function DiscussionSection({ topicId, initialTopic }) {
     const handlePostReply = async () => {
         if (!newReply.trim() || !currentUser) return
 
-        try {
-            const isApproved = isAdmin;
-            const replyData = {
-                user: currentUser.email,
-                userId: currentUser.uid,
-                content: newReply,
-                createdAt: serverTimestamp(),
-                status: isApproved ? 'approved' : 'pending' // Admins auto-approve their own posts
-            }
+        const isApproved = isAdmin;
 
-            const docRef = await addDoc(collection(db, 'topics', topicId, 'replies'), replyData)
+        // 1. Pre-generate ID for offline usage
+        const newReplyRef = doc(collection(db, 'topics', topicId, 'replies'));
+
+        const replyData = {
+            user: currentUser.email,
+            userId: currentUser.uid,
+            content: newReply,
+            createdAt: new Date(), // Temporary for UI optimistic update
+            status: isApproved ? 'approved' : 'pending' // Admins auto-approve their own posts
+        }
+
+        // 2. Immediate UI Update
+        const tempReply = { ...replyData, id: newReplyRef.id };
+        setReplies([...replies, tempReply]);
+        setNewReply('');
+
+        try {
+            // Restore server timestamp for Firestore
+            replyData.createdAt = serverTimestamp();
+
+            // 3. Parallel write
+            const promises = [setDoc(newReplyRef, replyData)];
 
             if (isApproved) {
-                // Update replies count if approved
-                // Make sure we create the document first if it's a predefined one
                 const topicRef = doc(db, 'topics', topicId);
-                await setDoc(topicRef, {
+                promises.push(setDoc(topicRef, {
                     repliesCount: increment(1)
-                }, { merge: true })
-            } else {
-                alert(t('reply_pending_approval') || 'Your reply has been submitted and is awaiting admin approval.')
+                }, { merge: true }));
             }
 
-            // Optimistically update UI
-            setReplies([...replies, { ...replyData, id: docRef.id, createdAt: new Date() }])
-            setNewReply('')
+            await Promise.all(promises);
+
+            if (!isApproved) {
+                alert(t('reply_pending_approval') || 'Your reply has been submitted and is awaiting admin approval.')
+            }
         } catch (error) {
             console.error("Error posting reply:", error)
+            // Revert UI on failure
+            setReplies(current => current.filter(r => r.id !== newReplyRef.id))
             alert("Failed to post reply. Please try again.")
         }
     }
@@ -117,11 +130,8 @@ export default function DiscussionSection({ topicId, initialTopic }) {
         }
     }
 
-    // Filter replies for non-admins: only show approved ones and their own
-    // For admins: show all
-    const visibleReplies = isAdmin
-        ? replies
-        : replies.filter(r => r.status === 'approved' || (currentUser && r.userId === currentUser.uid))
+    // Assuming ALL posts are now from the Admin, or we only want to show Admin posts in this new format.
+    const adminReplies = replies.filter(r => ADMIN_EMAILS.some(email => email.toLowerCase() === r.user.toLowerCase()))
 
     let displayTitle = initialTopic.title;
     let displayContent = initialTopic.content;
@@ -188,97 +198,39 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                 </div>
             </div>
 
-            <h3 style={{ color: '#004d40', marginBottom: '1.5rem' }}>{t('community_replies_title')} ({visibleReplies.length})</h3>
+            {adminReplies.length > 0 && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
+                    {adminReplies.map((reply) => (
+                        <div key={reply.id} style={{
+                            display: 'flex',
+                            gap: '1rem',
+                            background: '#f0fdf4', // Light green background to highlight admin post
+                            padding: '1.5rem',
+                            borderRadius: '8px',
+                            borderLeft: '4px solid #00695c'
+                        }}>
+                            <div style={{ flex: 1 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                                    <strong style={{ color: '#00695c', fontSize: '1.1rem' }}>{reply.user} (Admin Update)</strong>
+                                    <span style={{ fontSize: '0.9rem', color: '#666' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Just now'}</span>
+                                </div>
+                                <p style={{ margin: 0, color: '#333', fontSize: '1.05rem', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{reply.content}</p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
-                {visibleReplies.length === 0 && (
-                    <p style={{ fontStyle: 'italic', color: '#777' }}>{t('no_replies_yet') || 'No replies yet. Be the first to share your thoughts!'}</p>
-                )}
-
-                {visibleReplies.map((reply) => (
-                    <div key={reply.id} style={{
-                        display: 'flex',
-                        gap: '1rem',
-                        opacity: reply.status === 'pending' || reply.status === 'rejected' ? 0.6 : 1,
-                        background: reply.status === 'pending' ? '#fffde7' : reply.status === 'rejected' ? '#ffebee' : 'transparent',
-                        padding: (reply.status === 'pending' || reply.status === 'rejected') ? '1rem' : '0',
-                        borderRadius: '8px'
-                    }}>
-                        <div style={{ width: '2px', background: '#ccc' }}></div>
-                        <div style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
-                                <strong style={{ color: '#00695c' }}>{reply.user}</strong>
-                                <span style={{ fontSize: '0.85rem', color: '#999' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Just now'}</span>
                                 {isAdmin && (
-                                    <span style={{
-                                        fontSize: '0.75rem',
-                                        padding: '2px 6px',
-                                        borderRadius: '4px',
-                                        background: reply.status === 'approved' ? '#e8f5e9' : reply.status === 'rejected' ? '#ffebee' : '#fff8e1',
-                                        color: reply.status === 'approved' ? '#2e7d32' : reply.status === 'rejected' ? '#c62828' : '#f9a825',
-                                        border: '1px solid',
-                                        borderColor: reply.status === 'approved' ? '#a5d6a7' : reply.status === 'rejected' ? '#ef9a9a' : '#ffe082'
-                                    }}>
-                                        {reply.status ? reply.status.toUpperCase() : 'APPROVED'}
-                                    </span>
-                                )}
-                                {!isAdmin && reply.status === 'pending' && (
-                                    <span style={{
-                                        fontSize: '0.75rem',
-                                        padding: '2px 6px',
-                                        borderRadius: '4px',
-                                        background: '#fff8e1',
-                                        color: '#f9a825',
-                                        border: '1px solid #ffe082'
-                                    }}>
-                                        {t('status_pending') || 'Awaiting Approval'}
-                                    </span>
-                                )}
-                                {!isAdmin && reply.status === 'rejected' && (
-                                    <span style={{
-                                        fontSize: '0.75rem',
-                                        padding: '2px 6px',
-                                        borderRadius: '4px',
-                                        background: '#ffebee',
-                                        color: '#c62828',
-                                        border: '1px solid #ef9a9a'
-                                    }}>
-                                        {t('status_rejected') || 'Rejected'}
-                                    </span>
+                                    <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
+                                        <button
+                                            onClick={() => handleDeleteReply(reply.id, reply.status)}
+                                            style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem', cursor: 'pointer', background: '#ffebee', border: '1px solid #ef9a9a', color: '#c62828', borderRadius: '4px' }}
+                                        >
+                                            Delete Update
+                                        </button>
+                                    </div>
                                 )}
                             </div>
-                            <p style={{ margin: 0, color: '#444' }}>{reply.content}</p>
-
-                            {isAdmin && (
-                                <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.5rem' }}>
-                                    {reply.status !== 'approved' && (
-                                        <button
-                                            onClick={() => handleUpdateStatus(reply.id, 'approved', reply.status)}
-                                            style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#e8f5e9', border: '1px solid #a5d6a7', color: '#2e7d32', borderRadius: '4px' }}
-                                        >
-                                            Approve
-                                        </button>
-                                    )}
-                                    {reply.status !== 'rejected' && (
-                                        <button
-                                            onClick={() => handleUpdateStatus(reply.id, 'rejected', reply.status)}
-                                            style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#ffebee', border: '1px solid #ef9a9a', color: '#c62828', borderRadius: '4px' }}
-                                        >
-                                            Reject
-                                        </button>
-                                    )}
-                                    <button
-                                        onClick={() => handleDeleteReply(reply.id, reply.status)}
-                                        style={{ fontSize: '0.8rem', padding: '0.25rem 0.5rem', cursor: 'pointer', background: '#fafafa', border: '1px solid #ddd', color: '#555', borderRadius: '4px' }}
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            )}
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

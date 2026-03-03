@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { db } from '../../../lib/firebase'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { useAuth } from '../../../contexts/AuthContext'
 import { useLanguage } from '../../../contexts/LanguageContext'
 
@@ -30,7 +30,10 @@ export default function NewTopicPage() {
 
         setIsSubmitting(true)
         try {
-            const docRef = await addDoc(collection(db, 'topics'), {
+            const newTopicRef = doc(collection(db, 'topics'))
+
+            // Do not wait for this to finish to navigate quickly
+            setDoc(newTopicRef, {
                 title,
                 content,
                 user: currentUser.email,
@@ -38,7 +41,8 @@ export default function NewTopicPage() {
                 createdAt: serverTimestamp(),
                 repliesCount: 0
             })
-            router.push(`/community/${docRef.id}`)
+
+            router.push(`/community/${newTopicRef.id}`)
         } catch (error) {
             console.error('Error creating topic:', error)
             alert('Failed to post topic. Please try again.')

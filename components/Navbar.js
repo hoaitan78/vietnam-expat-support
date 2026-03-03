@@ -10,9 +10,20 @@ import { useAuth } from '../contexts/AuthContext'
 export default function Navbar() {
     const { t, language, toggleLanguage, languages, setLanguage } = useLanguage()
     const { theme, toggleTheme } = useTheme()
-    const { currentUser, logout } = useAuth()
+    const { currentUser, logout, googleLogin } = useAuth()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
+    const [showLoginModal, setShowLoginModal] = useState(false)
+
+    const handleAdminLogin = async () => {
+        try {
+            await googleLogin()
+            setShowLoginModal(false)
+        } catch (error) {
+            console.error("Login failed", error)
+            alert('Login failed: ' + error.message) // Show exact error to the user
+        }
+    }
 
     return (
         <nav className={styles.navbar}>
@@ -95,7 +106,8 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    {currentUser && (
+                    {/* Admin Login/Logout */}
+                    {currentUser ? (
                         <div className={styles.dropdown} style={{ paddingBottom: 0, marginBottom: 0 }}>
                             <button
                                 className="btn btn-primary"
@@ -109,9 +121,66 @@ export default function Navbar() {
                                 </div>
                             </div>
                         </div>
+                    ) : (
+                        <button
+                            className="btn"
+                            style={{
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'transparent', // Make it invisible
+                                cursor: 'default' // Don't show pointer
+                            }}
+                            onDoubleClick={() => setShowLoginModal(true)} // Double click blank space to show login
+                            title="Admin Access"
+                        >
+                            .
+                        </button>
                     )}
                 </div>
             </div>
+
+            {/* Hidden Admin Login Modal */}
+            {showLoginModal && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    zIndex: 9999
+                }}>
+                    <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', minWidth: '300px', textAlign: 'center' }}>
+                        <h2 style={{ marginBottom: '1.5rem', color: 'black' }}>Admin Access</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            <button
+                                onClick={handleAdminLogin}
+                                style={{
+                                    padding: '0.75rem 1rem',
+                                    background: '#db4437', // Google Red
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    fontSize: '1rem'
+                                }}
+                            >
+                                Login with Google
+                            </button>
+                            <button
+                                onClick={() => setShowLoginModal(false)}
+                                style={{
+                                    padding: '0.5rem 1rem',
+                                    background: '#ccc',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    color: '#333'
+                                }}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     )
 }

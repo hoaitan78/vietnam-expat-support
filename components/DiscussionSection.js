@@ -154,6 +154,13 @@ export default function DiscussionSection({ topicId, initialTopic }) {
 
     return (
         <div style={{ marginTop: '2rem' }}>
+            <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
+                <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
+                <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
+                    <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
+                </div>
+            </div>
+
             {isAdmin && (
                 <div style={{ background: '#fff', border: '1px solid #eee', borderRadius: '12px', padding: '1.5rem', marginBottom: '2rem' }}>
                     <div style={{ marginBottom: '1rem', fontStyle: 'italic', color: '#666' }}>
@@ -190,13 +197,6 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                     </button>
                 </div>
             )}
-
-            <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
-                <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
-                <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-                    <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
-                </div>
-            </div>
 
             {adminReplies.length > 0 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>

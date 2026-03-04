@@ -157,7 +157,32 @@ export default function DiscussionSection({ topicId, initialTopic }) {
             <div style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '12px', marginBottom: '2rem' }}>
                 <h3 style={{ color: '#004d40', marginBottom: '1rem' }}>{displayTitle}</h3>
                 <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-                    <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
+                    {adminReplies.length > 0 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            {adminReplies.map((reply, index) => (
+                                <div key={reply.id} style={{ paddingBottom: index !== adminReplies.length - 1 ? '1.5rem' : '0', borderBottom: index !== adminReplies.length - 1 ? '1px solid #eee' : 'none' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                                        <strong style={{ color: '#00695c', fontSize: '1.1rem' }}>{reply.user} (Admin Update)</strong>
+                                        <span style={{ fontSize: '0.9rem', color: '#666' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Vừa xong'}</span>
+                                    </div>
+                                    <p style={{ margin: 0, color: '#333', fontSize: '1.05rem', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{reply.content}</p>
+
+                                    {isAdmin && (
+                                        <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
+                                            <button
+                                                onClick={() => handleDeleteReply(reply.id, reply.status)}
+                                                style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem', cursor: 'pointer', background: '#ffebee', border: '1px solid #ef9a9a', color: '#c62828', borderRadius: '4px' }}
+                                            >
+                                                Delete Update
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div style={{ lineHeight: '1.6', color: '#333' }}>{displayContent}</div>
+                    )}
                 </div>
             </div>
 
@@ -195,40 +220,6 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                     >
                         Post Update
                     </button>
-                </div>
-            )}
-
-            {adminReplies.length > 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
-                    {adminReplies.map((reply) => (
-                        <div key={reply.id} style={{
-                            display: 'flex',
-                            gap: '1rem',
-                            background: '#f0fdf4', // Light green background to highlight admin post
-                            padding: '1.5rem',
-                            borderRadius: '8px',
-                            borderLeft: '4px solid #00695c'
-                        }}>
-                            <div style={{ flex: 1 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                                    <strong style={{ color: '#00695c', fontSize: '1.1rem' }}>{reply.user} (Admin Update)</strong>
-                                    <span style={{ fontSize: '0.9rem', color: '#666' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Just now'}</span>
-                                </div>
-                                <p style={{ margin: 0, color: '#333', fontSize: '1.05rem', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{reply.content}</p>
-
-                                {isAdmin && (
-                                    <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
-                                        <button
-                                            onClick={() => handleDeleteReply(reply.id, reply.status)}
-                                            style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem', cursor: 'pointer', background: '#ffebee', border: '1px solid #ef9a9a', color: '#c62828', borderRadius: '4px' }}
-                                        >
-                                            Delete Update
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    ))}
                 </div>
             )}
         </div>

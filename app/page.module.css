@@ -78,3 +78,15 @@
     margin-bottom: 1.5rem;
     margin-top: -4rem;
 }
+
+.navLink {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-top: auto;
+    display: inline-block;
+    transition: color 0.2s ease;
+}
+
+.navLink:hover {
+    color: var(--color-secondary);
+}

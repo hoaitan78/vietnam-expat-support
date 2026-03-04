@@ -161,10 +161,12 @@ export default function DiscussionSection({ topicId, initialTopic }) {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             {adminReplies.map((reply, index) => (
                                 <div key={reply.id} style={{ paddingBottom: index !== adminReplies.length - 1 ? '1.5rem' : '0', borderBottom: index !== adminReplies.length - 1 ? '1px solid #eee' : 'none' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                                        <strong style={{ color: '#00695c', fontSize: '1.1rem' }}>{reply.user} (Admin Update)</strong>
-                                        <span style={{ fontSize: '0.9rem', color: '#666' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Vừa xong'}</span>
-                                    </div>
+                                    {isAdmin && (
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                                            <strong style={{ color: '#00695c', fontSize: '1.1rem' }}>{reply.user} (Admin Update)</strong>
+                                            <span style={{ fontSize: '0.9rem', color: '#666' }}>• {reply.createdAt?.toDate ? reply.createdAt.toDate().toLocaleString() : 'Vừa xong'}</span>
+                                        </div>
+                                    )}
                                     <p style={{ margin: 0, color: '#333', fontSize: '1.05rem', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{reply.content}</p>
 
                                     {isAdmin && (

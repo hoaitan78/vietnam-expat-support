@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { sendMessengerMessage } from '@/services/chatbot/messengerService';
-import { sendWhatsAppMessage } from '@/services/chatbot/whatsappService';
-import { generateBotResponse } from '@/services/chatbot/aiHandler';
+import { sendMessengerMessage } from '../../../services/chatbot/messengerService';
+import { sendWhatsAppMessage } from '../../../services/chatbot/whatsappService';
+import { generateBotResponse } from '../../../services/chatbot/aiHandler';
 
 // Handle Webhook Verification Request
 export async function GET(request) {

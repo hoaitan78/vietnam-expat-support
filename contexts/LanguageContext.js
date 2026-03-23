@@ -10,7 +10,8 @@ export function LanguageProvider({ children }) {
         { code: 'vi', label: '🇻🇳 VN', name: 'Tiếng Việt' },
         { code: 'en', label: '🇬🇧 EN', name: 'English' },
         { code: 'ko', label: '🇰🇷 KO', name: '한국어' },
-        { code: 'zh', label: '🇨🇳 ZH', name: '中文' }
+        { code: 'zh', label: '🇨🇳 ZH', name: '中文' },
+        { code: 'ru', label: '🇷🇺 RU', name: 'Русский' }
     ]
 
     // Default to Vietnamese ('vi')

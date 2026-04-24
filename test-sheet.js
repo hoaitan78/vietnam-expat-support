@@ -1,4 +1,4 @@
-import 'dotenv/config';
+
 import { getApprovedPostForToday } from './services/googleSheets.js';
 
 async function test() {

@@ -4,19 +4,21 @@ import { addGeneratedPostsToSheet } from '../../../services/googleSheets';
 
 export async function GET(request) {
   try {
-    // 1. Tạo 5 bài viết nháp cùng một lúc (cho 5 ngày)
+    // 1. Tạo 10 bài viết nháp cùng một lúc (cho 5 ngày, mỗi ngày 2 bài)
     console.log('🤖 AI Agent đang nghĩ ý tưởng...');
-    const aiPosts = await generateExpatFacebookPost(5);
+    const aiPosts = await generateExpatFacebookPost(10);
 
-    // 2. Định hình lại ngày cho các bài viết
+    // 2. Định hình lại ngày và giờ cho các bài viết
     const today = new Date();
     const formattedPosts = aiPosts.map((post, index) => {
         const postDate = new Date(today);
-        postDate.setDate(today.getDate() + index); // Mỗi bài 1 ngày, bắt đầu từ hôm nay
+        postDate.setDate(today.getDate() + Math.floor(index / 2)); // Mỗi 2 bài là 1 ngày, bắt đầu từ hôm nay
+        const time = (index % 2 === 0) ? 'Sáng (8:00)' : 'Chiều (17:00)';
         
         return {
             ...post,
-            date: postDate.toLocaleDateString('vi-VN')
+            date: postDate.toLocaleDateString('vi-VN'),
+            time: time
         };
     });
 
@@ -28,7 +30,7 @@ export async function GET(request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Đã tạo và đẩy 5 bài viết dự thảo vào Google Sheets thành công! Vui lòng vào Sheet để kiểm duyệt.',
+      message: 'Đã tạo và đẩy 10 bài viết dự thảo vào Google Sheets thành công! Vui lòng vào Sheet để kiểm duyệt.',
       data: formattedPosts
     });
 

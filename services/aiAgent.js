@@ -31,7 +31,7 @@ export async function generateExpatFacebookPost(numberOfPosts = 1) {
             {
               "topic": "Tên chủ đề ngắn gọn bằng tiếng Anh",
               "content": "Nội dung bài viết đầy đủ ở đây...",
-              "imagePrompt": "A single descriptive sentence in English detailing an eye-catching photo for this post. Include 'photo realistic' or 'high quality' keywords. (e.g., 'A vibrant bowl of Pho on a street food stall in Hanoi, photorealistic, 4k')"
+               "imagePrompt": "A single descriptive sentence in English detailing an eye-catching photo for this post. ABSOLUTELY NO PEOPLE, NO CROWDS, NO FACES, NO HUMAN FIGURES. Focus ONLY on objects, empty landscapes, food, or architecture. Include keywords: 'no people', 'empty scene', 'photo realistic', '4k'. (e.g., 'A close up of a vibrant bowl of Pho on a wooden table in Hanoi, no people, empty street background, photorealistic, 4k')"
             }
           ]
         `;
@@ -52,7 +52,8 @@ export async function generateExpatFacebookPost(numberOfPosts = 1) {
            if (post.imagePrompt) {
                // URL Encode cái prompt ảnh để nối vào link
                const encodedPrompt = encodeURIComponent(post.imagePrompt);
-               imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1200&height=630&nologo=true`;
+               const seed = Math.floor(Math.random() * 1000000);
+               imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1200&height=630&nologo=true&seed=${seed}`;
            }
            return {
                ...post,

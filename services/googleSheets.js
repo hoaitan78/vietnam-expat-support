@@ -20,16 +20,18 @@ export async function addGeneratedPostsToSheet(posts) {
         const doc = await getDoc();
         const sheet = doc.sheetsByIndex[0]; // Lấy sheet đầu tiên
 
-        // Thêm tiêu đề cột nếu sheet chống
-        await sheet.setHeaderRow(['Chủ đề', 'Nội dung bài viết', 'Ảnh minh họa', 'Ngày đăng', 'Duyệt bài', 'Trạng thái']);
+        // Thêm tiêu đề cột nếu sheet trống
+        await sheet.setHeaderRow(['Chủ đề', 'Nội dung bài viết', 'Ảnh minh họa', 'Ngày đăng', 'Giờ đăng', 'Duyệt bài', 'Trạng thái', 'Xem trước ảnh']);
 
         const rowsToAdd = posts.map(post => ({
             'Chủ đề': post.topic,
             'Nội dung bài viết': post.content,
             'Ảnh minh họa': post.imageUrl || '',
             'Ngày đăng': post.date,
-            'Duyệt bài': '', // Cột duyệt để chống
-            'Trạng thái': 'Đang chờ'
+            'Giờ đăng': post.time || 'Sáng (8:00)',
+            'Duyệt bài': '', // Cột duyệt để trống
+            'Trạng thái': 'Đang chờ',
+            'Xem trước ảnh': post.imageUrl ? `=IMAGE("${post.imageUrl}")` : ''
         }));
 
         await sheet.addRows(rowsToAdd);
@@ -47,15 +49,62 @@ export async function getApprovedPostForToday() {
       const sheet = doc.sheetsByIndex[0];
       const rows = await sheet.getRows();
 
-      // Mặc định lấy bài viết đầu tiên được đánh dấu "OK" (hoặc "X") ở cột Duyệt bài 
-      // VÀ có trạng thái không phải "Đã đăng thành công"
+      // Lấy thời gian hiện tại ở Việt Nam (ICT)
+      const now = new Date();
+      const ictTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const currentDay = ictTime.getDate();
+      const currentMonth = ictTime.getMonth() + 1;
+      const currentYear = ictTime.getFullYear();
+      const currentHour = ictTime.getHours();
+
+      // Lọc bài viết được đánh dấu "OK" (hoặc "X") ở cột Duyệt bài,
+      // VÀ có trạng thái không phải "Đã đăng thành công",
+      // VÀ thời gian lên lịch (Ngày + Giờ) nhỏ hơn hoặc bằng thời gian hiện tại
       const approvedRowInfo = rows.find(row => {
           const isApproved = row.get('Duyệt bài')?.trim().toUpperCase() === 'OK' || row.get('Duyệt bài')?.trim().toUpperCase() === 'X';
           const isNotPublished = row.get('Trạng thái') !== 'Đã đăng thành công';
-          return isApproved && isNotPublished;
+          
+          if (!isApproved || !isNotPublished) return false;
+
+          const postDateStr = row.get('Ngày đăng')?.trim();
+          const postTimeStr = row.get('Giờ đăng')?.trim();
+
+          if (postDateStr) {
+             const parts = postDateStr.split('/');
+             if (parts.length === 3) {
+                 const d = parseInt(parts[0], 10);
+                 const m = parseInt(parts[1], 10);
+                 const y = parseInt(parts[2], 10);
+                 
+                 let hour = 8; // Mặc định Sáng là 8h
+                 if (postTimeStr && postTimeStr.toLowerCase().includes('chiều')) {
+                     hour = 17; // Chiều là 17h
+                 }
+                 
+                 const postDateNum = y * 10000 + m * 100 + d;
+                 const currentDateNum = currentYear * 10000 + currentMonth * 100 + currentDay;
+                 
+                 // Nếu ngày đăng nhỏ hơn ngày hiện tại => cho phép đăng bù (nếu đã duyệt)
+                 if (postDateNum < currentDateNum) {
+                     return true;
+                 }
+                 
+                 // Nếu ngày đăng là hôm nay, kiểm tra xem đã đến giờ đăng chưa
+                 if (postDateNum === currentDateNum) {
+                     if (currentHour >= hour) {
+                         return true;
+                     }
+                 }
+             }
+          }
+
+          return false;
       });
 
-      if (!approvedRowInfo) return null;
+      if (!approvedRowInfo) {
+          console.log(`ℹ️ Không có bài viết nào được duyệt chờ đăng cho đến thời điểm hiện tại (${currentDay}/${currentMonth}/${currentYear} ${currentHour}h).`);
+          return null;
+      }
 
       return {
           row: approvedRowInfo,

@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { generateExpatFacebookPost } from '../../../services/aiAgent';
 import { addGeneratedPostsToSheet } from '../../../services/googleSheets';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request) {
   try {
     // 1. Tạo 10 bài viết nháp cùng một lúc (cho 5 ngày, mỗi ngày 2 bài)

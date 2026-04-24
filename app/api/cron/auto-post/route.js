@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getApprovedPostForToday, markPostAsPublished } from '../../../services/googleSheets';
-import { publishPostToFacebook } from '../../../services/facebook';
+import { getApprovedPostForToday, markPostAsPublished } from '../../../../services/googleSheets';
+import { publishPostToFacebook } from '../../../../services/facebook';
 
 export const dynamic = 'force-dynamic';
 

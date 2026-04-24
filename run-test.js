@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { getApprovedPostForToday } from './services/googleSheets.js';
+
 
 const env = fs.readFileSync('.env.local', 'utf8').split('\n');
 for (const line of env) {
@@ -14,6 +14,7 @@ for (const line of env) {
 async function test() {
   try {
     console.log('Testing Google Sheets...');
+    const { getApprovedPostForToday } = await import('./services/googleSheets.js');
     const post = await getApprovedPostForToday();
     if (post) {
       console.log('Found post:', post.content.substring(0, 50) + '...', 'Image:', post.imageUrl);

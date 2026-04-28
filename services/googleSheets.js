@@ -3,9 +3,10 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
 // Khởi tạo Auth Client
+const privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
 const serviceAccountAuth = new JWT({
-  email: process.env.GOOGLE_CLIENT_EMAIL,
-  key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Xử lý các ký tự xuống dòng trong key
+  email: process.env.GOOGLE_CLIENT_EMAIL || '',
+  key: privateKey.replace(/\\n/g, '\n'), // Xử lý các ký tự xuống dòng trong key
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 

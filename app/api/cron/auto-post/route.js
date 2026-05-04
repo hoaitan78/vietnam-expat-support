@@ -23,11 +23,11 @@ export async function GET(request) {
         return NextResponse.json({ success: true, message: 'Không có bài đăng nào cần xử lý.' });
     }
 
-    const { row, content, imageUrl } = approvedPost;
+    const { row, content, imageUrl, videoUrl } = approvedPost;
 
     // 2. Gửi bài viết sang Facebook
     console.log('📤 Tìm thấy bài viết! Đang đăng lên Facebook Page...');
-    const fbResult = await publishPostToFacebook(content, imageUrl);
+    const fbResult = await publishPostToFacebook(content, imageUrl, videoUrl);
 
     if (!fbResult.success) {
       throw new Error(JSON.stringify(fbResult.error));

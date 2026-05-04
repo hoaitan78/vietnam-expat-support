@@ -1,7 +1,7 @@
 // File: services/facebook.js
 import axios from 'axios';
 
-export async function publishPostToFacebook(message, imageUrl = null) {
+export async function publishPostToFacebook(message, imageUrl = null, videoUrl = null) {
   try {
     const pageId = process.env.AI_AGENT_FACEBOOK_PAGE_ID;
     const pageAccessToken = process.env.AI_AGENT_FACEBOOK_ACCESS_TOKEN;
@@ -13,13 +13,18 @@ export async function publishPostToFacebook(message, imageUrl = null) {
     let url;
     let payload = { access_token: pageAccessToken };
 
-    if (imageUrl) {
+    if (videoUrl) {
+        console.log('🎥 Phát hiện có Video, đang tải lên Facebook...');
+        url = `https://graph.facebook.com/v19.0/${pageId}/videos`;
+        payload.file_url = videoUrl;
+        payload.description = message;
+    } else if (imageUrl) {
         console.log('🖼️ Phát hiện có hình ảnh, đang tải lên Facebook...');
         url = `https://graph.facebook.com/v19.0/${pageId}/photos`;
         payload.url = imageUrl;
         payload.message = message;
     } else {
-        console.log('📄 Không dùng ảnh, tiến hành đăng bài viết chữ thường...');
+        console.log('📄 Không dùng ảnh/video, tiến hành đăng bài viết chữ thường...');
         url = `https://graph.facebook.com/v19.0/${pageId}/feed`;
         payload.message = message;
     }

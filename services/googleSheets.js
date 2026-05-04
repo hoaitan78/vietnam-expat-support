@@ -22,12 +22,13 @@ export async function addGeneratedPostsToSheet(posts) {
         const sheet = doc.sheetsByIndex[0]; // Lấy sheet đầu tiên
 
         // Thêm tiêu đề cột nếu sheet trống
-        await sheet.setHeaderRow(['Chủ đề', 'Nội dung bài viết', 'Ảnh minh họa', 'Ngày đăng', 'Giờ đăng', 'Duyệt bài', 'Trạng thái', 'Xem trước ảnh']);
+        await sheet.setHeaderRow(['Chủ đề', 'Nội dung bài viết', 'Ảnh minh họa', 'Video', 'Ngày đăng', 'Giờ đăng', 'Duyệt bài', 'Trạng thái', 'Xem trước ảnh']);
 
         const rowsToAdd = posts.map(post => ({
             'Chủ đề': post.topic,
             'Nội dung bài viết': post.content,
             'Ảnh minh họa': post.imageUrl || '',
+            'Video': post.videoUrl || '',
             'Ngày đăng': post.date,
             'Giờ đăng': post.time || 'Sáng (8:00)',
             'Duyệt bài': '', // Cột duyệt để trống
@@ -110,7 +111,8 @@ export async function getApprovedPostForToday() {
       return {
           row: approvedRowInfo,
           content: approvedRowInfo.get('Nội dung bài viết'),
-          imageUrl: approvedRowInfo.get('Ảnh minh họa')
+          imageUrl: approvedRowInfo.get('Ảnh minh họa'),
+          videoUrl: approvedRowInfo.get('Video')
       };
       
   } catch (error) {

@@ -6,16 +6,16 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
   try {
-    // 1. Tạo 10 bài viết nháp cùng một lúc (cho 5 ngày, mỗi ngày 2 bài)
+    // 1. Tạo 7 bài viết nháp (cho 7 ngày tới, mỗi ngày 1 bài)
     console.log('🤖 AI Agent đang nghĩ ý tưởng...');
-    const aiPosts = await generateExpatFacebookPost(10);
+    const aiPosts = await generateExpatFacebookPost(7);
 
     // 2. Định hình lại ngày và giờ cho các bài viết
     const today = new Date();
     const formattedPosts = aiPosts.map((post, index) => {
         const postDate = new Date(today);
-        postDate.setDate(today.getDate() + Math.floor(index / 2)); // Mỗi 2 bài là 1 ngày, bắt đầu từ hôm nay
-        const time = (index % 2 === 0) ? 'Sáng (8:00)' : 'Chiều (17:00)';
+        postDate.setDate(today.getDate() + index); // Mỗi bài là 1 ngày, bắt đầu từ hôm nay
+        const time = 'Chiều (17:00)';
         
         return {
             ...post,

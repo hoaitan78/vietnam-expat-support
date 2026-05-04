@@ -58,11 +58,44 @@ export async function getApprovedPostForToday() {
       const currentMonth = ictTime.getMonth() + 1;
       const currentYear = ictTime.getFullYear();
       const currentHour = ictTime.getHours();
+      const currentDateNum = currentYear * 10000 + currentMonth * 100 + currentDay;
+
+      // Xóa các bài viết đã qua ngày (Tối đa 5 bài mỗi lần chạy để tránh quá tải)
+      let deletedCount = 0;
+      const rowsToDelete = [];
+      for (const row of rows) {
+          const postDateStr = row.get('Ngày đăng')?.trim();
+          if (postDateStr) {
+             const parts = postDateStr.split('/');
+             if (parts.length === 3) {
+                 const postDateNum = parseInt(parts[2], 10) * 10000 + parseInt(parts[1], 10) * 100 + parseInt(parts[0], 10);
+                 if (postDateNum < currentDateNum) {
+                     rowsToDelete.push(row);
+                 }
+             }
+          }
+      }
+
+      for (const row of rowsToDelete) {
+          if (deletedCount >= 5) break; // Giới hạn xóa 5 bài mỗi lần
+          try {
+              await row.delete();
+              deletedCount++;
+          } catch (e) {
+              console.error('Lỗi khi xóa bài cũ:', e);
+          }
+      }
+      if (deletedCount > 0) {
+          console.log(`✅ Đã tự động xóa ${deletedCount} bài viết cũ khỏi Google Sheets.`);
+          // Cập nhật lại danh sách dòng sau khi xóa để tránh lỗi index
+          await sheet.loadCells(); 
+      }
 
       // Lọc bài viết được đánh dấu "OK" (hoặc "X") ở cột Duyệt bài,
       // VÀ có trạng thái không phải "Đã đăng thành công",
-      // VÀ thời gian lên lịch (Ngày + Giờ) nhỏ hơn hoặc bằng thời gian hiện tại
-      const approvedRowInfo = rows.find(row => {
+      // VÀ thời gian lên lịch (Ngày + Giờ) khớp với hiện tại
+      const currentRows = await sheet.getRows(); // Lấy lại danh sách sau khi xóa
+      const approvedRowInfo = currentRows.find(row => {
           const isApproved = row.get('Duyệt bài')?.trim().toUpperCase() === 'OK' || row.get('Duyệt bài')?.trim().toUpperCase() === 'X';
           const isNotPublished = row.get('Trạng thái') !== 'Đã đăng thành công';
           

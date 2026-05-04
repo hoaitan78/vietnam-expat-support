@@ -86,14 +86,16 @@ export async function getApprovedPostForToday() {
                  const postDateNum = y * 10000 + m * 100 + d;
                  const currentDateNum = currentYear * 10000 + currentMonth * 100 + currentDay;
                  
-                 // Nếu ngày đăng nhỏ hơn ngày hiện tại => cho phép đăng bù (nếu đã duyệt)
+                 // NẾU BÀI ĐÃ QUA NGÀY => BỎ QUA (Không đăng bù nữa theo yêu cầu của bạn)
                  if (postDateNum < currentDateNum) {
-                     return true;
+                     return false;
                  }
                  
-                 // Nếu ngày đăng là hôm nay, kiểm tra xem đã đến giờ đăng chưa
+                 // NẾU BÀI CỦA HÔM NAY => KIỂM TRA GIỜ
                  if (postDateNum === currentDateNum) {
-                     if (currentHour >= hour) {
+                     // Trừ hao 1 tiếng (hour - 1) để phòng trường hợp Vercel Cron chạy sớm vài giây 
+                     // (ví dụ: 16h59 thay vì 17h00)
+                     if (currentHour >= hour - 1) {
                          return true;
                      }
                  }

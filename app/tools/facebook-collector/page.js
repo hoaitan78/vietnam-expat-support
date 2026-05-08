@@ -70,7 +70,7 @@ export default function FacebookCollectorPage() {
           statusDiv.textContent = 'Đang mở cửa sổ...';
           statusDiv.style.color = '#666';
 
-          const saveUrl = \`\${origin}/tools/facebook-collector/save\`;
+          const saveUrl = '${origin}/tools/facebook-collector/save';
           
           // Mở popup
           const popup = window.open(saveUrl, 'FBCollectorSave', 'width=450,height=300,left=200,top=200');
@@ -87,10 +87,10 @@ export default function FacebookCollectorPage() {
 
           messageHandler = (e) => {
             // Chỉ nhận thông báo từ server của chúng ta
-            if (e.origin !== origin) return;
+            if (e.origin !== '${origin}') return;
 
             if (e.data === 'READY_TO_RECEIVE') {
-               popup.postMessage({ action: 'SAVE_POST', type, content, url }, origin);
+               popup.postMessage({ action: 'SAVE_POST', type, content, url }, '${origin}');
                statusDiv.textContent = 'Đang gửi dữ liệu...';
             }
             if (e.data === 'SAVE_SUCCESS') {

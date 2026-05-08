@@ -54,8 +54,6 @@ export default function FacebookCollectorPage() {
 
         document.getElementById('fb-coll-close').onclick = () => overlay.remove();
 
-        let messageHandler = null;
-
         const submitPost = (type) => {
           const content = document.getElementById('fb-coll-content').value;
           const url = document.getElementById('fb-coll-url').value;
@@ -67,46 +65,41 @@ export default function FacebookCollectorPage() {
             return;
           }
 
-          statusDiv.textContent = 'Đang mở cửa sổ...';
+          statusDiv.textContent = 'Đang lưu...';
           statusDiv.style.color = '#666';
 
-          const saveUrl = '${origin}/tools/facebook-collector/save';
-          
-          // Mở popup
-          const popup = window.open(saveUrl, 'FBCollectorSave', 'width=450,height=300,left=200,top=200');
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = '${origin}/api/collect-post-form';
+          form.target = 'fb-collector-popup';
+          form.style.display = 'none';
 
-          if (!popup) {
-            statusDiv.textContent = '❌ Trình duyệt chặn Popup! Hãy cho phép mở Popup.';
-            statusDiv.style.color = 'red';
-            return;
-          }
+          const typeInput = document.createElement('input');
+          typeInput.type = 'hidden';
+          typeInput.name = 'type';
+          typeInput.value = type;
+          form.appendChild(typeInput);
 
-          if (messageHandler) {
-             window.removeEventListener('message', messageHandler);
-          }
+          const contentInput = document.createElement('input');
+          contentInput.type = 'hidden';
+          contentInput.name = 'content';
+          contentInput.value = content;
+          form.appendChild(contentInput);
 
-          messageHandler = (e) => {
-            // Chỉ nhận thông báo từ server của chúng ta
-            if (e.origin !== '${origin}') return;
+          const urlInput = document.createElement('input');
+          urlInput.type = 'hidden';
+          urlInput.name = 'url';
+          urlInput.value = url;
+          form.appendChild(urlInput);
 
-            if (e.data === 'READY_TO_RECEIVE') {
-               popup.postMessage({ action: 'SAVE_POST', type, content, url }, '${origin}');
-               statusDiv.textContent = 'Đang gửi dữ liệu...';
-            }
-            if (e.data === 'SAVE_SUCCESS') {
-               statusDiv.textContent = '✅ Đã lưu thành công!';
-               statusDiv.style.color = 'green';
-               window.removeEventListener('message', messageHandler);
-               messageHandler = null;
-               setTimeout(() => overlay.remove(), 1500);
-            }
-            if (e.data && e.data.action === 'SAVE_ERROR') {
-               statusDiv.textContent = '❌ Lỗi: ' + e.data.error;
-               statusDiv.style.color = 'red';
-            }
-          };
+          document.body.appendChild(form);
+          window.open('', 'fb-collector-popup', 'width=500,height=400,scrollbars=yes');
+          form.submit();
+          document.body.removeChild(form);
 
-          window.addEventListener('message', messageHandler);
+          statusDiv.textContent = 'Đang mở cửa sổ lưu...';
+          statusDiv.style.color = 'green';
+          setTimeout(() => overlay.remove(), 1000);
         };
 
         document.getElementById('fb-coll-khach').onclick = () => submitPost('khach');

@@ -165,3 +165,118 @@ export async function markPostAsPublished(row) {
          console.error('❌ Lỗi khi cập nhật Trạng thái trên Google Sheets:', error);
     }
 }
+
+// --- TÍNH NĂNG AI AGENT GHÉP NỐI THUÊ NHÀ ---
+
+async function getOrCreateSheet(doc, title, headers) {
+    let sheet = doc.sheetsByTitle[title];
+    if (!sheet) {
+        console.log(`Đang tạo tab mới: ${title}...`);
+        sheet = await doc.addSheet({ title, headerValues: headers });
+    } else {
+        await sheet.setHeaderRow(headers); // Đảm bảo headers luôn đúng
+    }
+    return sheet;
+}
+
+export async function getRenters() {
+    try {
+        const doc = await getDoc();
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác'];
+        const sheet = await getOrCreateSheet(doc, 'KhachCanThue', headers);
+        
+        const rows = await sheet.getRows();
+        // Chỉ lấy những khách chưa được AI xử lý hoặc xử lý rồi để mang đi so sánh
+        // Tạm thời lấy tất cả để ghép nối
+        return rows;
+    } catch (error) {
+        console.error('❌ Lỗi khi đọc sheet KhachCanThue:', error);
+        return [];
+    }
+}
+
+export async function updateRenterAIInfo(row, aiData) {
+    row.set('Đã xử lý AI', 'YES');
+    row.set('Khu vực', aiData.location || '');
+    row.set('Ngân sách', aiData.budget || '');
+    row.set('Số phòng', aiData.bedrooms || '');
+    row.set('Yêu cầu khác', aiData.other_requirements || '');
+    await row.save();
+}
+
+export async function getListings() {
+    try {
+        const doc = await getDoc();
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích'];
+        const sheet = await getOrCreateSheet(doc, 'NhaDangTrong', headers);
+        
+        const rows = await sheet.getRows();
+        return rows;
+    } catch (error) {
+        console.error('❌ Lỗi khi đọc sheet NhaDangTrong:', error);
+        return [];
+    }
+}
+
+export async function updateListingAIInfo(row, aiData) {
+    row.set('Đã xử lý AI', 'YES');
+    row.set('Khu vực', aiData.location || '');
+    row.set('Giá thuê', aiData.price || '');
+    row.set('Số phòng', aiData.bedrooms || '');
+    row.set('Tiện ích', aiData.amenities || '');
+    await row.save();
+}
+
+export async function saveMatchResults(matches) {
+    try {
+        const doc = await getDoc();
+        const headers = ['Ngày ghép nối', 'Thông tin Khách', 'Link Khách', 'Thông tin Nhà', 'Link Nhà', 'Độ phù hợp (%)', 'Lý do phù hợp (Tư vấn)'];
+        const sheet = await getOrCreateSheet(doc, 'KetQuaGhepNoi', headers);
+        
+        const rowsToAdd = matches.map(match => ({
+            'Ngày ghép nối': new Date().toLocaleDateString('vi-VN'),
+            'Thông tin Khách': match.renterInfo,
+            'Link Khách': match.renterLink,
+            'Thông tin Nhà': match.listingInfo,
+            'Link Nhà': match.listingLink,
+            'Độ phù hợp (%)': match.score,
+            'Lý do phù hợp (Tư vấn)': match.reason
+        }));
+
+        if (rowsToAdd.length > 0) {
+            await sheet.addRows(rowsToAdd);
+            console.log(`✅ Đã lưu ${rowsToAdd.length} kết quả ghép nối vào Google Sheets.`);
+        }
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Lỗi khi lưu kết quả ghép nối:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+export async function addCollectedPost(type, content, link) {
+    try {
+        const doc = await getDoc();
+        const sheetTitle = type === 'khach' ? 'KhachCanThue' : 'NhaDangTrong';
+        
+        const headers = type === 'khach' 
+            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác']
+            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích'];
+            
+        const sheet = await getOrCreateSheet(doc, sheetTitle, headers);
+        
+        const rowData = {
+            'Ngày': new Date().toLocaleDateString('vi-VN'),
+            'Nội dung gốc': content,
+            'Link bài': link,
+            'Đã xử lý AI': 'NO'
+        };
+        
+        await sheet.addRow(rowData);
+        console.log(`✅ Đã thêm 1 bài viết mới vào ${sheetTitle}`);
+        return { success: true };
+    } catch (error) {
+        console.error(`❌ Lỗi khi thêm bài viết vào ${type}:`, error);
+        return { success: false, error: error.message };
+    }
+}

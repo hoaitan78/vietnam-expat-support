@@ -54,6 +54,8 @@ export default function FacebookCollectorPage() {
 
         document.getElementById('fb-coll-close').onclick = () => overlay.remove();
 
+        let messageHandler = null;
+
         const submitPost = (type) => {
           const content = document.getElementById('fb-coll-content').value;
           const url = document.getElementById('fb-coll-url').value;
@@ -65,40 +67,46 @@ export default function FacebookCollectorPage() {
             return;
           }
 
-          statusDiv.textContent = 'Đang lưu...';
+          statusDiv.textContent = 'Đang mở cửa sổ...';
           statusDiv.style.color = '#666';
 
-          fetch('${origin}/api/collect-post', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type, content, url })
-          })
-          .then(async res => {
-            if (!res.ok) {
-              const text = await res.text();
-              throw new Error('HTTP ' + res.status + ' - ' + (text.substring(0, 50) || 'Lỗi Server'));
-            }
-            return res.json();
-          })
-          .then(data => {
-            if (data.success) {
-              statusDiv.textContent = '✅ Đã lưu thành công!';
-              statusDiv.style.color = 'green';
-              setTimeout(() => overlay.remove(), 1500);
-            } else {
-              statusDiv.textContent = '❌ Lỗi: ' + data.error;
-              statusDiv.style.color = 'red';
-            }
-          })
-          .catch(err => {
-            if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
-              statusDiv.innerHTML = '❌ Bị chặn kết nối!<br>Hãy tạo nút này từ trang Vercel (HTTPS), không dùng localhost.';
-            } else {
-              statusDiv.textContent = '❌ ' + err.message;
-            }
+          const saveUrl = \`\${origin}/tools/facebook-collector/save\`;
+          
+          // Mở popup
+          const popup = window.open(saveUrl, 'FBCollectorSave', 'width=450,height=300,left=200,top=200');
+
+          if (!popup) {
+            statusDiv.textContent = '❌ Trình duyệt chặn Popup! Hãy cho phép mở Popup.';
             statusDiv.style.color = 'red';
-            console.error('Fetch error:', err);
-          });
+            return;
+          }
+
+          if (messageHandler) {
+             window.removeEventListener('message', messageHandler);
+          }
+
+          messageHandler = (e) => {
+            // Chỉ nhận thông báo từ server của chúng ta
+            if (e.origin !== origin) return;
+
+            if (e.data === 'READY_TO_RECEIVE') {
+               popup.postMessage({ action: 'SAVE_POST', type, content, url }, origin);
+               statusDiv.textContent = 'Đang gửi dữ liệu...';
+            }
+            if (e.data === 'SAVE_SUCCESS') {
+               statusDiv.textContent = '✅ Đã lưu thành công!';
+               statusDiv.style.color = 'green';
+               window.removeEventListener('message', messageHandler);
+               messageHandler = null;
+               setTimeout(() => overlay.remove(), 1500);
+            }
+            if (e.data && e.data.action === 'SAVE_ERROR') {
+               statusDiv.textContent = '❌ Lỗi: ' + e.data.error;
+               statusDiv.style.color = 'red';
+            }
+          };
+
+          window.addEventListener('message', messageHandler);
         };
 
         document.getElementById('fb-coll-khach').onclick = () => submitPost('khach');

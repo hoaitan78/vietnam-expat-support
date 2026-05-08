@@ -73,7 +73,13 @@ export default function FacebookCollectorPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type, content, url })
           })
-          .then(res => res.json())
+          .then(async res => {
+            if (!res.ok) {
+              const text = await res.text();
+              throw new Error('HTTP ' + res.status + ' - ' + (text.substring(0, 50) || 'Lỗi Server'));
+            }
+            return res.json();
+          })
           .then(data => {
             if (data.success) {
               statusDiv.textContent = '✅ Đã lưu thành công!';
@@ -85,9 +91,13 @@ export default function FacebookCollectorPage() {
             }
           })
           .catch(err => {
-            statusDiv.textContent = '❌ Lỗi kết nối server!';
+            if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
+              statusDiv.innerHTML = '❌ Bị chặn kết nối!<br>Hãy tạo nút này từ trang Vercel (HTTPS), không dùng localhost.';
+            } else {
+              statusDiv.textContent = '❌ ' + err.message;
+            }
             statusDiv.style.color = 'red';
-            console.error(err);
+            console.error('Fetch error:', err);
           });
         };
 

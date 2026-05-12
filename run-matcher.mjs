@@ -1,6 +1,7 @@
-require('dotenv').config({ path: '.env.local' });
-const { getRenters, getListings, updateRenterAIInfo, updateListingAIInfo, saveMatchResults } = require('./services/googleSheets.js');
-const { extractRenterNeeds, extractListingInfo, matchRenterAndListings } = require('./services/aiMatcher.js');
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
+import { getRenters, getListings, updateRenterAIInfo, updateListingAIInfo, saveMatchResults } from './services/googleSheets.js';
+import { extractRenterNeeds, extractListingInfo, matchRenterAndListings } from './services/aiMatcher.js';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 

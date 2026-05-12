@@ -174,7 +174,25 @@ async function getOrCreateSheet(doc, title, headers) {
         console.log(`Đang tạo tab mới: ${title}...`);
         sheet = await doc.addSheet({ title, headerValues: headers });
     } else {
-        await sheet.setHeaderRow(headers); // Đảm bảo headers luôn đúng
+        await sheet.loadHeaderRow(); // Lấy headers hiện tại
+        
+        let needsUpdate = false;
+        if (sheet.headerValues.length !== headers.length) {
+            needsUpdate = true;
+        } else {
+            for (let i = 0; i < headers.length; i++) {
+                if (sheet.headerValues[i] !== headers[i]) {
+                    needsUpdate = true;
+                    break;
+                }
+            }
+        }
+        
+        if (needsUpdate) {
+            console.log(`Cập nhật headers cho tab: ${title}...`);
+            await sheet.setHeaderRow(headers); // Cập nhật trên cloud
+            await sheet.loadHeaderRow(); // RẤT QUAN TRỌNG: Cập nhật lại vào bộ nhớ để addRows không bị lỗi cột
+        }
     }
     return sheet;
 }

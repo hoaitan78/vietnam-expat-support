@@ -18,6 +18,30 @@ export default function FacebookCollectorPage() {
         const selectedText = window.getSelection().toString();
         const currentUrl = window.location.href;
 
+        let imageUrls = [];
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            let node = selection.getRangeAt(0).commonAncestorContainer;
+            if (node.nodeType === 3) node = node.parentNode;
+            
+            let postContainer = node.closest('[role="article"]');
+            if (postContainer) {
+                const imgs = Array.from(postContainer.querySelectorAll('img'))
+                    .map(img => img.src)
+                    .filter(src => src && src.startsWith('http') && !src.includes('emoji') && !src.includes('svg'));
+                imageUrls = [...new Set(imgs)].slice(0, 5);
+            } else {
+                const range = selection.getRangeAt(0);
+                const container = document.createElement('div');
+                container.appendChild(range.cloneContents());
+                const imgs = Array.from(container.querySelectorAll('img'))
+                    .map(img => img.src)
+                    .filter(src => src && src.startsWith('http') && !src.includes('emoji'));
+                imageUrls = [...new Set(imgs)].slice(0, 5);
+            }
+        }
+        const imagesStr = imageUrls.join('\\n');
+
         const overlay = document.createElement('div');
         overlay.id = 'fb-collector-overlay';
         overlay.style.position = 'fixed';
@@ -41,7 +65,10 @@ export default function FacebookCollectorPage() {
           <textarea id="fb-coll-content" style="width: 100%; height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 12px; box-sizing: border-box; font-size: 14px;">\${selectedText}</textarea>
           
           <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #666;">Link Bài Viết</label>
-          <input type="text" id="fb-coll-url" value="\${currentUrl}" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px; box-sizing: border-box; font-size: 14px;" />
+          <input type="text" id="fb-coll-url" value="\${currentUrl}" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 12px; box-sizing: border-box; font-size: 14px;" />
+          
+          <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #666;">Link Hình ảnh (Mỗi link 1 dòng)</label>
+          <textarea id="fb-coll-images" style="width: 100%; height: 60px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px; box-sizing: border-box; font-size: 12px; white-space: pre-wrap;">\${imagesStr}</textarea>
           
           <div style="display: flex; gap: 8px;">
             <button id="fb-coll-khach" style="flex: 1; padding: 10px; background-color: #2e89ff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">+ Khách Thuê</button>
@@ -57,6 +84,7 @@ export default function FacebookCollectorPage() {
         const submitPost = (type) => {
           const content = document.getElementById('fb-coll-content').value;
           const url = document.getElementById('fb-coll-url').value;
+          const images = document.getElementById('fb-coll-images').value;
           const statusDiv = document.getElementById('fb-coll-status');
 
           if (!content.trim()) {
@@ -91,6 +119,12 @@ export default function FacebookCollectorPage() {
           urlInput.name = 'url';
           urlInput.value = url;
           form.appendChild(urlInput);
+
+          const imagesInput = document.createElement('input');
+          imagesInput.type = 'hidden';
+          imagesInput.name = 'images';
+          imagesInput.value = images;
+          form.appendChild(imagesInput);
 
           document.body.appendChild(form);
           window.open('', 'fb-collector-popup', 'width=500,height=400,scrollbars=yes');

@@ -182,7 +182,7 @@ async function getOrCreateSheet(doc, title, headers) {
 export async function getRenters() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh'];
         const sheet = await getOrCreateSheet(doc, 'KhachCanThue', headers);
         
         const rows = await sheet.getRows();
@@ -201,13 +201,17 @@ export async function updateRenterAIInfo(row, aiData) {
     row.set('Ngân sách', aiData.budget || '');
     row.set('Số phòng', aiData.bedrooms || '');
     row.set('Yêu cầu khác', aiData.other_requirements || '');
+    row.set('Tên Khách', aiData.name || 'Chưa rõ');
+    if (!row.get('Mã Khách')) {
+        row.set('Mã Khách', 'KH' + Math.floor(10000 + Math.random() * 90000));
+    }
     await row.save();
 }
 
 export async function getListings() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh'];
         const sheet = await getOrCreateSheet(doc, 'NhaDangTrong', headers);
         
         const rows = await sheet.getRows();
@@ -230,11 +234,13 @@ export async function updateListingAIInfo(row, aiData) {
 export async function saveMatchResults(matches) {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày ghép nối', 'Thông tin Khách', 'Link Khách', 'Thông tin Nhà', 'Link Nhà', 'Độ phù hợp (%)', 'Lý do phù hợp (Tư vấn)'];
+        const headers = ['Ngày ghép nối', 'Mã Khách', 'Tên Khách', 'Thông tin Khách', 'Link Khách', 'Thông tin Nhà', 'Link Nhà', 'Độ phù hợp (%)', 'Lý do phù hợp (Tư vấn)'];
         const sheet = await getOrCreateSheet(doc, 'KetQuaGhepNoi', headers);
         
         const rowsToAdd = matches.map(match => ({
             'Ngày ghép nối': new Date().toLocaleDateString('vi-VN'),
+            'Mã Khách': match.renterId || 'N/A',
+            'Tên Khách': match.renterName,
             'Thông tin Khách': match.renterInfo,
             'Link Khách': match.renterLink,
             'Thông tin Nhà': match.listingInfo,
@@ -254,23 +260,36 @@ export async function saveMatchResults(matches) {
     }
 }
 
-export async function addCollectedPost(type, content, link) {
+export async function addCollectedPost(type, content, link, images) {
     try {
         const doc = await getDoc();
         const sheetTitle = type === 'khach' ? 'KhachCanThue' : 'NhaDangTrong';
         
         const headers = type === 'khach' 
-            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác']
-            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích'];
+            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh']
+            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh'];
             
         const sheet = await getOrCreateSheet(doc, sheetTitle, headers);
         
+        // Kiểm tra bài viết trùng lặp (dựa trên nội dung gốc)
+        const rows = await sheet.getRows();
+        const isDuplicate = rows.some(row => row.get('Nội dung gốc') && row.get('Nội dung gốc').trim() === content.trim());
+        if (isDuplicate) {
+            console.log(`⚠️ Bài viết đã tồn tại trong ${sheetTitle}, bỏ qua.`);
+            return { success: false, error: 'Bài viết này đã được lưu trước đó.' };
+        }
+
         const rowData = {
             'Ngày': new Date().toLocaleDateString('vi-VN'),
             'Nội dung gốc': content,
             'Link bài': link,
-            'Đã xử lý AI': 'NO'
+            'Đã xử lý AI': 'NO',
+            'Hình ảnh': images || ''
         };
+        
+        if (type === 'khach') {
+            rowData['Mã Khách'] = 'KH' + Math.floor(10000 + Math.random() * 90000);
+        }
         
         await sheet.addRow(rowData);
         console.log(`✅ Đã thêm 1 bài viết mới vào ${sheetTitle}`);

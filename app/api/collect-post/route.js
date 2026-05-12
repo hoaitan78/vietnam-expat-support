@@ -16,7 +16,7 @@ export async function OPTIONS() {
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { type, content, url } = body;
+        const { type, content, url, images } = body;
 
         if (!type || !content || !url) {
             return NextResponse.json(
@@ -34,7 +34,7 @@ export async function POST(req) {
 
         console.log(`[API] Đang lưu bài viết phân loại: ${type}`);
         
-        const result = await addCollectedPost(type, content, url);
+        const result = await addCollectedPost(type, content, url, images);
 
         if (result.success) {
             return NextResponse.json({ success: true, message: 'Đã lưu bài viết thành công' }, { headers: corsHeaders });

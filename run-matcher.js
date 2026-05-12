@@ -2,6 +2,8 @@ require('dotenv').config({ path: '.env.local' });
 const { getRenters, getListings, updateRenterAIInfo, updateListingAIInfo, saveMatchResults } = require('./services/googleSheets.js');
 const { extractRenterNeeds, extractListingInfo, matchRenterAndListings } = require('./services/aiMatcher.js');
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 async function processData() {
     console.log('--- BƯỚC 1: Lấy dữ liệu từ Google Sheets ---');
     const renters = await getRenters();
@@ -31,11 +33,16 @@ async function processData() {
                     row._rawData[5] = aiData.budget;
                     row._rawData[6] = aiData.bedrooms;
                     row._rawData[7] = aiData.other_requirements;
+                    row._rawData[8] = aiData.name || 'Chưa rõ';
                 }
+                // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
+                await delay(5000);
             }
         }
         processedRenters.push({
             row,
+            'Mã Khách': row.get('Mã Khách') || 'Chưa rõ',
+            'Tên Khách': row.get('Tên Khách') || 'Chưa rõ',
             'Khu vực': row.get('Khu vực'),
             'Ngân sách': row.get('Ngân sách'),
             'Số phòng': row.get('Số phòng'),
@@ -61,6 +68,8 @@ async function processData() {
                     row._rawData[6] = aiData.bedrooms;
                     row._rawData[7] = aiData.amenities;
                 }
+                // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
+                await delay(5000);
             }
         }
         processedListings.push({
@@ -81,12 +90,15 @@ async function processData() {
         console.log(`Đang tìm nhà phù hợp cho khách [${i + 1}]...`);
         
         const topMatches = await matchRenterAndListings(renter, processedListings);
+        await delay(15000); // Tăng delay lên 15 giây để tránh lỗi Quá tải API
         
         if (topMatches && topMatches.length > 0) {
             for (const match of topMatches) {
                 const listing = processedListings[match.listing_index];
                 if (listing) {
                     finalMatches.push({
+                        renterId: renter['Mã Khách'],
+                        renterName: renter['Tên Khách'],
                         renterInfo: `Cần: ${renter['Khu vực']} | ${renter['Ngân sách']} | ${renter['Số phòng']} phòng`,
                         renterLink: renter['Link'],
                         listingInfo: `Có: ${listing['Khu vực']} | ${listing['Giá thuê']} | ${listing['Số phòng']} phòng`,

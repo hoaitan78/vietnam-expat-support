@@ -267,8 +267,32 @@ export async function saveMatchResults(matches) {
         });
 
         if (rowsToAdd.length > 0) {
-            await sheet.addRows(rowsToAdd);
-            console.log(`✅ Đã lưu ${rowsToAdd.length} kết quả ghép nối vào Google Sheets.`);
+            const addedRows = await sheet.addRows(rowsToAdd);
+            
+            // Tự động căn chỉnh xuống dòng (Wrap Text) cho các dòng vừa thêm
+            try {
+                const startRow = addedRows[0].rowNumber - 1;
+                const endRow = addedRows[addedRows.length - 1].rowNumber;
+                await sheet.loadCells({
+                    startRowIndex: startRow,
+                    endRowIndex: endRow,
+                    startColumnIndex: 0,
+                    endColumnIndex: headers.length
+                });
+                
+                for (let r = startRow; r < endRow; r++) {
+                    for (let c = 0; c < headers.length; c++) {
+                        const cell = sheet.getCell(r, c);
+                        cell.wrapStrategy = 'WRAP';
+                        cell.verticalAlignment = 'TOP';
+                    }
+                }
+                await sheet.saveUpdatedCells();
+            } catch (formatErr) {
+                console.error('Lỗi khi định dạng ô chữ:', formatErr);
+            }
+            
+            console.log(`✅ Đã lưu và căn chỉnh ${rowsToAdd.length} kết quả ghép nối vào Google Sheets.`);
         }
         return { success: true };
     } catch (error) {

@@ -51,7 +51,8 @@ export async function extractRenterNeeds(postContent) {
             "location": "Khu vực mong muốn (vd: Mường Thanh, Vĩnh Điềm Trung, Hòn Chồng... Nếu không rõ ghi 'Chưa rõ')",
             "budget": "Ngân sách tối đa hoặc khoảng giá (vd: 5-7 triệu, 10tr... Nếu không rõ ghi 'Chưa rõ')",
             "bedrooms": "Số phòng ngủ mong muốn (vd: 1, 2, Studio... Nếu không rõ ghi 'Chưa rõ')",
-            "other_requirements": "Các yêu cầu khác (vd: nuôi pet, ban công, có bếp... Tóm tắt ngắn gọn. Nếu không có ghi 'Không')"
+            "other_requirements": "Các yêu cầu khác (vd: nuôi pet, ban công, có bếp... Tóm tắt ngắn gọn. Nếu không có ghi 'Không')",
+            "phone": "Số điện thoại liên hệ tìm thấy trong bài (vd: 0907329309, +84... Nếu không có ghi 'Không')"
         }
     `;
     
@@ -72,7 +73,8 @@ export async function extractListingInfo(postContent) {
             "location": "Khu vực nhà/căn hộ (vd: Mường Thanh Viễn Triều, CT1 Vĩnh Điềm Trung... Nếu không rõ ghi 'Chưa rõ')",
             "price": "Giá thuê (vd: 6 triệu, 15tr... Nếu không rõ ghi 'Chưa rõ')",
             "bedrooms": "Số phòng ngủ (vd: 1, 2, Studio... Nếu không rõ ghi 'Chưa rõ')",
-            "amenities": "Tiện ích nổi bật (vd: đầy đủ nội thất, view biển, free wifi... Tóm tắt ngắn gọn)"
+            "amenities": "Tiện ích nổi bật (vd: đầy đủ nội thất, view biển, free wifi... Tóm tắt ngắn gọn)",
+            "phone": "Số điện thoại liên hệ tìm thấy trong bài (vd: 0907329309, +84... Nếu không có ghi 'Không')"
         }
     `;
     
@@ -99,25 +101,30 @@ export async function matchRenterAndListings(renter, listings) {
         - Tiện ích: ${l['Tiện ích']}
         `).join('\n')}
 
-        Hãy đánh giá độ phù hợp của TỪNG căn nhà đối với khách hàng này dựa trên tiêu chí sau (tuân thủ nghiêm ngặt):
-        
-        Ưu tiên 1: Tiêu chí loại trừ (Deal-breakers) – Bắt buộc phải khớp. Nếu không đáp ứng -> Bỏ qua (Điểm 0)
-        - Ngân sách: Nếu Giá thuê vượt quá 10-15% Ngân sách tối đa của khách -> Loại.
-        - Vị trí: Nếu khu vực quá xa hoặc không phù hợp yêu cầu di chuyển cốt lõi -> Loại.
-        - Giới hạn khắt khe: Nếu khách nuôi thú cưng nhưng tiện ích không cho phép hoặc cấm -> Loại.
+        Hãy tính toán và trả về điểm phù hợp (score từ 0 đến 100) của TỪNG căn nhà cho khách hàng này theo đúng thang điểm sau:
 
-        Ưu tiên 2: Tiêu chí cốt lõi (Core Needs) – Quan trọng nhất
-        - Số phòng: Phải đáp ứng đúng hoặc hơn số lượng phòng khách yêu cầu.
-        - An ninh khu vực và tình trạng nhà cơ bản.
+        1. Khu vực (Tối đa 40 điểm):
+           - Match chính xác hoặc theo từ khóa (Ví dụ: "Phía Bắc Nha Trang" khớp với "Vĩnh Hải", "Scenia Bay", "Phạm Văn Đồng", "Khu Bắc". "Trung tâm" khớp với "Lộc Thọ", "Tân Lập", "Xương Huân").
+           - Khớp hoàn toàn: 40 điểm. Khớp một phần hoặc gần đó: 20-30 điểm. Không khớp/Quá xa: 0 điểm.
 
-        Ưu tiên 3: Tiêu chí có thể đàm phán (Negotiables) – Linh hoạt
-        - Nội thất (có thể đàm phán sắm thêm), chính sách cọc, sửa chữa nhỏ (sơn tường, thay rèm). Thiếu nhưng có thể đàm phán thì vẫn giữ điểm tốt.
+        2. Ngân sách (Tối đa 30 điểm):
+           - Nếu Giá thuê <= Ngân sách khách: 30 điểm (Ưu tiên giá sát ngân sách nhất).
+           - Nếu Giá thuê cao hơn ngân sách một chút (dưới 10%): 15 điểm.
+           - Nếu Giá thuê cao hơn ngân sách quá 15%: 0 điểm.
 
-        Ưu tiên 4: Tiêu chí cộng thêm (Nice-to-haves) – Điểm cộng
-        - View ban công đẹp, nhiều ánh sáng tự nhiên.
-        - Gần cafe, công viên, phòng gym theo sở thích.
-        
-        Lưu ý: Chỉ trả về top 3 căn nhà có điểm cao nhất (từ cao xuống thấp). Nếu không có căn nào vượt qua được Tiêu chí loại trừ (Deal-breakers), có thể trả về mảng rỗng [].
+        3. Số phòng (Tối đa 20 điểm):
+           - Match đúng số phòng: 20 điểm.
+           - Match gần đúng (Khách cần "1-2 phòng", nhà có "1 phòng" hoặc "2 phòng"): 20 điểm.
+           - Không khớp (Khách cần 2 phòng, nhà có 1 phòng): 0 điểm.
+
+        4. Tiện ích (Tối đa 10 điểm):
+           - Cộng điểm (mỗi tiện ích 2-3 điểm, tối đa 10) nếu nhà có: ban công, view biển, hồ bơi, pet friendly, full nội thất, yên tĩnh.
+           - Nếu khách yêu cầu bắt buộc (ví dụ: nuôi pet) mà nhà cấm pet: Trừ ngay lập tức 50 điểm vào tổng điểm.
+
+        Lưu ý bắt buộc: 
+        - Một khách có thể hợp nhiều nhà. Trả về tất cả các nhà có tổng điểm (score) >= 70.
+        - Nếu không có căn nào đạt >= 70 điểm, trả về mảng rỗng [].
+        - Xếp hạng mảng trả về theo thứ tự score giảm dần.
         
         Trả về kết quả dưới dạng mảng JSON theo định dạng sau. KHÔNG giải thích thêm:
         [

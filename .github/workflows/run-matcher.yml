@@ -1,0 +1,32 @@
+name: Auto Run AI Matcher
+
+on:
+  schedule:
+    # Chạy mỗi 30 phút một lần
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Cho phép chạy thủ công trên GitHub
+
+jobs:
+  run-matcher:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Matcher Script
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node run-matcher.js

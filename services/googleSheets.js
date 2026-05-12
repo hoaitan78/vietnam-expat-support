@@ -182,7 +182,7 @@ async function getOrCreateSheet(doc, title, headers) {
 export async function getRenters() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại'];
         const sheet = await getOrCreateSheet(doc, 'KhachCanThue', headers);
         
         const rows = await sheet.getRows();
@@ -202,6 +202,7 @@ export async function updateRenterAIInfo(row, aiData) {
     row.set('Số phòng', aiData.bedrooms || '');
     row.set('Yêu cầu khác', aiData.other_requirements || '');
     row.set('Tên Khách', aiData.name || 'Chưa rõ');
+    row.set('Số điện thoại', aiData.phone || '');
     if (!row.get('Mã Khách')) {
         row.set('Mã Khách', 'KH' + Math.floor(10000 + Math.random() * 90000));
     }
@@ -211,7 +212,7 @@ export async function updateRenterAIInfo(row, aiData) {
 export async function getListings() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại'];
         const sheet = await getOrCreateSheet(doc, 'NhaDangTrong', headers);
         
         const rows = await sheet.getRows();
@@ -228,6 +229,7 @@ export async function updateListingAIInfo(row, aiData) {
     row.set('Giá thuê', aiData.price || '');
     row.set('Số phòng', aiData.bedrooms || '');
     row.set('Tiện ích', aiData.amenities || '');
+    row.set('Số điện thoại', aiData.phone || '');
     await row.save();
 }
 
@@ -281,8 +283,8 @@ export async function addCollectedPost(type, content, link, images) {
         const sheetTitle = type === 'khach' ? 'KhachCanThue' : 'NhaDangTrong';
         
         const headers = type === 'khach' 
-            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh']
-            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh'];
+            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại']
+            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại'];
             
         const sheet = await getOrCreateSheet(doc, sheetTitle, headers);
         

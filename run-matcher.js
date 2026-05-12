@@ -46,6 +46,7 @@ async function processData() {
                     row._rawData[6] = aiData.bedrooms;
                     row._rawData[7] = aiData.other_requirements;
                     row._rawData[8] = aiData.name || 'Chưa rõ';
+                    row._rawData[11] = aiData.phone;
                 }
                 // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
                 await delay(5000);
@@ -60,7 +61,8 @@ async function processData() {
             'Số phòng': row.get('Số phòng'),
             'Yêu cầu khác': row.get('Yêu cầu khác'),
             'Link': row.get('Link bài') || 'Không có link',
-            'Nội dung gốc': row.get('Nội dung gốc') || ''
+            'Nội dung gốc': row.get('Nội dung gốc') || '',
+            'Số điện thoại': row.get('Số điện thoại') || ''
         });
     }
 
@@ -80,6 +82,8 @@ async function processData() {
                     row._rawData[5] = aiData.price;
                     row._rawData[6] = aiData.bedrooms;
                     row._rawData[7] = aiData.amenities;
+                    // Note: 'Hình ảnh' is at index 8, 'Số điện thoại' is at index 9
+                    row._rawData[9] = aiData.phone;
                 }
                 // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
                 await delay(5000);
@@ -93,7 +97,8 @@ async function processData() {
             'Tiện ích': row.get('Tiện ích'),
             'Link': row.get('Link bài') || 'Không có link',
             'Nội dung gốc': row.get('Nội dung gốc') || '',
-            'Hình ảnh': row.get('Hình ảnh') || ''
+            'Hình ảnh': row.get('Hình ảnh') || '',
+            'Số điện thoại': row.get('Số điện thoại') || ''
         });
     }
 
@@ -115,10 +120,11 @@ async function processData() {
                         renterId: renter['Mã Khách'],
                         renterLink: renter['Link'],
                         renterRawInfo: renter['Nội dung gốc'],
-                        renterPhone: extractPhone(renter['Nội dung gốc']),
+                        renterPhone: renter['Số điện thoại'] || extractPhone(renter['Nội dung gốc']),
                         listingLink: listing['Link'],
                         listingRawInfo: listing['Nội dung gốc'],
-                        listingPhone: extractPhone(listing['Nội dung gốc']),
+                        listingPhone: listing['Số điện thoại'] || extractPhone(listing['Nội dung gốc']),
+                        score: match.score,
                         scoreAndReason: `Độ phù hợp: ${match.score}%\nLý do: ${match.reason}`,
                         listingImages: listing['Hình ảnh']
                     });
@@ -128,10 +134,12 @@ async function processData() {
     }
 
     console.log('\n--- BƯỚC 5: Lưu kết quả ---');
-    if (finalMatches.length > 0) {
+    const validMatches = finalMatches.filter(m => m.score >= 70);
+    
+    if (validMatches.length > 0) {
         // Sắp xếp theo điểm số giảm dần
-        finalMatches.sort((a, b) => b.score - a.score);
-        await saveMatchResults(finalMatches);
+        validMatches.sort((a, b) => b.score - a.score);
+        await saveMatchResults(validMatches);
     } else {
         console.log('Không tìm thấy sự phù hợp nào đáng kể.');
     }

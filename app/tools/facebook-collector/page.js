@@ -16,7 +16,7 @@ export default function FacebookCollectorPage() {
         }
 
         const selectedText = window.getSelection().toString();
-        const currentUrl = window.location.href;
+        let currentUrl = window.location.href; // Mặc định là link trang hiện tại
 
         let imageUrls = [];
         const selection = window.getSelection();
@@ -26,6 +26,29 @@ export default function FacebookCollectorPage() {
             
             let postContainer = node.closest('[role="article"]');
             if (postContainer) {
+                // Thử tìm link Facebook của tác giả bài viết
+                // Link tác giả thường là thẻ <a> đầu tiên có chứa text (tên người dùng)
+                const allLinks = Array.from(postContainer.querySelectorAll('a[href]'));
+                const authorLinkEl = allLinks.find(a => a.innerText.trim().length > 0 && !a.innerText.includes('Tham gia') && !a.innerText.includes('Join'));
+                
+                if (authorLinkEl) {
+                    let href = authorLinkEl.getAttribute('href');
+                    if (href.startsWith('/')) href = window.location.origin + href;
+                    // Xóa các tham số tracking lằng nhằng của Facebook
+                    try {
+                        const urlObj = new URL(href);
+                        // Giữ lại tham số id nếu có (vd: profile.php?id=123)
+                        if (urlObj.searchParams.has('id')) {
+                            currentUrl = urlObj.origin + urlObj.pathname + '?id=' + urlObj.searchParams.get('id');
+                        } else {
+                            urlObj.search = '';
+                            currentUrl = urlObj.toString();
+                        }
+                    } catch(e) {
+                        currentUrl = href.split('?')[0];
+                    }
+                }
+
                 const imgs = Array.from(postContainer.querySelectorAll('img'))
                     .map(img => img.src)
                     .filter(src => src && src.startsWith('http') && !src.includes('emoji') && !src.includes('svg'));

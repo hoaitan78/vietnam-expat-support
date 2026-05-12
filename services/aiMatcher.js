@@ -27,8 +27,9 @@ async function generateContentWithRetry(prompt, retries = 3) {
             return result;
         } catch (error) {
             if (error.status === 429 && i < retries - 1) {
-                console.log(`[API] Quá tải request. Đang thử lại sau ${15 * (i + 1)} giây...`);
-                await delay(15000 * (i + 1));
+                const waitTime = 30000 * (i + 1); // 30s, 60s
+                console.log(`[API] Quá tải request. Đang thử lại sau ${waitTime / 1000} giây...`);
+                await delay(waitTime);
             } else {
                 throw error;
             }

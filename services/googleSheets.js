@@ -234,20 +234,35 @@ export async function updateListingAIInfo(row, aiData) {
 export async function saveMatchResults(matches) {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày ghép nối', 'Mã Khách', 'Tên Khách', 'Thông tin Khách', 'Link Khách', 'Thông tin Nhà', 'Link Nhà', 'Độ phù hợp (%)', 'Lý do phù hợp (Tư vấn)'];
+        const headers = [
+            'NGÀY GHÉP NỐI', 'MÃ KHÁCH THUÊ', 'LINK KHÁCH TÌM NHÀ', 'THÔNG TIN KHÁCH TÌM NHÀ', 
+            'SỐ ĐIỆN THOẠI KHÁCH TÌM NHÀ', 'LINK NHÀ CHO THUÊ', 'THÔNG TIN NHÀ CHO THUÊ', 
+            'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ', 'KẾT QUẢ SO SÁNH', 'HÌNH ẢNH NHÀ CHO THUÊ'
+        ];
         const sheet = await getOrCreateSheet(doc, 'KetQuaGhepNoi', headers);
         
-        const rowsToAdd = matches.map(match => ({
-            'Ngày ghép nối': new Date().toLocaleDateString('vi-VN'),
-            'Mã Khách': match.renterId || 'N/A',
-            'Tên Khách': match.renterName,
-            'Thông tin Khách': match.renterInfo,
-            'Link Khách': match.renterLink,
-            'Thông tin Nhà': match.listingInfo,
-            'Link Nhà': match.listingLink,
-            'Độ phù hợp (%)': match.score,
-            'Lý do phù hợp (Tư vấn)': match.reason
-        }));
+        const rowsToAdd = matches.map(match => {
+            let imageContent = '';
+            if (match.listingImages) {
+                const urls = match.listingImages.split('\\n').filter(u => u.trim() !== '');
+                if (urls.length > 0) {
+                    imageContent = `=IMAGE("${urls[0].trim()}")`;
+                }
+            }
+
+            return {
+                'NGÀY GHÉP NỐI': new Date().toLocaleDateString('vi-VN'),
+                'MÃ KHÁCH THUÊ': match.renterId || '',
+                'LINK KHÁCH TÌM NHÀ': match.renterLink || '',
+                'THÔNG TIN KHÁCH TÌM NHÀ': match.renterRawInfo || '',
+                'SỐ ĐIỆN THOẠI KHÁCH TÌM NHÀ': match.renterPhone || '',
+                'LINK NHÀ CHO THUÊ': match.listingLink || '',
+                'THÔNG TIN NHÀ CHO THUÊ': match.listingRawInfo || '',
+                'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ': match.listingPhone || '',
+                'KẾT QUẢ SO SÁNH': match.scoreAndReason || '',
+                'HÌNH ẢNH NHÀ CHO THUÊ': imageContent
+            };
+        });
 
         if (rowsToAdd.length > 0) {
             await sheet.addRows(rowsToAdd);

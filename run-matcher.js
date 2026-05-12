@@ -4,6 +4,18 @@ const { extractRenterNeeds, extractListingInfo, matchRenterAndListings } = requi
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
+function extractPhone(text) {
+    if (!text) return '';
+    // Tìm các chuỗi có vẻ giống số điện thoại VN (10 số, bắt đầu bằng 0, có thể có khoảng trắng hoặc chấm)
+    const matches = text.match(/(?:0|\\+84)[ \\-\\.]?[35789](?:[ \\-\\.]?\\d){8}\\b/g);
+    if (matches) {
+        // Làm sạch và lấy các số duy nhất
+        const cleaned = matches.map(p => p.replace(/[ \\-\\.]/g, ''));
+        return [...new Set(cleaned)].join(', ');
+    }
+    return '';
+}
+
 async function processData() {
     console.log('--- BƯỚC 1: Lấy dữ liệu từ Google Sheets ---');
     const renters = await getRenters();
@@ -47,7 +59,8 @@ async function processData() {
             'Ngân sách': row.get('Ngân sách'),
             'Số phòng': row.get('Số phòng'),
             'Yêu cầu khác': row.get('Yêu cầu khác'),
-            'Link': row.get('Link bài') || 'Không có link'
+            'Link': row.get('Link bài') || 'Không có link',
+            'Nội dung gốc': row.get('Nội dung gốc') || ''
         });
     }
 
@@ -78,7 +91,9 @@ async function processData() {
             'Giá thuê': row.get('Giá thuê'),
             'Số phòng': row.get('Số phòng'),
             'Tiện ích': row.get('Tiện ích'),
-            'Link': row.get('Link bài') || 'Không có link'
+            'Link': row.get('Link bài') || 'Không có link',
+            'Nội dung gốc': row.get('Nội dung gốc') || '',
+            'Hình ảnh': row.get('Hình ảnh') || ''
         });
     }
 
@@ -98,13 +113,14 @@ async function processData() {
                 if (listing) {
                     finalMatches.push({
                         renterId: renter['Mã Khách'],
-                        renterName: renter['Tên Khách'],
-                        renterInfo: `Cần: ${renter['Khu vực']} | ${renter['Ngân sách']} | ${renter['Số phòng']} phòng`,
                         renterLink: renter['Link'],
-                        listingInfo: `Có: ${listing['Khu vực']} | ${listing['Giá thuê']} | ${listing['Số phòng']} phòng`,
+                        renterRawInfo: renter['Nội dung gốc'],
+                        renterPhone: extractPhone(renter['Nội dung gốc']),
                         listingLink: listing['Link'],
-                        score: match.score,
-                        reason: match.reason
+                        listingRawInfo: listing['Nội dung gốc'],
+                        listingPhone: extractPhone(listing['Nội dung gốc']),
+                        scoreAndReason: `Độ phù hợp: ${match.score}%\nLý do: ${match.reason}`,
+                        listingImages: listing['Hình ảnh']
                     });
                 }
             }

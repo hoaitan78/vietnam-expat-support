@@ -139,3 +139,48 @@ export async function matchRenterAndListings(renter, listings) {
     const result = await generateContentWithRetry(prompt);
     return parseAIResponse(result.response.text().trim());
 }
+
+export function parsePrice(priceString) {
+    if (!priceString || typeof priceString !== 'string') return null;
+    const s = priceString.toLowerCase();
+    if (s.includes('chưa rõ') || s.includes('thỏa thuận')) return null;
+    
+    // Normalize format
+    const normalized = s.replace(/,/g, '.');
+    // Bắt số thập phân (vd: 5.5, 12, 10.000.000)
+    const match = normalized.match(/\d+(\.\d+)?/);
+    if (!match) return null;
+    
+    let price = parseFloat(match[0]);
+    // Nếu giá ghi đầy đủ số 0 (vd 5000000) thì đưa về đơn vị "triệu" (5)
+    if (price > 1000) {
+        price = price / 1000000;
+    }
+    return price;
+}
+
+export function preFilterListings(renter, listings) {
+    const renterBudgetStr = renter['Ngân sách'];
+    const renterBudget = parsePrice(renterBudgetStr);
+    
+    if (!renterBudget) return listings;
+    
+    let filtered = listings.filter(listing => {
+        const listingPriceStr = listing['Giá thuê'];
+        const listingPrice = parsePrice(listingPriceStr);
+        
+        if (!listingPrice) return true;
+        
+        if (listingPrice > renterBudget * 1.3) {
+            return false;
+        }
+        
+        return true;
+    });
+    
+    if (filtered.length > 30) {
+        filtered = filtered.slice(0, 30);
+    }
+    
+    return filtered;
+}

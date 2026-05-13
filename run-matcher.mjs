@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 import { getRenters, getListings, updateRenterAIInfo, updateListingAIInfo, saveMatchResults } from './services/googleSheets.js';
-import { extractRenterNeeds, extractListingInfo, matchRenterAndListings } from './services/aiMatcher.js';
+import { extractRenterNeeds, extractListingInfo, matchRenterAndListings, preFilterListings } from './services/aiMatcher.js';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -112,12 +112,15 @@ async function processData() {
         console.log(`Đang tìm nhà phù hợp cho khách [${i + 1}]...`);
         
         try {
-            const topMatches = await matchRenterAndListings(renter, processedListings);
+            const filteredListings = preFilterListings(renter, processedListings);
+            console.log(`Đã lọc thô: Giảm từ ${processedListings.length} xuống còn ${filteredListings.length} căn tiềm năng.`);
+            
+            const topMatches = await matchRenterAndListings(renter, filteredListings);
             
             if (topMatches && topMatches.length > 0) {
                 const matchesForThisRenter = [];
                 for (const match of topMatches) {
-                    const listing = processedListings[match.listing_index];
+                    const listing = filteredListings[match.listing_index];
                     if (listing && match.score >= 70) {
                         matchesForThisRenter.push({
                             renterId: renter['Mã Khách'],

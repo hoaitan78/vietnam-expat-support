@@ -7,11 +7,16 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 
 function extractPhone(text) {
     if (!text) return '';
+    
+    // Loại bỏ các đường link khỏi text trước khi tìm số điện thoại
+    // để tránh bắt nhầm các dãy số ID trong URL (ví dụ: facebook.com/.../10001085...)
+    const textWithoutLinks = text.replace(/https?:\/\/[^\s]+/g, '');
+
     // Tìm các chuỗi có vẻ giống số điện thoại VN (10 số, bắt đầu bằng 0, có thể có khoảng trắng hoặc chấm)
-    const matches = text.match(/(?:0|\\+84)[ \\-\\.]?[35789](?:[ \\-\\.]?\\d){8}\\b/g);
+    const matches = textWithoutLinks.match(/(?:0|\+84)[ \-\.]?[35789](?:[ \-\.]?\d){8}\b/g);
     if (matches) {
         // Làm sạch và lấy các số duy nhất
-        const cleaned = matches.map(p => p.replace(/[ \\-\\.]/g, ''));
+        const cleaned = matches.map(p => p.replace(/[ \-\.]/g, ''));
         return [...new Set(cleaned)].join(', ');
     }
     return '';
@@ -37,20 +42,18 @@ async function processData() {
             const rawContent = row.get('Nội dung gốc');
             if (rawContent) {
                 console.log(`Đang phân tích Khách [${i + 1}]: ${rawContent.substring(0, 30)}...`);
-                const aiData = await extractRenterNeeds(rawContent);
-                if (aiData) {
-                    await updateRenterAIInfo(row, aiData);
-                    // Lấy dữ liệu đã cập nhật
-                    row._rawData[3] = 'YES'; // Đã xử lý
-                    row._rawData[4] = aiData.location;
-                    row._rawData[5] = aiData.budget;
-                    row._rawData[6] = aiData.bedrooms;
-                    row._rawData[7] = aiData.other_requirements;
-                    row._rawData[8] = aiData.name || 'Chưa rõ';
-                    row._rawData[11] = aiData.phone;
+                try {
+                    const aiData = await extractRenterNeeds(rawContent);
+                    if (aiData) {
+                        await updateRenterAIInfo(row, aiData);
+                    }
+                } catch (e) {
+                    console.error("Lỗi trích xuất AI cho Khách:", e.message);
                 }
                 // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
                 await delay(5000);
+            } else {
+                continue; // Bỏ qua nếu không có nội dung gốc
             }
         }
         processedRenters.push({
@@ -75,19 +78,18 @@ async function processData() {
             const rawContent = row.get('Nội dung gốc');
             if (rawContent) {
                 console.log(`Đang phân tích Nhà [${i + 1}]: ${rawContent.substring(0, 30)}...`);
-                const aiData = await extractListingInfo(rawContent);
-                if (aiData) {
-                    await updateListingAIInfo(row, aiData);
-                    row._rawData[3] = 'YES';
-                    row._rawData[4] = aiData.location;
-                    row._rawData[5] = aiData.price;
-                    row._rawData[6] = aiData.bedrooms;
-                    row._rawData[7] = aiData.amenities;
-                    // Note: 'Hình ảnh' is at index 8, 'Số điện thoại' is at index 9
-                    row._rawData[9] = aiData.phone;
+                try {
+                    const aiData = await extractListingInfo(rawContent);
+                    if (aiData) {
+                        await updateListingAIInfo(row, aiData);
+                    }
+                } catch (e) {
+                    console.error("Lỗi trích xuất AI cho Nhà:", e.message);
                 }
                 // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
                 await delay(5000);
+            } else {
+                continue; // Bỏ qua nếu không có nội dung gốc
             }
         }
         processedListings.push({
@@ -104,45 +106,48 @@ async function processData() {
     }
 
     console.log('\n--- BƯỚC 4: AI Ghép Nối Nhu Cầu ---');
-    const finalMatches = [];
     
     for (let i = 0; i < processedRenters.length; i++) {
         const renter = processedRenters[i];
         console.log(`Đang tìm nhà phù hợp cho khách [${i + 1}]...`);
         
-        const topMatches = await matchRenterAndListings(renter, processedListings);
-        await delay(15000); // Tăng delay lên 15 giây để tránh lỗi Quá tải API
-        
-        if (topMatches && topMatches.length > 0) {
-            for (const match of topMatches) {
-                const listing = processedListings[match.listing_index];
-                if (listing) {
-                    finalMatches.push({
-                        renterId: renter['Mã Khách'],
-                        renterLink: renter['Link'],
-                        renterRawInfo: renter['Nội dung gốc'],
-                        renterPhone: renter['Số điện thoại'] || extractPhone(renter['Nội dung gốc']),
-                        listingLink: listing['Link'],
-                        listingRawInfo: listing['Nội dung gốc'],
-                        listingPhone: listing['Số điện thoại'] || extractPhone(listing['Nội dung gốc']),
-                        score: match.score,
-                        scoreAndReason: `Độ phù hợp: ${match.score}%\nLý do: ${match.reason}`,
-                        listingImages: listing['Hình ảnh']
-                    });
+        try {
+            const topMatches = await matchRenterAndListings(renter, processedListings);
+            
+            if (topMatches && topMatches.length > 0) {
+                const matchesForThisRenter = [];
+                for (const match of topMatches) {
+                    const listing = processedListings[match.listing_index];
+                    if (listing && match.score >= 70) {
+                        matchesForThisRenter.push({
+                            renterId: renter['Mã Khách'],
+                            renterLink: renter['Link'],
+                            renterRawInfo: renter['Nội dung gốc'],
+                            renterPhone: renter['Số điện thoại'] || extractPhone(renter['Nội dung gốc']),
+                            listingLink: listing['Link'],
+                            listingRawInfo: listing['Nội dung gốc'],
+                            listingPhone: listing['Số điện thoại'] || extractPhone(listing['Nội dung gốc']),
+                            score: match.score,
+                            scoreAndReason: `Độ phù hợp: ${match.score}%\nLý do: ${match.reason}`,
+                            listingImages: listing['Hình ảnh']
+                        });
+                    }
+                }
+                
+                if (matchesForThisRenter.length > 0) {
+                    // Sắp xếp theo điểm giảm dần và lưu ngay
+                    matchesForThisRenter.sort((a, b) => b.score - a.score);
+                    await saveMatchResults(matchesForThisRenter);
+                } else {
+                    console.log(`Không tìm thấy sự phù hợp nào >= 70 điểm cho khách [${i + 1}].`);
                 }
             }
+        } catch (error) {
+             console.error(`Lỗi khi ghép nối khách [${i + 1}]:`, error.message);
+             console.log("Sẽ lưu các kết quả đã ghép nối được và tiếp tục...");
         }
-    }
-
-    console.log('\n--- BƯỚC 5: Lưu kết quả ---');
-    const validMatches = finalMatches.filter(m => m.score >= 70);
-    
-    if (validMatches.length > 0) {
-        // Sắp xếp theo điểm số giảm dần
-        validMatches.sort((a, b) => b.score - a.score);
-        await saveMatchResults(validMatches);
-    } else {
-        console.log('Không tìm thấy sự phù hợp nào đáng kể.');
+        
+        await delay(30000); // Tăng delay lên 30 giây giữa mỗi khách để tránh 429 Too Many Requests
     }
     
     console.log('\n✅ Hoàn thành quy trình!');

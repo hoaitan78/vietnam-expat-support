@@ -1,6 +1,7 @@
 // File: services/googleSheets.js
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
+import { classifyLocation } from './aiMatcher.js';
 
 // Khởi tạo Auth Client
 const privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
@@ -200,7 +201,7 @@ async function getOrCreateSheet(doc, title, headers) {
 export async function getRenters() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý'];
         const sheet = await getOrCreateSheet(doc, 'KhachCanThue', headers);
         
         const rows = await sheet.getRows();
@@ -221,6 +222,7 @@ export async function updateRenterAIInfo(row, aiData) {
     row.set('Yêu cầu khác', aiData.other_requirements || '');
     row.set('Tên Khách', aiData.name || 'Chưa rõ');
     row.set('Số điện thoại', aiData.phone || '');
+    row.set('Vị trí địa lý', classifyLocation(aiData.location));
     if (!row.get('Mã Khách')) {
         row.set('Mã Khách', 'KH' + Math.floor(10000 + Math.random() * 90000));
     }
@@ -230,7 +232,7 @@ export async function updateRenterAIInfo(row, aiData) {
 export async function getListings() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý'];
         const sheet = await getOrCreateSheet(doc, 'NhaDangTrong', headers);
         
         const rows = await sheet.getRows();
@@ -248,6 +250,7 @@ export async function updateListingAIInfo(row, aiData) {
     row.set('Số phòng', aiData.bedrooms || '');
     row.set('Tiện ích', aiData.amenities || '');
     row.set('Số điện thoại', aiData.phone || '');
+    row.set('Vị trí địa lý', classifyLocation(aiData.location));
     await row.save();
 }
 
@@ -257,7 +260,7 @@ export async function saveMatchResults(matches) {
         const headers = [
             'NGÀY GHÉP NỐI', 'MÃ KHÁCH THUÊ', 'LINK KHÁCH TÌM NHÀ', 'THÔNG TIN KHÁCH TÌM NHÀ', 
             'SỐ ĐIỆN THOẠI KHÁCH TÌM NHÀ', 'LINK NHÀ CHO THUÊ', 'THÔNG TIN NHÀ CHO THUÊ', 
-            'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ', 'KẾT QUẢ SO SÁNH', 'HÌNH ẢNH NHÀ CHO THUÊ'
+            'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ', 'KẾT QUẢ SO SÁNH', 'HÌNH ẢNH NHÀ CHO THUÊ', 'VỊ TRÍ ĐỊA LÝ'
         ];
         const sheet = await getOrCreateSheet(doc, 'KetQuaGhepNoi', headers);
         
@@ -280,7 +283,8 @@ export async function saveMatchResults(matches) {
                 'THÔNG TIN NHÀ CHO THUÊ': match.listingRawInfo || '',
                 'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ': match.listingPhone || '',
                 'KẾT QUẢ SO SÁNH': match.scoreAndReason || '',
-                'HÌNH ẢNH NHÀ CHO THUÊ': imageContent
+                'HÌNH ẢNH NHÀ CHO THUÊ': imageContent,
+                'VỊ TRÍ ĐỊA LÝ': match.locationCategory || 'Unknown'
             };
         });
 
@@ -325,8 +329,8 @@ export async function addCollectedPost(type, content, link, images) {
         const sheetTitle = type === 'khach' ? 'KhachCanThue' : 'NhaDangTrong';
         
         const headers = type === 'khach' 
-            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại']
-            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại'];
+            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý']
+            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý'];
             
         const sheet = await getOrCreateSheet(doc, sheetTitle, headers);
         

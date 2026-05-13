@@ -132,14 +132,30 @@ async function processData() {
                             listingPhone: listing['Số điện thoại'] || extractPhone(listing['Nội dung gốc']),
                             score: match.score,
                             scoreAndReason: `Độ phù hợp: ${match.score}%\nLý do: ${match.reason}`,
-                            listingImages: listing['Hình ảnh']
+                            listingImages: listing['Hình ảnh'],
+                            locationCategory: listing['Vị trí địa lý'] || 'Unknown'
                         });
                     }
                 }
                 
                 if (matchesForThisRenter.length > 0) {
-                    // Sắp xếp theo điểm giảm dần và lưu ngay
-                    matchesForThisRenter.sort((a, b) => b.score - a.score);
+                    // Sắp xếp theo vị trí địa lý, sau đó theo điểm giảm dần
+                    const locationWeight = {
+                        'Bắc Nha Trang': 1,
+                        'Trung tâm': 2,
+                        'Nam Nha Trang': 3,
+                        'Unknown': 4
+                    };
+                    
+                    matchesForThisRenter.sort((a, b) => {
+                        const weightA = locationWeight[a.locationCategory] || 4;
+                        const weightB = locationWeight[b.locationCategory] || 4;
+                        if (weightA !== weightB) {
+                            return weightA - weightB;
+                        }
+                        return b.score - a.score;
+                    });
+                    
                     await saveMatchResults(matchesForThisRenter);
                 } else {
                     console.log(`Không tìm thấy sự phù hợp nào >= 70 điểm cho khách [${i + 1}].`);

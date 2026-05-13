@@ -184,3 +184,26 @@ export function preFilterListings(renter, listings) {
     
     return filtered;
 }
+
+export function classifyLocation(locationString) {
+    if (!locationString) return 'Unknown';
+    const s = locationString.toLowerCase();
+    
+    // Bắc Nha Trang
+    const northKeywords = ['vĩnh hải', 'vĩnh hòa', 'vĩnh phước', 'vĩnh thọ', 'ba làng', 'phạm văn đồng', 'viễn triều', 'scenia', 'hòn chồng', 'đồng đế', 'bắc'];
+    if (northKeywords.some(kw => s.includes(kw))) return 'Bắc Nha Trang';
+    
+    // Nam Nha Trang
+    const southKeywords = ['vĩnh trường', 'vĩnh nguyên', 'phước long', 'bình tân', 'an viên', 'nam nha trang', 'phía nam'];
+    if (southKeywords.some(kw => s.includes(kw))) return 'Nam Nha Trang';
+    
+    // Trung tâm
+    const centerKeywords = ['lộc thọ', 'tân lập', 'xương huân', 'phước tiến', 'phước tân', 'phước hòa', 'vạn thắng', 'vạn thạnh', 'phương sài', 'phương sơn', 'ngọc hiệp', 'trần phú', 'vcn phước hải', 'lê thánh tôn', 'nguyễn thiện thuật', 'hùng vương', 'trung tâm', 'chợ đầm', 'gold coast', 'panorama', 'nha trang center'];
+    if (centerKeywords.some(kw => s.includes(kw))) return 'Trung tâm';
+    
+    // Default fallback
+    if (s.includes('chưa rõ') || s.includes('không')) return 'Unknown';
+    
+    // If we have some specific area not covered, we might just return Unknown or let it be.
+    return 'Unknown';
+}

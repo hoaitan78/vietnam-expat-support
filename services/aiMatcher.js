@@ -4,7 +4,7 @@ const getModel = () => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error('Missing GEMINI_API_KEY');
     const genAI = new GoogleGenerativeAI(apiKey);
-    return genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+    return genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 };
 
 function parseAIResponse(text) {

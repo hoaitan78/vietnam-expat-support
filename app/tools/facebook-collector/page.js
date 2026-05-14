@@ -72,7 +72,7 @@ export default function FacebookCollectorPage() {
               <textarea id="fb-coll-content" style="width: 100%; height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 12px; box-sizing: border-box; font-size: 14px;">\${selectedText}</textarea>
               
               <label style="display: block; margin-bottom: 4px; font-size: 12px; color: #666;">Link Bài Viết</label>
-              <input type="text" id="fb-coll-url" value="${currentUrl}" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px; box-sizing: border-box; font-size: 14px;" />
+              <input type="text" id="fb-coll-url" value="\${currentUrl}" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 16px; box-sizing: border-box; font-size: 14px;" />
               
               <div style="display: flex; gap: 8px;">
                 <button id="fb-coll-khach" style="flex: 1; padding: 10px; background-color: #2e89ff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">+ Khách Thuê</button>

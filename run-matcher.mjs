@@ -38,6 +38,14 @@ async function processData() {
     const processedRenters = [];
     for (let i = 0; i < renters.length; i++) {
         const row = renters[i];
+        
+        // Bỏ qua khách đã chốt (Trạng thái = F)
+        const status = row.get('Trạng thái');
+        if (status && status.trim().toUpperCase() === 'F') {
+            console.log(`Bỏ qua Khách [${i + 1}] do có trạng thái 'F' (Đã chốt).`);
+            continue;
+        }
+
         if (row.get('Đã xử lý AI') !== 'YES') {
             const rawContent = row.get('Nội dung gốc');
             if (rawContent) {
@@ -74,6 +82,14 @@ async function processData() {
     const processedListings = [];
     for (let i = 0; i < listings.length; i++) {
         const row = listings[i];
+        
+        // Bỏ qua nhà đã cho thuê (Trạng thái = F)
+        const status = row.get('Trạng thái');
+        if (status && status.trim().toUpperCase() === 'F') {
+            console.log(`Bỏ qua Nhà [${i + 1}] do có trạng thái 'F' (Đã cho thuê).`);
+            continue;
+        }
+
         if (row.get('Đã xử lý AI') !== 'YES') {
             const rawContent = row.get('Nội dung gốc');
             if (rawContent) {

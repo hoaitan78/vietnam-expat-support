@@ -3,16 +3,21 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 import { classifyLocation } from './aiMatcher.js';
 
-// Khởi tạo Auth Client
-const privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
-const serviceAccountAuth = new JWT({
-  email: process.env.GOOGLE_CLIENT_EMAIL || '',
-  key: privateKey.replace(/\\n/g, '\n'), // Xử lý các ký tự xuống dòng trong key
-  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-});
+let serviceAccountAuth = null;
+function getAuth() {
+    if (!serviceAccountAuth) {
+        const privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+        serviceAccountAuth = new JWT({
+            email: process.env.GOOGLE_CLIENT_EMAIL || '',
+            key: privateKey.replace(/\\n/g, '\n'), // Xử lý các ký tự xuống dòng trong key
+            scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+        });
+    }
+    return serviceAccountAuth;
+}
 
 const getDoc = async () => {
-    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, getAuth());
     await doc.loadInfo(); 
     return doc;
 }
@@ -201,7 +206,7 @@ async function getOrCreateSheet(doc, title, headers) {
 export async function getRenters() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
         const sheet = await getOrCreateSheet(doc, 'KhachCanThue', headers);
         
         const rows = await sheet.getRows();
@@ -232,7 +237,7 @@ export async function updateRenterAIInfo(row, aiData) {
 export async function getListings() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
         const sheet = await getOrCreateSheet(doc, 'NhaDangTrong', headers);
         
         const rows = await sheet.getRows();
@@ -267,9 +272,13 @@ export async function saveMatchResults(matches) {
         const rowsToAdd = matches.map(match => {
             let imageContent = '';
             if (match.listingImages) {
-                const urls = match.listingImages.split('\\n').filter(u => u.trim() !== '');
-                if (urls.length > 0) {
-                    imageContent = `=IMAGE("${urls[0].trim()}")`;
+                if (match.listingImages.startsWith('=IMAGE')) {
+                    imageContent = match.listingImages;
+                } else {
+                    const urls = match.listingImages.split('\\n').filter(u => u.trim() !== '');
+                    if (urls.length > 0) {
+                        imageContent = `=IMAGE("${urls[0].trim()}")`;
+                    }
                 }
             }
 
@@ -302,11 +311,18 @@ export async function saveMatchResults(matches) {
                     endColumnIndex: headers.length
                 });
                 
+                const solidBorder = { style: 'SOLID', color: { red: 0, green: 0, blue: 0, alpha: 1 } };
                 for (let r = startRow; r < endRow; r++) {
                     for (let c = 0; c < headers.length; c++) {
                         const cell = sheet.getCell(r, c);
                         cell.wrapStrategy = 'WRAP';
                         cell.verticalAlignment = 'TOP';
+                        cell.borders = {
+                            top: solidBorder,
+                            bottom: solidBorder,
+                            left: solidBorder,
+                            right: solidBorder
+                        };
                     }
                 }
                 await sheet.saveUpdatedCells();
@@ -329,8 +345,8 @@ export async function addCollectedPost(type, content, link, images) {
         const sheetTitle = type === 'khach' ? 'KhachCanThue' : 'NhaDangTrong';
         
         const headers = type === 'khach' 
-            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý']
-            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý'];
+            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái']
+            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
             
         const sheet = await getOrCreateSheet(doc, sheetTitle, headers);
         
@@ -342,19 +358,53 @@ export async function addCollectedPost(type, content, link, images) {
             return { success: false, error: 'Bài viết này đã được lưu trước đó.' };
         }
 
+        let imageContent = '';
+        if (images) {
+            const urls = images.split('\n').filter(u => u.trim() !== '');
+            if (urls.length > 0) {
+                imageContent = `=IMAGE("${urls[0].trim()}")`;
+            }
+        }
+
         const rowData = {
             'Ngày': new Date().toLocaleDateString('vi-VN'),
             'Nội dung gốc': content,
             'Link bài': link,
             'Đã xử lý AI': 'NO',
-            'Hình ảnh': images || ''
+            'Hình ảnh': imageContent
         };
         
         if (type === 'khach') {
             rowData['Mã Khách'] = 'KH' + Math.floor(10000 + Math.random() * 90000);
         }
         
-        await sheet.addRow(rowData);
+        const addedRow = await sheet.addRow(rowData);
+        
+        try {
+            const rowNumber = addedRow.rowNumber - 1;
+            await sheet.loadCells({
+                startRowIndex: rowNumber,
+                endRowIndex: rowNumber + 1,
+                startColumnIndex: 0,
+                endColumnIndex: headers.length
+            });
+            const solidBorder = { style: 'SOLID', color: { red: 0, green: 0, blue: 0, alpha: 1 } };
+            for (let c = 0; c < headers.length; c++) {
+                const cell = sheet.getCell(rowNumber, c);
+                cell.wrapStrategy = 'WRAP';
+                cell.verticalAlignment = 'TOP';
+                cell.borders = {
+                    top: solidBorder,
+                    bottom: solidBorder,
+                    left: solidBorder,
+                    right: solidBorder
+                };
+            }
+            await sheet.saveUpdatedCells();
+        } catch (formatErr) {
+            console.error('Lỗi khi định dạng ô chữ (addCollectedPost):', formatErr);
+        }
+        
         console.log(`✅ Đã thêm 1 bài viết mới vào ${sheetTitle}`);
         return { success: true };
     } catch (error) {

@@ -173,8 +173,6 @@ export default function FacebookCollectorPage() {
             alert("Lỗi phần mềm FB Collector: " + e.message);
         }
       })();
-`;').onclick = () => submitPost('nha');
-      })();
     `;
 
     // Encode script to bookmarklet URL format

@@ -47,28 +47,23 @@ export default function FacebookCollectorPage() {
                             }
                         }
 
-                        const imgs = Array.from(postContainer.querySelectorAll('img'))
-                            .map(img => img.src || img.getAttribute('data-src'))
-                            .filter(src => src && src.startsWith('http') && !src.includes('emoji') && !src.includes('svg'));
-                        imageUrls = [...new Set(imgs)].slice(0, 5);
+                        const imgs = Array.from(postContainer.querySelectorAll('img')).map(img => {
+                            const rect = img.getBoundingClientRect();
+                            return { src: img.src || img.getAttribute('data-src'), area: rect.width * rect.height };
+                        }).filter(item => item.area > 10000 && item.src && item.src.startsWith('http') && !item.src.includes('emoji') && !item.src.includes('svg'));
+                        
+                        imageUrls = [...new Set(imgs.map(i => i.src))].slice(0, 5);
                     }
                 }
                 
                 if (imageUrls.length === 0) {
-                    let parent = node;
-                    while (parent && parent !== document.body) {
-                        if (parent && typeof parent.querySelectorAll === 'function') {
-                            const imgs = Array.from(parent.querySelectorAll('img'))
-                                .map(img => img.src || img.getAttribute('data-src'))
-                                .filter(src => src && src.startsWith('http') && !src.includes('emoji') && !src.includes('svg'));
-                            
-                            if (imgs.length > 0) {
-                                imageUrls = [...new Set(imgs)].slice(0, 5);
-                                break;
-                            }
-                        }
-                        parent = parent.parentNode;
-                    }
+                    const allImgs = Array.from(document.querySelectorAll('img')).map(img => {
+                        const rect = img.getBoundingClientRect();
+                        return { src: img.src || img.getAttribute('data-src'), area: rect.width * rect.height };
+                    }).filter(item => item.area > 25000 && item.src && item.src.startsWith('http') && !item.src.includes('emoji') && !item.src.includes('svg'))
+                      .sort((a, b) => b.area - a.area);
+                      
+                    imageUrls = [...new Set(allImgs.map(i => i.src))].slice(0, 5);
                 }
             }
             const imagesStr = imageUrls.join('\\n');

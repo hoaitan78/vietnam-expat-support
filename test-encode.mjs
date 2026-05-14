@@ -1,15 +1,4 @@
-'use client';
-import { useState, useEffect } from 'react';
-
-export default function FacebookCollectorPage() {
-  const [bookmarkletCode, setBookmarkletCode] = useState('');
-
-  useEffect(() => {
-    // Generate bookmarklet code dynamically with the current origin
-    const origin = window.location.origin;
-    
-    // The raw script to be injected
-    const rawScript = `
+const rawScript = `
       (function() {
         try {
             if (document.getElementById('fb-collector-overlay')) {
@@ -129,7 +118,7 @@ export default function FacebookCollectorPage() {
 
               const form = document.createElement('form');
               form.method = 'POST';
-              form.action = '${origin}/api/collect-post-form';
+              form.action = 'https://vietnam-expat-support.vercel.app/api/collect-post-form';
               form.target = 'fb-collector-popup';
               form.style.display = 'none';
 
@@ -170,67 +159,9 @@ export default function FacebookCollectorPage() {
             document.getElementById('fb-coll-khach').onclick = () => submitPost('khach');
             document.getElementById('fb-coll-nha').onclick = () => submitPost('nha');
         } catch(e) {
-            alert("Lỗi phần mềm FB Collector: " + e.message);
+            alert("Lỗi phần mềm: " + e.message);
         }
       })();
-`;').onclick = () => submitPost('nha');
-      })();
-    `;
-
-    // Encode script to bookmarklet URL format
-    const encoded = 'javascript:' + encodeURIComponent(rawScript.replace(/\s+/g, ' ').trim());
-    setBookmarkletCode(encoded);
-  }, []);
-
-  return (
-    <div style={{ maxWidth: '800px', margin: '40px auto', padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1 style={{ fontSize: '28px', marginBottom: '16px' }}>Cài đặt Công cụ Thu thập Facebook</h1>
-      
-      <div style={{ backgroundColor: '#f0f7ff', padding: '20px', borderRadius: '8px', border: '1px solid #cce3ff', marginBottom: '30px' }}>
-        <h2 style={{ fontSize: '20px', marginTop: 0, color: '#0056b3' }}>Bước 1: Kéo thả nút này lên thanh Dấu trang</h2>
-        <p>Bấm giữ chuột vào nút màu xanh bên dưới, sau đó kéo và thả nó lên thanh Bookmark (Dấu trang) của trình duyệt Chrome/Cốc Cốc.</p>
-        
-        {bookmarkletCode ? (
-          <div style={{ margin: '20px 0' }}>
-            <a 
-              href={bookmarkletCode}
-              onClick={(e) => {
-                e.preventDefault();
-                alert('Vui lòng KÉO THẢ nút này lên thanh Dấu trang (Bookmark Bar), không click trực tiếp nhé!');
-              }}
-              style={{
-                display: 'inline-block',
-                padding: '12px 24px',
-                backgroundColor: '#2e89ff',
-                color: 'white',
-                textDecoration: 'none',
-                borderRadius: '24px',
-                fontWeight: 'bold',
-                fontSize: '16px',
-                boxShadow: '0 4px 6px rgba(46,137,255,0.3)',
-                cursor: 'grab'
-              }}
-            >
-              📥 FB Collector (Kéo thả tôi)
-            </a>
-          </div>
-        ) : (
-          <p>Đang tạo công cụ...</p>
-        )}
-        <p style={{ fontSize: '13px', color: '#666' }}>* Nếu không thấy thanh Dấu trang, ấn Ctrl + Shift + B (Windows) hoặc Cmd + Shift + B (Mac) để hiện lên.</p>
-      </div>
-
-      <div>
-        <h2 style={{ fontSize: '20px' }}>Bước 2: Cách sử dụng khi lướt Facebook</h2>
-        <ol style={{ lineHeight: '1.8' }}>
-          <li>Mở Facebook và vào các Group cho thuê nhà.</li>
-          <li>Khi thấy một bài viết tiềm năng: Bôi đen (chọn) phần văn bản nội dung của bài viết đó.</li>
-          <li>Bấm vào nút <strong>FB Collector</strong> mà bạn vừa kéo lên thanh Dấu trang.</li>
-          <li>Một bảng nhỏ sẽ hiện ra góc phải màn hình, có chứa sẵn đoạn chữ bạn vừa bôi đen và Link của bài viết hiện tại.</li>
-          <li>Chọn lưu vào <strong>+ Khách Thuê</strong> hoặc <strong>+ Nhà Trống</strong>.</li>
-          <li>Hệ thống sẽ tự động lưu thẳng vào Google Sheets của bạn. AI sẽ tự động phân tích sau đó!</li>
-        </ol>
-      </div>
-    </div>
-  );
-}
+`;
+const code = 'javascript:' + encodeURIComponent(rawScript.replace(/\s+/g, ' ').trim());
+console.log(code);

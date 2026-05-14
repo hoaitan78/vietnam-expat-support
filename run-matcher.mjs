@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 import { getRenters, getListings, updateRenterAIInfo, updateListingAIInfo, saveMatchResults } from './services/googleSheets.js';
-import { extractRenterNeeds, extractListingInfo, matchRenterAndListings, preFilterListings } from './services/aiMatcher.js';
+import { extractRenterNeeds, extractListingInfo, extractRenterNeedsBatch, extractListingInfoBatch, matchRenterAndListings, preFilterListings } from './services/aiMatcher.js';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -34,8 +34,18 @@ async function processData() {
         return;
     }
 
+    function chunkArray(array, size) {
+        const chunked = [];
+        for (let i = 0; i < array.length; i += size) {
+            chunked.push(array.slice(i, i + size));
+        }
+        return chunked;
+    }
+
     console.log('\n--- BƯỚC 2: AI phân tích dữ liệu Khách ---');
     const processedRenters = [];
+    const unprocessedRenters = [];
+
     for (let i = 0; i < renters.length; i++) {
         const row = renters[i];
         
@@ -49,37 +59,63 @@ async function processData() {
         if (row.get('Đã xử lý AI') !== 'YES') {
             const rawContent = row.get('Nội dung gốc');
             if (rawContent) {
-                console.log(`Đang phân tích Khách [${i + 1}]: ${rawContent.substring(0, 30)}...`);
-                try {
-                    const aiData = await extractRenterNeeds(rawContent);
-                    if (aiData) {
-                        await updateRenterAIInfo(row, aiData);
-                    }
-                } catch (e) {
-                    console.error("Lỗi trích xuất AI cho Khách:", e.message);
-                }
-                // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
-                await delay(5000);
-            } else {
-                continue; // Bỏ qua nếu không có nội dung gốc
+                unprocessedRenters.push(row);
             }
+        } else {
+            processedRenters.push({
+                row,
+                'Mã Khách': row.get('Mã Khách') || 'Chưa rõ',
+                'Tên Khách': row.get('Tên Khách') || 'Chưa rõ',
+                'Khu vực': row.get('Khu vực'),
+                'Ngân sách': row.get('Ngân sách'),
+                'Số phòng': row.get('Số phòng'),
+                'Yêu cầu khác': row.get('Yêu cầu khác'),
+                'Link': row.get('Link bài') || 'Không có link',
+                'Nội dung gốc': row.get('Nội dung gốc') || '',
+                'Số điện thoại': row.get('Số điện thoại') || ''
+            });
         }
-        processedRenters.push({
-            row,
-            'Mã Khách': row.get('Mã Khách') || 'Chưa rõ',
-            'Tên Khách': row.get('Tên Khách') || 'Chưa rõ',
-            'Khu vực': row.get('Khu vực'),
-            'Ngân sách': row.get('Ngân sách'),
-            'Số phòng': row.get('Số phòng'),
-            'Yêu cầu khác': row.get('Yêu cầu khác'),
-            'Link': row.get('Link bài') || 'Không có link',
-            'Nội dung gốc': row.get('Nội dung gốc') || '',
-            'Số điện thoại': row.get('Số điện thoại') || ''
-        });
+    }
+
+    if (unprocessedRenters.length > 0) {
+        console.log(`Tìm thấy ${unprocessedRenters.length} Khách chưa xử lý AI. Bắt đầu gộp nhóm (10 bài/lần)...`);
+        const chunks = chunkArray(unprocessedRenters, 10);
+        for (let i = 0; i < chunks.length; i++) {
+            const chunk = chunks[i];
+            const posts = chunk.map(r => r.get('Nội dung gốc'));
+            console.log(`Đang xử lý Nhóm Khách ${i + 1}/${chunks.length}...`);
+            try {
+                const results = await extractRenterNeedsBatch(posts);
+                if (results && Array.isArray(results)) {
+                    for (let j = 0; j < results.length; j++) {
+                        if (results[j]) {
+                            await updateRenterAIInfo(chunk[j], results[j]);
+                            processedRenters.push({
+                                row: chunk[j],
+                                'Mã Khách': chunk[j].get('Mã Khách') || 'Chưa rõ',
+                                'Tên Khách': chunk[j].get('Tên Khách') || 'Chưa rõ',
+                                'Khu vực': chunk[j].get('Khu vực'),
+                                'Ngân sách': chunk[j].get('Ngân sách'),
+                                'Số phòng': chunk[j].get('Số phòng'),
+                                'Yêu cầu khác': chunk[j].get('Yêu cầu khác'),
+                                'Link': chunk[j].get('Link bài') || 'Không có link',
+                                'Nội dung gốc': chunk[j].get('Nội dung gốc') || '',
+                                'Số điện thoại': chunk[j].get('Số điện thoại') || ''
+                            });
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Lỗi trích xuất AI (Batch) cho Khách:", e.message);
+            }
+            if (i < chunks.length - 1) await delay(10000); // 10s delay between batches
+        }
     }
 
     console.log('\n--- BƯỚC 3: AI phân tích dữ liệu Nhà ---');
     const processedListings = [];
+    const unprocessedListings = [];
+
     for (let i = 0; i < listings.length; i++) {
         const row = listings[i];
         
@@ -93,31 +129,53 @@ async function processData() {
         if (row.get('Đã xử lý AI') !== 'YES') {
             const rawContent = row.get('Nội dung gốc');
             if (rawContent) {
-                console.log(`Đang phân tích Nhà [${i + 1}]: ${rawContent.substring(0, 30)}...`);
-                try {
-                    const aiData = await extractListingInfo(rawContent);
-                    if (aiData) {
-                        await updateListingAIInfo(row, aiData);
-                    }
-                } catch (e) {
-                    console.error("Lỗi trích xuất AI cho Nhà:", e.message);
-                }
-                // Thêm delay 5 giây để tránh lỗi quá giới hạn request API
-                await delay(5000);
-            } else {
-                continue; // Bỏ qua nếu không có nội dung gốc
+                unprocessedListings.push(row);
             }
+        } else {
+            processedListings.push({
+                row,
+                'Khu vực': row.get('Khu vực'),
+                'Giá thuê': row.get('Giá thuê'),
+                'Số phòng': row.get('Số phòng'),
+                'Tiện ích': row.get('Tiện ích'),
+                'Link': row.get('Link bài') || 'Không có link',
+                'Nội dung gốc': row.get('Nội dung gốc') || '',
+                'Số điện thoại': row.get('Số điện thoại') || ''
+            });
         }
-        processedListings.push({
-            row,
-            'Khu vực': row.get('Khu vực'),
-            'Giá thuê': row.get('Giá thuê'),
-            'Số phòng': row.get('Số phòng'),
-            'Tiện ích': row.get('Tiện ích'),
-            'Link': row.get('Link bài') || 'Không có link',
-            'Nội dung gốc': row.get('Nội dung gốc') || '',
-            'Số điện thoại': row.get('Số điện thoại') || ''
-        });
+    }
+
+    if (unprocessedListings.length > 0) {
+        console.log(`Tìm thấy ${unprocessedListings.length} Nhà chưa xử lý AI. Bắt đầu gộp nhóm (10 bài/lần)...`);
+        const chunks = chunkArray(unprocessedListings, 10);
+        for (let i = 0; i < chunks.length; i++) {
+            const chunk = chunks[i];
+            const posts = chunk.map(r => r.get('Nội dung gốc'));
+            console.log(`Đang xử lý Nhóm Nhà ${i + 1}/${chunks.length}...`);
+            try {
+                const results = await extractListingInfoBatch(posts);
+                if (results && Array.isArray(results)) {
+                    for (let j = 0; j < results.length; j++) {
+                        if (results[j]) {
+                            await updateListingAIInfo(chunk[j], results[j]);
+                            processedListings.push({
+                                row: chunk[j],
+                                'Khu vực': chunk[j].get('Khu vực'),
+                                'Giá thuê': chunk[j].get('Giá thuê'),
+                                'Số phòng': chunk[j].get('Số phòng'),
+                                'Tiện ích': chunk[j].get('Tiện ích'),
+                                'Link': chunk[j].get('Link bài') || 'Không có link',
+                                'Nội dung gốc': chunk[j].get('Nội dung gốc') || '',
+                                'Số điện thoại': chunk[j].get('Số điện thoại') || ''
+                            });
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Lỗi trích xuất AI (Batch) cho Nhà:", e.message);
+            }
+            if (i < chunks.length - 1) await delay(10000); // 10s delay between batches
+        }
     }
 
     console.log('\n--- BƯỚC 4: AI Ghép Nối Nhu Cầu ---');

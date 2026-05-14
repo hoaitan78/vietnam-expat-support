@@ -82,6 +82,57 @@ export async function extractListingInfo(postContent) {
     return parseAIResponse(result.response.text().trim());
 }
 
+export async function extractRenterNeedsBatch(postsArray) {
+    const prompt = `
+        Bạn là một chuyên gia môi giới bất động sản tại Nha Trang. 
+        Dưới đây là một danh sách gồm ${postsArray.length} bài đăng từ các khách hàng đang tìm thuê nhà/căn hộ.
+        
+        ${postsArray.map((p, i) => `[BÀI ĐĂNG ${i}]:\n"${p}"`).join('\n\n')}
+        
+        Trả về kết quả dưới dạng MẢNG JSON hợp lệ. Mảng này phải chứa chính xác ${postsArray.length} phần tử, mỗi phần tử tương ứng với một bài đăng theo đúng thứ tự.
+        KHÔNG giải thích thêm, KHÔNG sử dụng markdown khác ngoài block \`\`\`json.
+        [
+            {
+                "name": "Tên khách hàng (nếu có). Nếu không rõ, ghi 'Khách từ Facebook'",
+                "location": "Khu vực mong muốn (vd: Mường Thanh... Nếu không rõ ghi 'Chưa rõ')",
+                "budget": "Ngân sách tối đa hoặc khoảng giá. Nếu không rõ ghi 'Chưa rõ'",
+                "bedrooms": "Số phòng ngủ mong muốn. Nếu không rõ ghi 'Chưa rõ'",
+                "other_requirements": "Các yêu cầu khác. Nếu không có ghi 'Không'",
+                "phone": "Số điện thoại liên hệ. Nếu không có ghi 'Không'"
+            },
+            ...
+        ]
+    `;
+    
+    const result = await generateContentWithRetry(prompt);
+    return parseAIResponse(result.response.text().trim());
+}
+
+export async function extractListingInfoBatch(postsArray) {
+    const prompt = `
+        Bạn là một chuyên gia môi giới bất động sản tại Nha Trang. 
+        Dưới đây là một danh sách gồm ${postsArray.length} bài đăng từ các chủ nhà/môi giới đang cho thuê nhà/căn hộ.
+        
+        ${postsArray.map((p, i) => `[BÀI ĐĂNG ${i}]:\n"${p}"`).join('\n\n')}
+        
+        Trả về kết quả dưới dạng MẢNG JSON hợp lệ. Mảng này phải chứa chính xác ${postsArray.length} phần tử, mỗi phần tử tương ứng với một bài đăng theo đúng thứ tự.
+        KHÔNG giải thích thêm, KHÔNG sử dụng markdown khác ngoài block \`\`\`json.
+        [
+            {
+                "location": "Khu vực nhà/căn hộ. Nếu không rõ ghi 'Chưa rõ'",
+                "price": "Giá thuê. Nếu không rõ ghi 'Chưa rõ'",
+                "bedrooms": "Số phòng ngủ. Nếu không rõ ghi 'Chưa rõ'",
+                "amenities": "Tiện ích nổi bật. Tóm tắt ngắn gọn",
+                "phone": "Số điện thoại liên hệ. Nếu không có ghi 'Không'"
+            },
+            ...
+        ]
+    `;
+    
+    const result = await generateContentWithRetry(prompt);
+    return parseAIResponse(result.response.text().trim());
+}
+
 export async function matchRenterAndListings(renter, listings) {
     const model = getModel();
     const prompt = `

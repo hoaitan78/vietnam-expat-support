@@ -46,17 +46,25 @@ export default function FacebookCollectorPage() {
                 }
 
                 const imgs = Array.from(postContainer.querySelectorAll('img'))
-                    .map(img => img.src)
+                    .map(img => img.src || img.getAttribute('data-src'))
                     .filter(src => src && src.startsWith('http') && !src.includes('emoji') && !src.includes('svg'));
                 imageUrls = [...new Set(imgs)].slice(0, 5);
-            } else {
-                const range = selection.getRangeAt(0);
-                const container = document.createElement('div');
-                container.appendChild(range.cloneContents());
-                const imgs = Array.from(container.querySelectorAll('img'))
-                    .map(img => img.src)
-                    .filter(src => src && src.startsWith('http') && !src.includes('emoji'));
-                imageUrls = [...new Set(imgs)].slice(0, 5);
+            }
+            
+            // Nếu vẫn không tìm thấy ảnh (hoặc postContainer = null), dùng chiến thuật leo cây DOM
+            if (imageUrls.length === 0) {
+                let parent = node;
+                while (parent && parent !== document.body) {
+                    const imgs = Array.from(parent.querySelectorAll('img'))
+                        .map(img => img.src || img.getAttribute('data-src'))
+                        .filter(src => src && src.startsWith('http') && !src.includes('emoji') && !src.includes('svg'));
+                    
+                    if (imgs.length > 0) {
+                        imageUrls = [...new Set(imgs)].slice(0, 5);
+                        break;
+                    }
+                    parent = parent.parentNode;
+                }
             }
         }
         const imagesStr = imageUrls.join('\\n');

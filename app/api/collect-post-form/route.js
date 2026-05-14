@@ -8,7 +8,6 @@ export async function POST(req) {
         const type = formData.get('type');
         const content = formData.get('content');
         const url = formData.get('url');
-        const images = formData.get('images');
 
         if (!type || !content || !url) {
             return new NextResponse(`
@@ -29,7 +28,7 @@ export async function POST(req) {
 
         console.log(`[API Form] Đang lưu bài viết phân loại: ${type}`);
         
-        const result = await addCollectedPost(type, content, url, images);
+        const result = await addCollectedPost(type, content, url);
 
         if (result.success) {
             return new NextResponse(`

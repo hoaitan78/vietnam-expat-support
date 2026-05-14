@@ -116,7 +116,6 @@ async function processData() {
             'Tiện ích': row.get('Tiện ích'),
             'Link': row.get('Link bài') || 'Không có link',
             'Nội dung gốc': row.get('Nội dung gốc') || '',
-            'Hình ảnh': row.get('Hình ảnh') || '',
             'Số điện thoại': row.get('Số điện thoại') || ''
         });
     }
@@ -148,7 +147,6 @@ async function processData() {
                             listingPhone: listing['Số điện thoại'] || extractPhone(listing['Nội dung gốc']),
                             score: match.score,
                             scoreAndReason: `Độ phù hợp: ${match.score}%\nLý do: ${match.reason}`,
-                            listingImages: listing['Hình ảnh'],
                             locationCategory: listing['Vị trí địa lý'] || 'Unknown'
                         });
                     }

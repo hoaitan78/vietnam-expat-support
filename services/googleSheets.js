@@ -206,7 +206,7 @@ async function getOrCreateSheet(doc, title, headers) {
 export async function getRenters() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
         const sheet = await getOrCreateSheet(doc, 'KhachCanThue', headers);
         
         const rows = await sheet.getRows();
@@ -237,7 +237,7 @@ export async function updateRenterAIInfo(row, aiData) {
 export async function getListings() {
     try {
         const doc = await getDoc();
-        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
+        const headers = ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
         const sheet = await getOrCreateSheet(doc, 'NhaDangTrong', headers);
         
         const rows = await sheet.getRows();
@@ -265,23 +265,11 @@ export async function saveMatchResults(matches) {
         const headers = [
             'NGÀY GHÉP NỐI', 'MÃ KHÁCH THUÊ', 'LINK KHÁCH TÌM NHÀ', 'THÔNG TIN KHÁCH TÌM NHÀ', 
             'SỐ ĐIỆN THOẠI KHÁCH TÌM NHÀ', 'LINK NHÀ CHO THUÊ', 'THÔNG TIN NHÀ CHO THUÊ', 
-            'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ', 'KẾT QUẢ SO SÁNH', 'HÌNH ẢNH NHÀ CHO THUÊ', 'VỊ TRÍ ĐỊA LÝ'
+            'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ', 'KẾT QUẢ SO SÁNH', 'VỊ TRÍ ĐỊA LÝ'
         ];
         const sheet = await getOrCreateSheet(doc, 'KetQuaGhepNoi', headers);
         
         const rowsToAdd = matches.map(match => {
-            let imageContent = '';
-            if (match.listingImages) {
-                if (match.listingImages.startsWith('=IMAGE')) {
-                    imageContent = match.listingImages;
-                } else {
-                    const urls = match.listingImages.split('\\n').filter(u => u.trim() !== '');
-                    if (urls.length > 0) {
-                        imageContent = `=IMAGE("${urls[0].trim()}")`;
-                    }
-                }
-            }
-
             return {
                 'NGÀY GHÉP NỐI': new Date().toLocaleDateString('vi-VN'),
                 'MÃ KHÁCH THUÊ': match.renterId || '',
@@ -292,7 +280,6 @@ export async function saveMatchResults(matches) {
                 'THÔNG TIN NHÀ CHO THUÊ': match.listingRawInfo || '',
                 'SỐ ĐIỆN THOẠI NHÀ CHO THUÊ': match.listingPhone || '',
                 'KẾT QUẢ SO SÁNH': match.scoreAndReason || '',
-                'HÌNH ẢNH NHÀ CHO THUÊ': imageContent,
                 'VỊ TRÍ ĐỊA LÝ': match.locationCategory || 'Unknown'
             };
         });
@@ -339,14 +326,14 @@ export async function saveMatchResults(matches) {
     }
 }
 
-export async function addCollectedPost(type, content, link, images) {
+export async function addCollectedPost(type, content, link) {
     try {
         const doc = await getDoc();
         const sheetTitle = type === 'khach' ? 'KhachCanThue' : 'NhaDangTrong';
         
         const headers = type === 'khach' 
-            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái']
-            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Hình ảnh', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
+            ? ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Ngân sách', 'Số phòng', 'Yêu cầu khác', 'Tên Khách', 'Mã Khách', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái']
+            : ['Ngày', 'Nội dung gốc', 'Link bài', 'Đã xử lý AI', 'Khu vực', 'Giá thuê', 'Số phòng', 'Tiện ích', 'Số điện thoại', 'Vị trí địa lý', 'Trạng thái'];
             
         const sheet = await getOrCreateSheet(doc, sheetTitle, headers);
         
@@ -358,20 +345,11 @@ export async function addCollectedPost(type, content, link, images) {
             return { success: false, error: 'Bài viết này đã được lưu trước đó.' };
         }
 
-        let imageContent = '';
-        if (images) {
-            const urls = images.split('\n').filter(u => u.trim() !== '');
-            if (urls.length > 0) {
-                imageContent = `=IMAGE("${urls[0].trim()}")`;
-            }
-        }
-
         const rowData = {
             'Ngày': new Date().toLocaleDateString('vi-VN'),
             'Nội dung gốc': content,
             'Link bài': link,
-            'Đã xử lý AI': 'NO',
-            'Hình ảnh': imageContent
+            'Đã xử lý AI': 'NO'
         };
         
         if (type === 'khach') {
